@@ -1,0 +1,9 @@
+﻿.layout-header-list{
+    display: flex;
+
+}
+
+.layout-header-list > li {
+    list-style: none;
+
+}
