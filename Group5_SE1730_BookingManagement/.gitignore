@@ -482,3 +482,10 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+
+# Migration
+Migrations/
+
+#Mail save
+mailssave/

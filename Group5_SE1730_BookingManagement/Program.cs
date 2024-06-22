@@ -1,5 +1,8 @@
 using Group5_SE1730_BookingManagement.Models;
+using Group5_SE1730_BookingManagement.Repositories;
+using Group5_SE1730_BookingManagement.Repositories.Impl;
 using Group5_SE1730_BookingManagement.Services;
+using Group5_SE1730_BookingManagement.Services.Impl;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +56,16 @@ namespace Group5_SE1730_BookingManagement
 
             });
 
+            // Cấu hình cookie cho identity
+            builder.Services.ConfigureApplicationCookie(options => {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.LoginPath = $"/login/";
+                options.LogoutPath = $"/logout/";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
+
 
             // Add mail sender service
             builder.Services.AddOptions();                                        // Kích hoạt Options
@@ -62,6 +75,15 @@ namespace Group5_SE1730_BookingManagement
             builder.Services.AddTransient<IEmailSender, MailService>();        // Đăng ký dịch vụ Mail
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+
+            // Đăng kí Service 
+            builder.Services.AddTransient<IBookingService, BookingService>();
+
+            // Đăng kí Repo
+            builder.Services.AddTransient<IBookingRepo, BookingRepo>();
+
+
 
             var app = builder.Build();
 

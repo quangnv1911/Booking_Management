@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
-namespace Group5_SE1730_BookingManagement.Services
+namespace Group5_SE1730_BookingManagement.Services.Impl
 {
     public class MailSettings
     {
@@ -53,7 +53,7 @@ namespace Group5_SE1730_BookingManagement.Services
             catch (Exception ex)
             {
                 // Gửi mail thất bại, nội dung email sẽ lưu vào thư mục mailssave
-                System.IO.Directory.CreateDirectory("mailssave");
+                Directory.CreateDirectory("mailssave");
                 var emailsavefile = string.Format(@"mailssave/{0}.eml", Guid.NewGuid());
                 await message.WriteToAsync(emailsavefile);
 
