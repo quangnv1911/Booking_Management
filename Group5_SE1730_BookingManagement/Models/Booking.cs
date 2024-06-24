@@ -20,7 +20,7 @@ namespace Group5_SE1730_BookingManagement.Models
         public int? NumAdults { get; set; }
         public int? NumChildren { get; set; }
         public string? SpecialReq { get; set; }
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
 
         public virtual Guest? Guest { get; set; }
         public virtual Homestay? Homestay { get; set; }

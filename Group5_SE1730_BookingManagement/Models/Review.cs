@@ -11,7 +11,7 @@ namespace Group5_SE1730_BookingManagement.Models
         public long? ReviewText { get; set; }
         public long? RoomId { get; set; }
 
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
 
         public virtual Guest? Guest { get; set; }
         public virtual Room? Room { get; set; }

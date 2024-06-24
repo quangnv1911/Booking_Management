@@ -10,7 +10,7 @@ namespace Group5_SE1730_BookingManagement.Models
         public string? GuestId { get; set; }
         public DateTime? PaymentDate { get; set; }
         public string? Notify { get; set; }
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
         public long? DiscountId { get; set; }
 
         public virtual Booking? Booking { get; set; }

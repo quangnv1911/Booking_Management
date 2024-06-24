@@ -20,7 +20,7 @@ namespace Group5_SE1730_BookingManagement.Models
         public string? Address { get; set; }
         public string? City { get; set; }
         public string? Country { get; set; }
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
 
         public virtual ICollection<Booking> Bookings { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }

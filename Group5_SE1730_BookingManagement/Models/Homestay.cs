@@ -19,7 +19,7 @@ namespace Group5_SE1730_BookingManagement.Models
         public string? Phone { get; set; }
         public string? Email { get; set; }
         public string? HotelImage { get; set; }
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
 
         public virtual ICollection<Booking> Bookings { get; set; }
         public virtual ICollection<Room> Rooms { get; set; }

@@ -19,7 +19,7 @@ namespace Group5_SE1730_BookingManagement.Models
         public long? HomestayId { get; set; }
         public decimal? Price { get; set; }
 
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
 
         public virtual Homestay? Homestay { get; set; }
         public virtual RoomType? RoomType { get; set; }

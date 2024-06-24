@@ -19,7 +19,7 @@ namespace Group5_SE1730_BookingManagement.Models
         public DateTime EndDate { get; set; }
         public int? MaxUser { get; set; }
         public int? CurrentUses { get; set; }
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
 
         public virtual ICollection<Invoice> Invoices { get; set; }
 
