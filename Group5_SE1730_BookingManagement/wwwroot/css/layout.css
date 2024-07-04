@@ -1,9 +1,22 @@
-﻿.layout-header-list{
+﻿.layout-header-list {
     display: flex;
-
 }
 
-.layout-header-list > li {
-    list-style: none;
+    .layout-header-list > li {
+        list-style: none;
+    }
 
+
+.layout-footer-container {
+    color: white;
+    background-color: rgba(28, 41, 48, 1.00);
+    text-align: center;
+    padding: 24px 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+}
+.layout-body-container{
+    min-height: calc(100vh -40px);
 }

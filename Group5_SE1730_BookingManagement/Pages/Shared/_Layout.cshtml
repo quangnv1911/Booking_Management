@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Group5_SE1730_BookingManagement.styles.css" asp-append-version="true" />
-    <link href="~/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/layout.css" rel="stylesheet" type="text/css" asp-append-version="true" />
 
 </head>
 <body>
@@ -23,15 +23,20 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container layout-body-container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top layout-footer-container">
         <div class="container">
-            &copy; 2024 - Group5_SE1730_BookingManagement - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <span class="text-muted layout-footer-address">Khu Giáo dục và Đào tạo – Khu Công nghệ cao Hòa Lạc – Km29 Đại lộ Thăng Long, Thạch Thất, TP. HN</span>
+            <br/>
+            <span class="layout-footer-copyright">
+                Copyright &copy; 2024 Group 5. All rights reserved - <a class="text-white text-decoration-none" asp-area="" asp-page="/Privacy">Privacy</a>
+            </span>
+
         </div>
     </footer>
 

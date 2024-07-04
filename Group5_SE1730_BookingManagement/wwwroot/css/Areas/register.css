@@ -1,0 +1,81 @@
+﻿.register-title {
+    color: rgba(3, 18, 26, 1.00);
+    font-weight: 700;
+    font-family: Godwit, MuseoSans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    margin-bottom: 16px;
+}
+
+.register-button-custom {
+    background-color: #007cc2;
+    color: white;
+    font-weight: 700;
+}
+
+    .register-button-custom:hover,
+    .register-button-custom:focus {
+        background-color: #005fa3;
+        color: #fff
+    }
+
+.register-contitnues {
+    display: flex;
+    margin: 32px
+}
+
+    .register-contitnues::before {
+        content: "";
+        flex: 1 1;
+        border-bottom: 1px solid #6c707a;
+        margin: auto;
+        margin-inline-end: 16px
+    }
+
+    .register-contitnues::after {
+        content: "";
+        flex: 1 1;
+        border-bottom: 1px solid #6c707a;
+        margin: auto;
+        margin-inline-start: 16px
+    }
+
+.register-social-container {
+    font-family: Proxima Vara, Arial, Helvetica, Sans, Sans-Serif;
+    justify-content: space-around;
+}
+
+.register-social-img {
+    width: 20px;
+}
+
+.register-socal-button {
+    font-family: Proxima Vara, Arial, Helvetica, Sans, Sans-Serif;
+    color: #0a1121;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #fff;
+    text-align: center;
+    border: 1px solid #6c707a;
+    padding: 8px;
+    justify-content: center;
+    display: flex;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 8px;
+    gap: 8px;
+}
+
+    .register-socal-button:hover {
+        background-color: #6c707a;
+        color: #fff;
+    }
+
+.register-policy-container {
+    font-size: 14px;
+    font-family: Godwit, MuseoSans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+}
+
+.register-policy {
+    color: rgb(1, 148, 243);
+    text-decoration: none;
+    font-weight: 700;
+}

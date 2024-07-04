@@ -2,10 +2,10 @@
 
 GO
 -- Role
-insert into Roles (ID, [Name]) VALUES('ID1', 'admin')
-insert into Roles (ID, [Name]) VALUES('ID2', 'user')
+insert into Roles (ID, [Name], [NormalizedName]) VALUES('ID1', 'admin', 'ADMIN')
+insert into Roles (ID, [Name], [NormalizedName]) VALUES('ID2', 'user', 'USER')
 -- Role cho các chủ phòng trọ đăng bán
-insert into Roles (ID, [Name]) VALUES('ID3', 'partner')
+insert into Roles (ID, [Name], [NormalizedName]) VALUES('ID3', 'partner', 'PARTNER')
 
 go
 -- Guest
