@@ -24,6 +24,7 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.31" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
     <PackageReference Include="MimeKit" Version="4.6.0" />
+    <PackageReference Include="Moment.js" Version="2.30.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +34,10 @@
     <Content Update="wwwroot\css\Areas\register.css">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\js\Areas\" />
   </ItemGroup>
 
 </Project>
