@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using MimeKit;
 
 namespace Group5_SE1730_BookingManagement.Areas.Identity.Pages.Account
 {
@@ -86,14 +87,28 @@ namespace Group5_SE1730_BookingManagement.Areas.Identity.Pages.Account
             [EmailAddress]
             public string Email { get; set; }
         }
-        
-        public IActionResult OnGet() => RedirectToPage("./Login");
 
-        public IActionResult OnPost(string provider, string returnUrl = null)
+        public IActionResult OnGet() => RedirectToPage("./login");
+
+        public async Task<IActionResult> OnPost(string provider, string returnUrl = null)
         {
-            // Request a redirect to the external login provider.
+            // Kiểm tra yêu cầu dịch vụ provider tồn tại
+            var listprovider = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            var provider_process = listprovider.Find((m) => m.Name == provider);
+            if (provider_process == null)
+            {
+                return NotFound("Dịch vụ không chính xác: " + provider);
+            }
+
+            // redirectUrl - là Url sẽ chuyển hướng đến - sau khi CallbackPath (/dang-nhap-tu-google) thi hành xong
+            // nó bằng identity/account/externallogin?handler=Callback
+            // tức là gọi OnGetCallbackAsync
             var redirectUrl = Url.Page("./ExternalLogin", pageHandler: "Callback", values: new { returnUrl });
+
+            // Cấu hình
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+
+            // Chuyển hướng đến dịch vụ ngoài (Googe, Facebook)
             return new ChallengeResult(provider, properties);
         }
 
@@ -116,7 +131,7 @@ namespace Group5_SE1730_BookingManagement.Areas.Identity.Pages.Account
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
-                _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+                _logger.LogInformation("${Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
                 return LocalRedirect(returnUrl);
             }
             if (result.IsLockedOut)
@@ -142,29 +157,90 @@ namespace Group5_SE1730_BookingManagement.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostConfirmationAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
-            // Get the information about the user from the external login provider
+            // Lấy lại Info
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                ErrorMessage = "Error loading external login information during confirmation.";
+                ErrorMessage = "Không có thông tin tài khoản ngoài.";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
+
+
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                string externalMail = null;
+                if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
+                {
+                    externalMail = info.Principal.FindFirstValue(ClaimTypes.Email);
+                }
+                var userWithexternalMail = (externalMail != null) ? (await _userManager.FindByEmailAsync(externalMail)) : null;
 
+                // Xử lý khi có thông tin về email từ info, đồng thời có user với email đó
+                // trường hợp này sẽ thực hiện liên kết tài khoản ngoài + xác thực email luôn     
+                if ((userWithexternalMail != null) && (Input.Email == externalMail))
+                {
+                    // xác nhận email luôn nếu chưa xác nhận
+                    if (!userWithexternalMail.EmailConfirmed)
+                    {
+                        var codeactive = await _userManager.GenerateEmailConfirmationTokenAsync(userWithexternalMail);
+                        await _userManager.ConfirmEmailAsync(userWithexternalMail, codeactive);
+                    }
+                    // Thực hiện liên kết info và user
+                    var resultAdd = await _userManager.AddLoginAsync(userWithexternalMail, info);
+                    if (resultAdd.Succeeded)
+                    {
+                        // Thực hiện login    
+                        await _signInManager.SignInAsync(userWithexternalMail, isPersistent: false);
+                        //return ViewComponent(MessagePage.COMPONENTNAME, new MessagePage.Message()
+                        //{
+                        //    title = "LIÊN KẾT TÀI KHOẢN",
+                        //    urlredirect = returnUrl,
+                        //    htmlcontent = $"Liên kết tài khoản {userWithexternalMail.UserName} với {info.ProviderDisplayName} thành công"
+                        //});
+                        return LocalRedirect(returnUrl);
+                    }
+                    else
+                    {
+                        //return ViewComponent(MessagePage.COMPONENTNAME, new MessagePage.Message()
+                        //{
+                        //    title = "LIÊN KẾT TÀI KHOẢN",
+                        //    urlredirect = Url.Page("Index"),
+                        //    htmlcontent = $"Liên kết thất bại"
+                        //});
+                        return RedirectToPage(Url.Page("Index"));
+                    }
+                }
+
+                // Tài khoản chưa có, tạo tài khoản mới
+                var user = new Guest { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
+
+                    // Liên kết tài khoản ngoài với tài khoản vừa tạo
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+                        _logger.LogInformation("Đã tạo user mới từ thông tin {Name}.", info.LoginProvider);
+                        // Email tạo tài khoản và email từ info giống nhau -> xác thực email luôn
+                        if (user.Email == externalMail)
+                        {
+                            var codeactive = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                            await _userManager.ConfirmEmailAsync(user, codeactive);
+                            await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
+                            //return ViewComponent(MessagePage.COMPONENTNAME, new MessagePage.Message()
+                            //{
+                            //    title = "TẠO VÀ LIÊN KẾT TÀI KHOẢN",
+                            //    urlredirect = returnUrl,
+                            //    htmlcontent = $"Đã tạo và liên kết tài khoản, kích hoạt email thành công"
+                            //});
+                            return LocalRedirect(returnUrl);
+                        }
 
+                        // Trường hợp này Email tạo User khác với Email từ info (hoặc info không có email)
+                        // sẽ gửi email xác để người dùng xác thực rồi mới có thể đăng nhập
                         var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -174,16 +250,18 @@ namespace Group5_SE1730_BookingManagement.Areas.Identity.Pages.Account
                             values: new { area = "Identity", userId = userId, code = code },
                             protocol: Request.Scheme);
 
-                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                        await _emailSender.SendEmailAsync(Input.Email, "Xác nhận địa chỉ email",
+                            $"Hãy xác nhận địa chỉ email bằng cách <a href='{callbackUrl}'>bấm vào đây</a>.");
 
-                        // If account confirmation is required, we need to show the link if we don't have a real email sender
-                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                        // Chuyển đến trang thông báo cần kích hoạt tài khoản
+                        if (_userManager.Options.SignIn.RequireConfirmedEmail)
                         {
                             return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
                         }
 
+                        // Đăng nhập ngay do không yêu cầu xác nhận email
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
+
                         return LocalRedirect(returnUrl);
                     }
                 }

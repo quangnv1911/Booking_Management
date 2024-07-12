@@ -1,3 +1,4 @@
+using Group5_SE1730_BookingManagement.Hubs;
 using Group5_SE1730_BookingManagement.Models;
 using Group5_SE1730_BookingManagement.Repositories;
 using Group5_SE1730_BookingManagement.Repositories.Impl;
@@ -21,6 +22,9 @@ namespace Group5_SE1730_BookingManagement
             var configuration = builder.Configuration;
             builder.Services.AddDbContext<Group_5_SE1730_BookingManagementContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("Cnn")));
+
+            // Add realtime signaIr
+            builder.Services.AddSignalR();
 
             // Add Identity security
             builder.Services.AddIdentity<Guest, IdentityRole>()
@@ -65,6 +69,19 @@ namespace Group5_SE1730_BookingManagement
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 
+            // Cấu hình các cách login bên thứ 3
+            builder.Services.AddAuthentication()
+                .AddGoogle(googleOptions =>
+                {
+                    IConfigurationSection googleAuthNSection = configuration.GetSection("Authentication:Google");
+
+                    // Thiết lập ClientID và ClientSecret để truy cập API google
+                    googleOptions.ClientId = googleAuthNSection["ClientId"];
+                    googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
+                    // Cấu hình Url callback lại từ Google (không thiết lập thì mặc định là /signin-google)
+                    googleOptions.CallbackPath = "/login-google";
+                    googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
+                });
 
 
             // Add mail sender service
@@ -79,9 +96,15 @@ namespace Group5_SE1730_BookingManagement
 
             // Đăng kí Service 
             builder.Services.AddTransient<IBookingService, BookingService>();
+            builder.Services.AddTransient<IGuestService, GuestService>();
+            builder.Services.AddTransient<IInboxService, InboxService>();
+            builder.Services.AddTransient<IMessageService, MessageService>();
 
             // Đăng kí Repo
             builder.Services.AddTransient<IBookingRepo, BookingRepo>();
+            builder.Services.AddTransient<IGuestRepo, GuestRepo>();
+            builder.Services.AddTransient<IInboxRepo, InboxRepo>();
+            builder.Services.AddTransient<IMessageRepo, MessageRepo>();
 
 
 
@@ -104,7 +127,7 @@ namespace Group5_SE1730_BookingManagement
             app.UseAuthorization();
 
             app.MapRazorPages();
-
+            app.MapHub<ChatHub>("/chatHub");
             app.Run();
         }
     }

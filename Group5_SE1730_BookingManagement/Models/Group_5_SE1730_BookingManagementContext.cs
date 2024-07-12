@@ -30,6 +30,9 @@ namespace Group5_SE1730_BookingManagement.Models
         public virtual DbSet<Room> Rooms { get; set; } = null!;
         public virtual DbSet<RoomType> RoomTypes { get; set; } = null!;
 
+        public virtual DbSet<Message> Messages { get; set; } = null!;
+        public virtual DbSet<Inbox> Inboxes { get; set; } = null!;
+
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //        {
         //            if (!optionsBuilder.IsConfigured)
