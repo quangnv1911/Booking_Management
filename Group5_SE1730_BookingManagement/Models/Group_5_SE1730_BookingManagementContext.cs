@@ -193,6 +193,7 @@ namespace Group5_SE1730_BookingManagement.Models
                     .IsFixedLength();
 
                 entity.Property(e => e.Status).HasDefaultValue(true);
+                entity.Property(e => e.Img).HasColumnType("text");
             });
 
             modelBuilder.Entity<HomstayFeature>(entity =>
@@ -287,6 +288,7 @@ namespace Group5_SE1730_BookingManagement.Models
                 entity.Property(e => e.RoomTypeId).HasColumnName("RoomTypeID");
 
                 entity.Property(e => e.Status).HasDefaultValue(true);
+                entity.Property(e => e.Img).HasColumnType("text");
 
                 entity.HasOne(d => d.Homestay)
                     .WithMany(p => p.Rooms)
