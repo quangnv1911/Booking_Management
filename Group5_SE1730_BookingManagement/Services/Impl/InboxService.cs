@@ -25,7 +25,12 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
             return _inboxRepo.GetInboxByFromAndTo(userFrom, userTo);
         }
 
-        public List<Inbox> GetInboxListByGuestId(string id)
+        public Inbox? GetInboxById(long? id)
+        {
+            return _inboxRepo.GetInboxById(id);
+        }
+
+        public List<Inbox> GetInboxListByGuestId(string? id)
         {
             return _inboxRepo.GetInboxListByGuestId(id);
         }

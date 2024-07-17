@@ -21,7 +21,12 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
             return _context.Inboxes.FirstOrDefault(i => i.FirstUserId == userFrom && i.SecondUserId == userTo);
         }
 
-        public List<Inbox> GetInboxListByGuestId(string id)
+        public Inbox? GetInboxById(long? id)
+        {
+            return _context.Inboxes.FirstOrDefault(i => i.Id == id);
+        }
+
+        public List<Inbox> GetInboxListByGuestId(string? id)
         {
             return _context.Inboxes.Include(g => g.FirstUser).Include(g => g.SecondUser).Where(i => i.FirstUserId == id || i.SecondUserId == id).ToList();
         }

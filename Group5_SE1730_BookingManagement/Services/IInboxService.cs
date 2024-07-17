@@ -6,7 +6,9 @@ namespace Group5_SE1730_BookingManagement.Services
     {
         void CreateNewChat(string? fromUserId, string toUserId);
 
-        List<Inbox> GetInboxListByGuestId(string id);
+        List<Inbox> GetInboxListByGuestId(string? id);
         Inbox? GetInboxByFromAndTo(string? userFrom, string? userTo);
+
+        Inbox? GetInboxById(long? id);
     }
 }

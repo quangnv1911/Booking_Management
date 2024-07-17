@@ -1,0 +1,26 @@
+﻿@model Group5_SE1730_BookingManagement.Pages.Chats.IndexModel
+
+@foreach (var message in Model.Messages)
+{
+    @if (message.GuestId == Model.OppositeUser.Id)
+    {
+        <li class="clearfix">
+            <div class="message-data text-left">
+                <span class="message-data-time">@message.CreateAt</span>
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+            </div>
+            <div class="message other-message float-left"> @message.Content </div>
+        </li>
+    }
+    else
+    {
+        <li class="clearfix">
+            <div class="message-data text-right">
+                <span class="message-data-time">@message.CreateAt</span>
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+            </div>
+            <div class="message other-message float-right"> @message.Content </div>
+        </li>
+    }
+
+}

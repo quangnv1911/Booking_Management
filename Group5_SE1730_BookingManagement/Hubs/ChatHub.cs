@@ -30,7 +30,7 @@ namespace Group5_SE1730_BookingManagement.Hubs
         // Lấy thông tin các cuộc trò chuyện trong quá khứ
         public async Task SendUpdateInboxHistory(string userId)
         {
-          var inboxList = _inboxService.GetInboxListByGuestId(userId);
+            var inboxList = _inboxService.GetInboxListByGuestId(userId);
 
             await Clients.All.SendAsync("ReceiveUpdateInboxHistory", inboxList);
         }
