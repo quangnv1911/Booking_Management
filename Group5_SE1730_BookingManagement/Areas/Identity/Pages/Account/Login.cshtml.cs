@@ -66,6 +66,7 @@ namespace Group5_SE1730_BookingManagement.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
+            [Display(Name = "Email")]
             [EmailAddress]
             public string Email { get; set; }
 
@@ -74,6 +75,7 @@ namespace Group5_SE1730_BookingManagement.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
+            [Display(Name = "Password")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 

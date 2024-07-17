@@ -70,7 +70,7 @@
                                                         <input asp-for="Input.FirstName" aria-required="true"
                                                                type="text"
                                                                class="form-control"
-                                                               name="firstName"
+                                                               value=""
                                                                id="firstName"
                                                                placeholder="First Name"
                                                                required />
@@ -83,8 +83,8 @@
                                                     <div class="form-floating mb-3">
                                                         <input asp-for="Input.LastName"
                                                                type="text"
+                                                               value=""
                                                                class="form-control"
-                                                               name="lastName"
                                                                id="lastName"
                                                                placeholder="Last Name"
                                                                required />
@@ -100,10 +100,10 @@
                                                            autocomplete="username" aria-required="true"
                                                            type="email"
                                                            class="form-control"
-                                                           name="email"
                                                            id="email"
                                                            placeholder="name@example.com"
-                                                           required />
+                                                           required
+                                                           value="" />
                                                     <label for="Input.Email" class="form-label">Email</label>
                                                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                                                 </div>
