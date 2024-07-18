@@ -29,6 +29,7 @@ namespace Group5_SE1730_BookingManagement.Models
         public virtual ICollection<Inbox> InboxSecondUsers { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
         public virtual ICollection<Booking> Bookings { get; set; }
+        public virtual ICollection<Homestay> Homestays { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
     }
 }

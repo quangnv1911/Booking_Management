@@ -33,6 +33,9 @@ namespace Group5_SE1730_BookingManagement.Models
         public virtual DbSet<Message> Messages { get; set; } = null!;
         public virtual DbSet<Inbox> Inboxes { get; set; } = null!;
 
+        public DbSet<SiteSettings> SiteSettings { get; set; } = null!;
+        public DbSet<FAQ> FAQs { get; set; } = null!;
+
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //        {
         //            if (!optionsBuilder.IsConfigured)
@@ -171,12 +174,8 @@ namespace Group5_SE1730_BookingManagement.Models
                 entity.Property(e => e.City)
                     .HasMaxLength(255)
                     .IsFixedLength();
-
+                entity.Property(e => e.GuestId).HasColumnName("GuestID");
                 entity.Property(e => e.Email)
-                    .HasMaxLength(255)
-                    .IsFixedLength();
-
-                entity.Property(e => e.HotelImage)
                     .HasMaxLength(255)
                     .IsFixedLength();
 
@@ -191,7 +190,10 @@ namespace Group5_SE1730_BookingManagement.Models
                 entity.Property(e => e.Rating)
                     .HasMaxLength(255)
                     .IsFixedLength();
-
+                entity.HasOne(d => d.Guest)
+                   .WithMany(p => p.Homestays)
+                   .HasForeignKey(d => d.GuestId)
+                   .HasConstraintName("FK_HomeStay_Guest");
                 entity.Property(e => e.Status).HasDefaultValue(true);
                 entity.Property(e => e.Img).HasColumnType("text");
             });
@@ -255,6 +257,7 @@ namespace Group5_SE1730_BookingManagement.Models
                 entity.Property(e => e.GuestId).HasColumnName("GuestID");
 
                 entity.Property(e => e.RoomId).HasColumnName("RoomID");
+                entity.Property(e => e.ReviewText).HasColumnName("ReviewText");
 
                 entity.HasOne(d => d.Guest)
                     .WithMany(p => p.Reviews)
@@ -288,7 +291,7 @@ namespace Group5_SE1730_BookingManagement.Models
                 entity.Property(e => e.RoomTypeId).HasColumnName("RoomTypeID");
 
                 entity.Property(e => e.Status).HasDefaultValue(true);
-                entity.Property(e => e.Img).HasColumnType("text");
+                entity.Property(e => e.Img).HasColumnName("Img").HasColumnType("text");
 
                 entity.HasOne(d => d.Homestay)
                     .WithMany(p => p.Rooms)
@@ -382,8 +385,15 @@ namespace Group5_SE1730_BookingManagement.Models
                     .HasConstraintName("FK__Message__InboxId__3E52440B");
             });
 
-            OnModelCreatingPartial(modelBuilder);
+            modelBuilder.Entity<SiteSettings>(entity =>
+            {
+                entity.ToTable("SiteSettings");
+                entity.Property(e => e.PrivacyText).IsUnicode(true);
+            }
+            );
 
+            OnModelCreatingPartial(modelBuilder);
+           
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

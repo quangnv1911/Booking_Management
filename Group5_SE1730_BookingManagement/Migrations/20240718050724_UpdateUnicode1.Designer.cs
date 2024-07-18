@@ -4,6 +4,7 @@ using Group5_SE1730_BookingManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Group5_SE1730_BookingManagement.Migrations
 {
     [DbContext(typeof(Group_5_SE1730_BookingManagementContext))]
-    partial class Group_5_SE1730_BookingManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20240718050724_UpdateUnicode1")]
+    partial class UpdateUnicode1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -274,10 +276,6 @@ namespace Group5_SE1730_BookingManagement.Migrations
                         .HasColumnType("nchar(255)")
                         .IsFixedLength();
 
-                    b.Property<string>("GuestId")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("GuestID");
-
                     b.Property<string>("HotelName")
                         .HasMaxLength(255)
                         .HasColumnType("nchar(255)")
@@ -302,8 +300,6 @@ namespace Group5_SE1730_BookingManagement.Migrations
                         .HasDefaultValue(true);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GuestId");
 
                     b.ToTable("Homestay", (string)null);
                 });
@@ -746,16 +742,6 @@ namespace Group5_SE1730_BookingManagement.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("Group5_SE1730_BookingManagement.Models.Homestay", b =>
-                {
-                    b.HasOne("Group5_SE1730_BookingManagement.Models.Guest", "Guest")
-                        .WithMany("Homestays")
-                        .HasForeignKey("GuestId")
-                        .HasConstraintName("FK_HomeStay_Guest");
-
-                    b.Navigation("Guest");
-                });
-
             modelBuilder.Entity("Group5_SE1730_BookingManagement.Models.Inbox", b =>
                 {
                     b.HasOne("Group5_SE1730_BookingManagement.Models.Guest", "FirstUser")
@@ -930,8 +916,6 @@ namespace Group5_SE1730_BookingManagement.Migrations
             modelBuilder.Entity("Group5_SE1730_BookingManagement.Models.Guest", b =>
                 {
                     b.Navigation("Bookings");
-
-                    b.Navigation("Homestays");
 
                     b.Navigation("InboxFirstUsers");
 

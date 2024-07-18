@@ -99,12 +99,18 @@ namespace Group5_SE1730_BookingManagement
             builder.Services.AddTransient<IGuestService, GuestService>();
             builder.Services.AddTransient<IInboxService, InboxService>();
             builder.Services.AddTransient<IMessageService, MessageService>();
+            builder.Services.AddTransient<ISiteSettingsService, SiteSettingsService>();
+            builder.Services.AddTransient<IRoomService, RoomService>();
+            builder.Services.AddTransient<IInvoiceService, InvoiceService>();
 
             // Đăng kí Repo
             builder.Services.AddTransient<IBookingRepo, BookingRepo>();
             builder.Services.AddTransient<IGuestRepo, GuestRepo>();
             builder.Services.AddTransient<IInboxRepo, InboxRepo>();
             builder.Services.AddTransient<IMessageRepo, MessageRepo>();
+            builder.Services.AddTransient<ISiteSettingRepo, SiteSettingRepo>();
+            builder.Services.AddTransient<IRoomRepo, RoomRepo>();
+            builder.Services.AddTransient<IInvoiceRepo, InvoiceRepo>();
 
 
 

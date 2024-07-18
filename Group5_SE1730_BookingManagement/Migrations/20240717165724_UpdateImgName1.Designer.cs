@@ -4,6 +4,7 @@ using Group5_SE1730_BookingManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Group5_SE1730_BookingManagement.Migrations
 {
     [DbContext(typeof(Group_5_SE1730_BookingManagementContext))]
-    partial class Group_5_SE1730_BookingManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20240717165724_UpdateImgName1")]
+    partial class UpdateImgName1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,27 +118,6 @@ namespace Group5_SE1730_BookingManagement.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Discount", (string)null);
-                });
-
-            modelBuilder.Entity("Group5_SE1730_BookingManagement.Models.FAQ", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Answer")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Question")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FAQs");
                 });
 
             modelBuilder.Entity("Group5_SE1730_BookingManagement.Models.Guest", b =>
@@ -274,10 +255,6 @@ namespace Group5_SE1730_BookingManagement.Migrations
                         .HasColumnType("nchar(255)")
                         .IsFixedLength();
 
-                    b.Property<string>("GuestId")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("GuestID");
-
                     b.Property<string>("HotelName")
                         .HasMaxLength(255)
                         .HasColumnType("nchar(255)")
@@ -302,8 +279,6 @@ namespace Group5_SE1730_BookingManagement.Migrations
                         .HasDefaultValue(true);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GuestId");
 
                     b.ToTable("Homestay", (string)null);
                 });
@@ -441,9 +416,8 @@ namespace Group5_SE1730_BookingManagement.Migrations
                     b.Property<byte?>("Rating")
                         .HasColumnType("tinyint");
 
-                    b.Property<string>("ReviewText")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ReviewText");
+                    b.Property<long?>("ReviewText")
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("RoomId")
                         .HasColumnType("bigint")
@@ -540,36 +514,6 @@ namespace Group5_SE1730_BookingManagement.Migrations
                     b.HasIndex("HomestayFeatureId");
 
                     b.ToTable("RoomType", (string)null);
-                });
-
-            modelBuilder.Entity("Group5_SE1730_BookingManagement.Models.SiteSettings", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("AppName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FaviconUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LogoUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PrivacyText")
-                        .IsRequired()
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SiteSettings", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -746,16 +690,6 @@ namespace Group5_SE1730_BookingManagement.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("Group5_SE1730_BookingManagement.Models.Homestay", b =>
-                {
-                    b.HasOne("Group5_SE1730_BookingManagement.Models.Guest", "Guest")
-                        .WithMany("Homestays")
-                        .HasForeignKey("GuestId")
-                        .HasConstraintName("FK_HomeStay_Guest");
-
-                    b.Navigation("Guest");
-                });
-
             modelBuilder.Entity("Group5_SE1730_BookingManagement.Models.Inbox", b =>
                 {
                     b.HasOne("Group5_SE1730_BookingManagement.Models.Guest", "FirstUser")
@@ -930,8 +864,6 @@ namespace Group5_SE1730_BookingManagement.Migrations
             modelBuilder.Entity("Group5_SE1730_BookingManagement.Models.Guest", b =>
                 {
                     b.Navigation("Bookings");
-
-                    b.Navigation("Homestays");
 
                     b.Navigation("InboxFirstUsers");
 
