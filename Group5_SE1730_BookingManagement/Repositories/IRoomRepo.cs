@@ -2,5 +2,8 @@
 {
     public interface IRoomRepo
     {
+        int CountTotalRoomOfUser(string guestId);
+        int CountRoomRemainOfUser(string guestId);
+        int CountRoomByHomestayAndGuestId(long homestayId, string guestId);
     }
 }

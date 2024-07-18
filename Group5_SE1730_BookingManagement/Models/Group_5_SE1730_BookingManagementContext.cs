@@ -234,8 +234,8 @@ namespace Group5_SE1730_BookingManagement.Models
                 entity.Property(e => e.Status).HasDefaultValue(true);
 
                 entity.HasOne(d => d.Booking)
-                    .WithMany(p => p.Invoices)
-                    .HasForeignKey(d => d.BookingId)
+                    .WithOne(p => p.Invoices)
+                    .HasForeignKey<Invoice>(d => d.BookingId)
                     .HasConstraintName("FK_Invoice_Booking");
 
                 entity.HasOne(d => d.Discount)

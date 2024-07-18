@@ -5,10 +5,7 @@ namespace Group5_SE1730_BookingManagement.Models
 {
     public partial class Booking
     {
-        public Booking()
-        {
-            Invoices = new HashSet<Invoice>();
-        }
+
 
         public long Id { get; set; }
         public long? HomestayId { get; set; }
@@ -25,6 +22,6 @@ namespace Group5_SE1730_BookingManagement.Models
         public virtual Guest? Guest { get; set; }
         public virtual Homestay? Homestay { get; set; }
         public virtual Room? Room { get; set; }
-        public virtual ICollection<Invoice> Invoices { get; set; }
+        public virtual Invoice? Invoices { get; set; }
     }
 }

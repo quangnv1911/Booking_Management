@@ -102,6 +102,7 @@ namespace Group5_SE1730_BookingManagement
             builder.Services.AddTransient<ISiteSettingsService, SiteSettingsService>();
             builder.Services.AddTransient<IRoomService, RoomService>();
             builder.Services.AddTransient<IInvoiceService, InvoiceService>();
+            builder.Services.AddTransient<IHomestayService, HomestayService>();
 
             // Đăng kí Repo
             builder.Services.AddTransient<IBookingRepo, BookingRepo>();
@@ -111,7 +112,7 @@ namespace Group5_SE1730_BookingManagement
             builder.Services.AddTransient<ISiteSettingRepo, SiteSettingRepo>();
             builder.Services.AddTransient<IRoomRepo, RoomRepo>();
             builder.Services.AddTransient<IInvoiceRepo, InvoiceRepo>();
-
+            builder.Services.AddTransient<IHomestayRepo, HomestayRepo>();
 
 
             var app = builder.Build();

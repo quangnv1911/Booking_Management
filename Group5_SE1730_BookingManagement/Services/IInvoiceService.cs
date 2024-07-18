@@ -2,5 +2,11 @@
 {
     public interface IInvoiceService
     {
+        decimal GetMoneyThisMonth(string guestId);
+
+        decimal GetMoneyThisYear(string guestId);
+
+        int GetTotalCustomerInMonth(string guestId);
+        string[] GetMoneyByMonth(string guestId);
     }
 }

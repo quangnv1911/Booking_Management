@@ -389,7 +389,9 @@ namespace Group5_SE1730_BookingManagement.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookingId");
+                    b.HasIndex("BookingId")
+                        .IsUnique()
+                        .HasFilter("[BookingID] IS NOT NULL");
 
                     b.HasIndex("DiscountId");
 
@@ -776,8 +778,8 @@ namespace Group5_SE1730_BookingManagement.Migrations
             modelBuilder.Entity("Group5_SE1730_BookingManagement.Models.Invoice", b =>
                 {
                     b.HasOne("Group5_SE1730_BookingManagement.Models.Booking", "Booking")
-                        .WithMany("Invoices")
-                        .HasForeignKey("BookingId")
+                        .WithOne("Invoices")
+                        .HasForeignKey("Group5_SE1730_BookingManagement.Models.Invoice", "BookingId")
                         .HasConstraintName("FK_Invoice_Booking");
 
                     b.HasOne("Group5_SE1730_BookingManagement.Models.Discount", "Discount")
