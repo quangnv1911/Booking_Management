@@ -48,11 +48,7 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
         }
 
 
-        public async Task UpdateAsync(Homestay homestay)
-        {
-            _context.Homestays.Update(homestay);
-            await _context.SaveChangesAsync();
-        }
+
 
         public async Task DeleteAsync(long id)
 

@@ -66,7 +66,7 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
 
         public async Task DeleteAsync(long id)
         {
-            await _homestayRepo.DeleteAsync(id);
+            await _homestayRepo.DeleteByIdAsync(id);
 
         }
     }
