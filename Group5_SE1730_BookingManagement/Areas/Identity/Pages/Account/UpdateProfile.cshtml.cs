@@ -16,6 +16,9 @@ namespace Group5_SE1730_BookingManagement.Areas.Identity.Pages.Account.Manage
         private readonly SignInManager<Guest> _signInManager;
         private readonly ILogger<UpdateProfileModel> _logger;
 
+        [BindProperty(SupportsGet = true)]
+        public string? Message { get; set; }
+
         public UpdateProfileModel(UserManager<Guest> userManager, SignInManager<Guest> signInManager, ILogger<UpdateProfileModel> logger)
         {
             _userManager = userManager;

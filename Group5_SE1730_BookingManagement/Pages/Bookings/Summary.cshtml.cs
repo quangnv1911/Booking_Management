@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Group5_SE1730_BookingManagement.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Cryptography;
 using System.Text;
@@ -19,8 +22,25 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
         public string VnpTransactionStatus { get; set; }
         public string VnpTxnRef { get; set; }
         public string VnpSecureHash { get; set; }
+
+        private readonly IEmailSender _emailSender;
+
+        private UserManager<Guest> _userManager;
+        private Guest CurrentUser { get; set; }
+
+        public SummaryModel(IEmailSender emailSender, UserManager<Guest> userManager)
+        {
+            _emailSender = emailSender;
+            _userManager = userManager;
+        }
+
         public async Task<IActionResult> OnGetAsync()
         {
+            CurrentUser = await _userManager.GetUserAsync(User);
+
+            if (!User.Identity.IsAuthenticated)
+                Response.Redirect("/Login");
+
             VnpAmount = Request.Query["vnp_Amount"];
             VnpBankCode = Request.Query["vnp_BankCode"];
             VnpBankTranNo = Request.Query["vnp_BankTranNo"];
@@ -38,6 +58,22 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
             var vnp_HashSecret = "YOUR_HASH_SECRET"; // Thay bằng chuỗi bí mật của bạn
             var hashData = $"vnp_Amount={VnpAmount}&vnp_BankCode={VnpBankCode}&vnp_BankTranNo={VnpBankTranNo}&vnp_CardType={VnpCardType}&vnp_OrderInfo={VnpOrderInfo}&vnp_PayDate={VnpPayDate}&vnp_ResponseCode={VnpResponseCode}&vnp_TmnCode={VnpTmnCode}&vnp_TransactionNo={VnpTransactionNo}&vnp_TransactionStatus={VnpTransactionStatus}&vnp_TxnRef={VnpTxnRef}&vnp_Version=2.1.0";
             var computedHash = CreateHmacSHA512(vnp_HashSecret, hashData);
+
+            //Create infomation about email
+            var subject = "Payment Information";
+            var message = $"Payment Information: \n" +
+                $"Amount: {VnpAmount}\n" +
+                $"Bank Code: {VnpBankCode}\n" +
+                $"Bank Transaction No: {VnpBankTranNo}\n" +
+                $"Card Type: {VnpCardType}\n" +
+                $"Order Info: {VnpOrderInfo}\n" +
+                $"Pay Date: {VnpPayDate}\n" +
+                //$"Response Code: {VnpResponseCode}\n" +
+                //$"Tmn Code: {VnpTmnCode}\n" +
+                $"Transaction No: {VnpTransactionNo}\n" +
+                $"Transaction Status: {VnpTransactionStatus}\n";
+            var footer = "\nCảm ơn bạn đã sử dụng dịch vụ của chúng tôi";
+            _emailSender.SendEmailAsync(CurrentUser.Email, subject, message + footer);
 
             if (computedHash.Equals(VnpSecureHash))
             {

@@ -1,8 +1,10 @@
 using Group5_SE1730_BookingManagement.Models;
 using Group5_SE1730_BookingManagement.Models.VnPay;
 using Group5_SE1730_BookingManagement.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Claims;
 
 namespace Group5_SE1730_BookingManagement.Pages.Bookings
 {
@@ -26,17 +28,23 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
         [BindProperty(SupportsGet = true)]
         public string FullName { get; set; }
 
+        public readonly UserManager<Guest> _userManager;
+
+        public Guest CurrentUser { get; set; }
         public InvoiceModel(IRoomService roomService,
             IHomestayService homestayService,
             IBookingService bookingService,
             IVnPayService vnPayService,
-            IGuestService guestService)
+            IGuestService guestService,
+            UserManager<Guest> userManager
+            )
         {
             this._roomService = roomService;
             _homestayService = homestayService;
             _bookingService = bookingService;
             _vnPayService = vnPayService;
             _guestService = guestService;
+            _userManager = userManager;
         }
 
         public Room? roomInfo { get; set; }
@@ -44,6 +52,13 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
 
         public async Task<IActionResult> OnGetAsync(int roomId, long homestayId)
         {
+            CurrentUser = await _userManager.GetUserAsync(User);
+            if (!User.Identity.IsAuthenticated)
+                Response.Redirect("/Login");
+            //Check if email, name and phone number is empty,null or not
+            if (string.IsNullOrEmpty(CurrentUser.Email) || string.IsNullOrEmpty(CurrentUser.FirstName + " "+CurrentUser.MiddleName + " "+CurrentUser.LastName) || string.IsNullOrEmpty(CurrentUser.PhoneNumber))
+                Response.Redirect("/Identity/Account/UpdateProfile?Message=1");
+
             roomInfo = await _roomService.GetRoomByIdAsync(roomId);
 
             homestayInfo = await _homestayService.GetHomeStayByIdAsync(homestayId);
