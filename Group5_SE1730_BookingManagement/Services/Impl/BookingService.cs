@@ -79,5 +79,10 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
 
             return bookingsPerDay;
         }
+
+        public Task<List<Booking?>> GetBookingListByGuestId(string guestId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
