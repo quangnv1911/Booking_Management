@@ -1,12 +1,13 @@
-﻿.admin-layout .layout-header-list {
+﻿.layout-header-list {
     display: flex;
 }
 
-    .admin-layout .layout-header-list > li {
+    .layout-header-list > li {
         list-style: none;
     }
 
-.admin-layout .layout-footer-container {
+
+.layout-footer-container {
     color: white;
     background-color: rgba(28, 41, 48, 1.00);
     text-align: center;
@@ -16,8 +17,10 @@
     line-height: 60px;
 }
 
-.admin-layout .layout-body-container {
-    min-height: calc(100vh - 40px);
+}
+
+.layout-body-container {
+    min-height: calc(100vh -40px);
 }
 
 html {
@@ -39,59 +42,59 @@ body {
     min-height: 100vh;
 }
 
-.admin-layout .container-fluid {
+.container-fluid {
     padding: 0;
 }
 
-.admin-layout .sidebar {
+.sidebar {
     background-color: #343a40;
     height: 100vh;
     padding-top: 20px;
     transition: margin 0.3s;
-    width: 220px;
-    position: relative;
-    z-index: 1000;
+    width: 220px; /* Width of the sidebar */
+    position: relative; /* Ensure the arrow icon is positioned relative to the sidebar */
+    z-index: 1000; /* Ensure sidebar is on top */
 }
 
-    .admin-layout .sidebar.collapsed {
-        margin-left: -220px;
+    .sidebar.collapsed {
+        margin-left: -220px; /* Negative width to hide the sidebar */
     }
 
-.admin-layout .nav-link {
+.nav-link {
     color: white;
 }
 
-    .admin-layout .nav-link.active {
+    .nav-link.active {
         background-color: #007bff;
         color: white;
     }
 
-    .admin-layout .nav-link:hover {
+    .nav-link:hover {
         background-color: #007bff;
         color: white;
     }
 
-.admin-layout .main-content {
+.main-content {
     padding: 20px;
     transition: margin-left 0.3s, width 0.3s;
     flex: 1;
     margin-left: 220px;
-    width: calc(100% - 220px);
+    width: calc(100% - 100px); /* Hẹp chiều rộng */
 }
 
-    .admin-layout .main-content.collapsed {
+    .main-content.collapsed {
         margin-left: 0;
-        width: 100%;
+        width: 100%; /* Điều chỉnh chiều rộng khi sidebar thu gọn */
     }
 
-.admin-layout .content-section {
+.content-section {
     margin-bottom: 30px;
 }
 
-.admin-layout .arrow-toggle {
-    position: fixed;
+.arrow-toggle {
+    position: fixed; /* Change to fixed to avoid overlap */
     top: 50%;
-    left: 220px;
+    left: 220px; /* Position it next to the sidebar */
     background-color: #007bff;
     border: none;
     color: white;
@@ -99,20 +102,23 @@ body {
     border-radius: 50%;
     cursor: pointer;
     transition: transform 0.3s;
-    transform: translateY(-50%);
-    z-index: 1001;
+    transform: translateY(-50%); /* Center the button vertically */
+    z-index: 1001; /* Ensure button is on top of sidebar */
 }
 
-    .admin-layout .arrow-toggle.collapsed {
-        left: 0;
+    .arrow-toggle.collapsed {
+        left: 0; /* Adjust position when sidebar is collapsed */
         transform: translateY(-50%) rotate(180deg);
     }
 
-.admin-layout .card {
+.card {
     margin-bottom: 20px;
 }
 
-.admin-layout canvas {
+canvas {
     max-width: 100%;
     height: auto !important;
+}
+.input-sm {
+    max-width: 400px;
 }
