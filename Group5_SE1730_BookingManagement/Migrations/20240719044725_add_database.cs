@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Group5_SE1730_BookingManagement.Migrations
 {
-    public partial class Initital : Migration
+    public partial class add_database : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,6 +27,20 @@ namespace Group5_SE1730_BookingManagement.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Discount", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FAQs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Question = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Answer = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FAQs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -64,26 +78,6 @@ namespace Group5_SE1730_BookingManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Homestay",
-                columns: table => new
-                {
-                    ID = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    HotelName = table.Column<string>(type: "nchar(255)", fixedLength: true, maxLength: 255, nullable: true),
-                    Address = table.Column<string>(type: "nchar(255)", fixedLength: true, maxLength: 255, nullable: true),
-                    City = table.Column<string>(type: "nchar(255)", fixedLength: true, maxLength: 255, nullable: true),
-                    Rating = table.Column<string>(type: "nchar(255)", fixedLength: true, maxLength: 255, nullable: true),
-                    Phone = table.Column<string>(type: "nchar(255)", fixedLength: true, maxLength: 255, nullable: true),
-                    Email = table.Column<string>(type: "nchar(255)", fixedLength: true, maxLength: 255, nullable: true),
-                    HotelImage = table.Column<string>(type: "nchar(255)", fixedLength: true, maxLength: 255, nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: true, defaultValue: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Homestay", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "HomstayFeature",
                 columns: table => new
                 {
@@ -109,6 +103,48 @@ namespace Group5_SE1730_BookingManagement.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SiteSettings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FaviconUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LogoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PrivacyText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AppName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SiteSettings", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Homestay",
+                columns: table => new
+                {
+                    ID = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HotelName = table.Column<string>(type: "nchar(255)", fixedLength: true, maxLength: 255, nullable: true),
+                    Address = table.Column<string>(type: "nchar(255)", fixedLength: true, maxLength: 255, nullable: true),
+                    City = table.Column<string>(type: "nchar(255)", fixedLength: true, maxLength: 255, nullable: true),
+                    Rating = table.Column<string>(type: "nchar(255)", fixedLength: true, maxLength: 255, nullable: true),
+                    Phone = table.Column<string>(type: "nchar(255)", fixedLength: true, maxLength: 255, nullable: true),
+                    Email = table.Column<string>(type: "nchar(255)", fixedLength: true, maxLength: 255, nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
+                    GuestID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Img = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Homestay", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_HomeStay_Guest",
+                        column: x => x.GuestID,
+                        principalTable: "Guest",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -269,9 +305,9 @@ namespace Group5_SE1730_BookingManagement.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GuestId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateAt = table.Column<DateTime>(type: "datetime", nullable: false),
-                    InboxId = table.Column<long>(type: "bigint", nullable: false),
-                    Content = table.Column<string>(type: "text", nullable: false)
+                    CreateAt = table.Column<DateTime>(type: "datetime", nullable: true),
+                    InboxId = table.Column<long>(type: "bigint", nullable: true),
+                    Content = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -285,8 +321,7 @@ namespace Group5_SE1730_BookingManagement.Migrations
                         name: "FK__Message__InboxId__3E52440B",
                         column: x => x.InboxId,
                         principalTable: "Inbox",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -300,7 +335,8 @@ namespace Group5_SE1730_BookingManagement.Migrations
                     RoomTypeID = table.Column<long>(type: "bigint", nullable: true),
                     HomestayID = table.Column<long>(type: "bigint", nullable: true),
                     Price = table.Column<decimal>(type: "money", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: true, defaultValue: true)
+                    Status = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
+                    Img = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -362,7 +398,7 @@ namespace Group5_SE1730_BookingManagement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GuestID = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Rating = table.Column<byte>(type: "tinyint", nullable: true),
-                    ReviewText = table.Column<long>(type: "bigint", nullable: true),
+                    ReviewText = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoomID = table.Column<long>(type: "bigint", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: true, defaultValue: true)
                 },
@@ -459,6 +495,11 @@ namespace Group5_SE1730_BookingManagement.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Homestay_GuestID",
+                table: "Homestay",
+                column: "GuestID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Inbox_FirstUserId",
                 table: "Inbox",
                 column: "FirstUserId");
@@ -471,7 +512,9 @@ namespace Group5_SE1730_BookingManagement.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Invoice_BookingID",
                 table: "Invoice",
-                column: "BookingID");
+                column: "BookingID",
+                unique: true,
+                filter: "[BookingID] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Invoice_DiscountID",
@@ -549,6 +592,9 @@ namespace Group5_SE1730_BookingManagement.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "FAQs");
+
+            migrationBuilder.DropTable(
                 name: "Invoice");
 
             migrationBuilder.DropTable(
@@ -562,6 +608,9 @@ namespace Group5_SE1730_BookingManagement.Migrations
 
             migrationBuilder.DropTable(
                 name: "RoomDiscount");
+
+            migrationBuilder.DropTable(
+                name: "SiteSettings");
 
             migrationBuilder.DropTable(
                 name: "UserClaims");
@@ -591,13 +640,13 @@ namespace Group5_SE1730_BookingManagement.Migrations
                 name: "Room");
 
             migrationBuilder.DropTable(
-                name: "Guest");
-
-            migrationBuilder.DropTable(
                 name: "Homestay");
 
             migrationBuilder.DropTable(
                 name: "RoomType");
+
+            migrationBuilder.DropTable(
+                name: "Guest");
 
             migrationBuilder.DropTable(
                 name: "HomstayFeature");
