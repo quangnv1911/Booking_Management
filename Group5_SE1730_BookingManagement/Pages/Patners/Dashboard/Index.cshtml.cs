@@ -64,7 +64,7 @@ namespace Group5_SE1730_BookingManagement.Pages.Patners.Dashboard
                 string[] homestayNames = new string[listHomestay.Count];
                 for (int i = 0; i < listHomestay.Count; i++)
                 {
-                    homestayNames[i] = listHomestay[i].HotelName;
+                    homestayNames[i] = listHomestay[i].HotelName.Trim();
                     homestayRooms[i] = _roomService.CountRoomByHomestayAndGuestId(listHomestay[i].Id, user.Id).ToString();
                 }
                 RoomPerHomestay = homestayRooms;
