@@ -2,3 +2,54 @@
 @model Group5_SE1730_BookingManagement.Pages.Bookings.SummaryModel
 @{
 }
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .success-container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        margin-top: 50px;
+    }
+
+    .success-icon {
+        font-size: 50px;
+        color: #28a745;
+    }
+
+    .success-message {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .order-details {
+        margin-top: 20px;
+    }
+</style>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="success-container text-center">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="success-message">
+                    Giao dịch thành công!
+                </div>
+                <div class="order-details">
+                    <p>Mã giao dịch: <strong>@Model.VnpTransactionNo</strong></p>
+                    <p>Số tiền: <strong>@Model.VnpAmount VND</strong></p>
+                    <p>Ngày thanh toán: <strong>@Model.VnpPayDate</strong></p>
+                    <p>Thông tin đơn hàng: <strong>@Model.VnpOrderInfo</strong></p>
+                    <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>
+                </div>
+                <a href="/" class="btn btn-primary mt-3">Quay về trang chủ</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
