@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Group5_SE1730_BookingManagement</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-ZfKuI/kY+MhxbsjOfJ4XfKk1IB+D1eK4JcQLUkczfh9y5F+6y7o4E/CE2mbnBjdn4my/PsyOTg3Ctwhw2IZ9sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">
+                    <img src="~/img/logo.svg" />
+                </a>
+                @await Html.PartialAsync("_LoginPartial")
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid layout-body-container">
+        <div class="row no-gutters">
+            <div class="sidebar" id="sidebar">
+                @RenderSection("Sidebar", required: false)
+                <button class="arrow-toggle" id="toggleButton">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            <main role="main" class="main-content pb-3" id="main-content">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <footer class="border-top layout-footer-container">
+        <div class="container">
+            <span class="text-muted layout-footer-address">Khu Giáo dục và Đào tạo – Khu Công nghệ cao Hòa Lạc – Km29 Đại lộ Thăng Long, Thạch Thất, TP. HN</span>
+            <br />
+            <span class="layout-footer-copyright">
+                Copyright &copy; 2024 Group 5. All rights reserved - <a class="text-white text-decoration-none" asp-area="" asp-page="/Privacy">Privacy</a>
+            </span>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
