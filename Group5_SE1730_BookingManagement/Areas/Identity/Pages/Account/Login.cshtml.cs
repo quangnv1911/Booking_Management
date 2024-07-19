@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -22,11 +22,12 @@ namespace Group5_SE1730_BookingManagement.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<Guest> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-
-        public LoginModel(SignInManager<Guest> signInManager, ILogger<LoginModel> logger)
+        private readonly UserManager<Guest> _userManager;
+        public LoginModel(SignInManager<Guest> signInManager, ILogger<LoginModel> logger, UserManager<Guest> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -118,6 +119,24 @@ namespace Group5_SE1730_BookingManagement.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+                    // Lấy thông tin người dùng
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+
+                    // Kiểm tra vai trò của người dùng và điều hướng đến trang tương ứng
+                    if (await _userManager.IsInRoleAsync(user, "ADMIN"))
+                    {
+                        returnUrl = Url.Content("~/Admins/Dashboard");
+                    }
+                    else if (await _userManager.IsInRoleAsync(user, "PARTNER"))
+                    {
+                        returnUrl = Url.Content("~/partner/dashboard");
+                    }
+                    else if (await _userManager.IsInRoleAsync(user, "USER"))
+                    {
+                        returnUrl = Url.Content("~/");
+                    }
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -139,5 +158,6 @@ namespace Group5_SE1730_BookingManagement.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+
     }
 }

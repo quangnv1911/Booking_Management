@@ -1,7 +1,9 @@
-﻿@page "/content/"
+﻿@page "/content"
 @model Group5_SE1730_BookingManagement.Pages.WebManagement.IndexModel
 @{
+    Layout = "_AdminLayout";
 }
+ 
 @if (TempData["Message"] != null)
 {
     <div class="alert alert-success" role="alert">

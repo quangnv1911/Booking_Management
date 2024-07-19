@@ -35,17 +35,17 @@ namespace Group5_SE1730_BookingManagement
             builder.Services.Configure<IdentityOptions>(options =>
             {
                 // Configure password settings
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 3;
                 options.Password.RequiredUniqueChars = 1;
 
                 // Configure lockout settings
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
                 options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.AllowedForNewUsers = false;
 
 
                 // Cấu hình về User.
@@ -54,7 +54,7 @@ namespace Group5_SE1730_BookingManagement
                 options.User.RequireUniqueEmail = true;  // Email là duy nhất
 
                 // Cấu hình đăng nhập.
-                options.SignIn.RequireConfirmedEmail = false;            // Cấu hình xác thực địa chỉ email (email phải tồn tại)
+                options.SignIn.RequireConfirmedEmail = true;            // Cấu hình xác thực địa chỉ email (email phải tồn tại)
                 options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
 
                 // Configure user settings
@@ -118,7 +118,6 @@ namespace Group5_SE1730_BookingManagement
             builder.Services.AddTransient<IRoomService, RoomService>();
             builder.Services.AddTransient<IInvoiceService, InvoiceService>();
             builder.Services.AddTransient<IHomestayService, HomestayService>();
-            builder.Services.AddTransient<IVnPayService, VnPayService>();
             builder.Services.AddTransient<IFAQService, FAQService>();
 
 

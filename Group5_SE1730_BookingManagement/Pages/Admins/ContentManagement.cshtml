@@ -1,5 +1,6 @@
 ﻿@page
 @model Group5_SE1730_BookingManagement.Pages.Admins.ContentManagementModel
+
 @{
     Layout = "_AdminLayout";
 }
@@ -9,8 +10,154 @@
         <a class="nav-link" asp-page="/Admins/HotelManagement">Quản lý khách sạn</a>
         <a class="nav-link" asp-page="/Admins/CustomerManagement">Quản lý khách hàng</a>
         <a class="nav-link" asp-page="/Admins/BookingManagement">Quản lý đặt phòng</a>
-        <a class="nav-link active" asp-page="/Admins/ContentManagement">Quản lý</a>
+        <a class="nav-link active" asp-page="/Admins/ContentManagement">Quản lý web</a>
     </nav>
 }
-@{
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Message"]
+    </div>
+}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.1/ckeditor5.css" />
+<script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/42.0.1/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/42.0.1/"
+        }
+    }
+</script>
+<style>
+    .ck-editor__editable {
+        height: 400px;
+    }
+</style>
+
+<div class="container">
+    <div class="row flex-lg-nowrap">
+
+
+        <div class="col">
+            <div class="row">
+                <div class="col mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="e-profile">
+
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+                                </ul>
+                                <div class="tab-content pt-3">
+                                    <div class="tab-pane active">
+                                        <form class="form" method="post">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row">
+
+                                                        <div class="form-group">
+                                                            <label>Tiêu đề</label>
+                                                            <input asp-for="SiteSettings.AppName" class="form-control" type="text" placeholder="Booking web" required>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Logo link:</label>
+                                                                <input asp-for="SiteSettings.LogoUrl" class="form-control" type="text" placeholder="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/9/97f3e7a54e9c6987283b78e016664776.svg" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Icon link:</label>
+                                                                <input asp-for="SiteSettings.FaviconUrl" class="form-control" type="text" required placeholder="https://www.traveloka.com/favicon.ico">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <div class="form-group">
+                                                                <label>FAQ</label>
+                                                                <input asp-asp-for="FAQFile" class="form-control" type="file">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <div class="form-group">
+                                                                <label>Privacy</label>
+                                                                <textarea asp-for="SiteSettings.PrivacyText" style="height: 400px" id="editor" class="form-control" rows="20" placeholder="Privacy"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col d-flex justify-content-end">
+                                                    <button class="btn btn-primary" type="submit" name="action" value="reset">Reset</button>
+                                                </div>
+                                                <div class="col d-flex justify-content-end">
+                                                    <button class="btn btn-primary" type="submit" name="action" value="save">Save Changes</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script type="module">
+    import {
+        ClassicEditor,
+        Essentials,
+        Bold,
+        Italic,
+        Font,
+        Paragraph
+    } from 'ckeditor5';
+
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            plugins: [Essentials, Bold, Italic, Font, Paragraph],
+            toolbar: {
+                items: [
+                    'undo', 'redo', '|', 'bold', 'italic', '|',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+                ]
+            }
+        })
+        .then( /* ... */)
+        .catch( /* ... */);
+</script>
+
+@section Scripts {
+    <script>
+        // Check if there's a message in TempData and show an alert
+        var message = '@TempData["Message"]';
+        if (message) {
+            alert(message);
+            // Optional: Automatically refresh the page after alert is dismissed
+            window.location.reload();
+        }
+    </script>
 }
