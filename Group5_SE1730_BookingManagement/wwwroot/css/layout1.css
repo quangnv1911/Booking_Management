@@ -1,0 +1,118 @@
+﻿.admin-layout .layout-header-list {
+    display: flex;
+}
+
+    .admin-layout .layout-header-list > li {
+        list-style: none;
+    }
+
+.admin-layout .layout-footer-container {
+    color: white;
+    background-color: rgba(28, 41, 48, 1.00);
+    text-align: center;
+    padding: 24px 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+.admin-layout .layout-body-container {
+    min-height: calc(100vh - 40px);
+}
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.admin-layout .container-fluid {
+    padding: 0;
+}
+
+.admin-layout .sidebar {
+    background-color: #343a40;
+    height: 100vh;
+    padding-top: 20px;
+    transition: margin 0.3s;
+    width: 220px;
+    position: relative;
+    z-index: 1000;
+}
+
+    .admin-layout .sidebar.collapsed {
+        margin-left: -220px;
+    }
+
+.admin-layout .nav-link {
+    color: white;
+}
+
+    .admin-layout .nav-link.active {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .admin-layout .nav-link:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+.admin-layout .main-content {
+    padding: 20px;
+    transition: margin-left 0.3s, width 0.3s;
+    flex: 1;
+    margin-left: 220px;
+    width: calc(100% - 220px);
+}
+
+    .admin-layout .main-content.collapsed {
+        margin-left: 0;
+        width: 100%;
+    }
+
+.admin-layout .content-section {
+    margin-bottom: 30px;
+}
+
+.admin-layout .arrow-toggle {
+    position: fixed;
+    top: 50%;
+    left: 220px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s;
+    transform: translateY(-50%);
+    z-index: 1001;
+}
+
+    .admin-layout .arrow-toggle.collapsed {
+        left: 0;
+        transform: translateY(-50%) rotate(180deg);
+    }
+
+.admin-layout .card {
+    margin-bottom: 20px;
+}
+
+.admin-layout canvas {
+    max-width: 100%;
+    height: auto !important;
+}
