@@ -34,7 +34,7 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
 
         public async Task<Room?> GetRoomByIdAsync(long id)
         {
-            return await _context.Rooms.FindAsync(id);
+            return await _context.Rooms.Include(r => r.RoomType).FirstAsync(r => r.Id == id);
         }
 
         public async Task<IEnumerable<Room?>> GetRoomsAsync()
@@ -49,7 +49,7 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
         }
 
         public async Task<IEnumerable<Room?>> GetRoomListByHomestayIdAsync(long homestayId) {
-            return await _context.Rooms.Where(r => r.HomestayId == homestayId).ToListAsync();
+            return await _context.Rooms.Include(r => r.RoomType).Where(r => r.HomestayId == homestayId).ToListAsync();
         }
 
         public int CountRoomByHomestayAndGuestId(long homestayId, string guestId)

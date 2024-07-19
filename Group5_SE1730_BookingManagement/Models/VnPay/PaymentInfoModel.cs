@@ -1,4 +1,4 @@
-﻿namespace Group5_SE1730_BookingManagement.Models
+﻿namespace Group5_SE1730_BookingManagement.Models.VnPay
 {
     public class PaymentInfoModel
     {

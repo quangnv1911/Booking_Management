@@ -439,8 +439,11 @@
                 {
                     for (var i = 0; i < Model.Homestays.Count; i++)
                     {
-                        <form action="Booking">
+                        <form action="Bookings">
                             <input type="hidden" name="homestayId" value="@Model.Homestays[i].Id" />
+                            <input type="text" name="daterange" placeholder="Nhận phòng:" value="@Model.GetFormattedDate(Model.CheckInDate) - @Model.GetFormattedDate(Model.CheckInDate.AddDays(Model.Nights))" aria-invalid="false" autocapitalize="sentences" autocomplete="on" autocorrect="on" dir="auto" spellcheck="true" class="css-11aywtz r-jwli3a r-13awgt0 r-t1w4ow r-1b43r93 r-b88u0q r-rjixqe r-bcqeeo r-1ny4l3l r-10paoce r-13n6l4s" data-testid="check-in-date-field">
+                            <input type="hidden" id="checkInDateInput" name="CheckInDate" value="@Model.CheckInDate" />
+                            <input type="hidden" id="nightsInput" name="Nights" value="@Model.Nights" />
                             <div class="container mt-5">
                                 <div class="homestay-card">
                                     <div>

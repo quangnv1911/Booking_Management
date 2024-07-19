@@ -4,7 +4,7 @@ using Group5_SE1730_BookingManagement.Services.Impl;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Group5_SE1730_BookingManagement.Pages.Booking
+namespace Group5_SE1730_BookingManagement.Pages.Bookings
 {
     public class IndexModel : PageModel
     {
@@ -18,7 +18,17 @@ namespace Group5_SE1730_BookingManagement.Pages.Booking
 
         public List<Room?> roomList { get; set; }
 
+        [BindProperty(SupportsGet = true)]
         public decimal? minValue { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public DateTime CheckInDate { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int Nights { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int Guests { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IHomestayService homestayService, IRoomService roomService) {
             _logger = logger;

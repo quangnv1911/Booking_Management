@@ -100,26 +100,27 @@ namespace Group5_SE1730_BookingManagement.Libraries
             return _responseData.TryGetValue(key, out var retValue) ? retValue : string.Empty;
         }
 
-        public string CreateRequestUrl(string baseUrl, string vnpHashSecret)
+        public string CreateRequestUrl(string baseUrl, string vnp_HashSecret)
         {
-            var data = new StringBuilder();
-
-            foreach (var (key, value) in _requestData.Where(kv => !string.IsNullOrEmpty(kv.Value)))
+            StringBuilder data = new StringBuilder();
+            foreach (KeyValuePair<string, string> kv in _requestData)
             {
-                data.Append(WebUtility.UrlEncode(key) + "=" + WebUtility.UrlEncode(value) + "&");
+                if (!String.IsNullOrEmpty(kv.Value))
+                {
+                    data.Append(WebUtility.UrlEncode(kv.Key) + "=" + WebUtility.UrlEncode(kv.Value) + "&");
+                }
             }
+            string queryString = data.ToString();
 
-            var querystring = data.ToString();
-
-            baseUrl += "?" + querystring;
-            var signData = querystring;
+            baseUrl += "?" + queryString;
+            String signData = queryString;
             if (signData.Length > 0)
             {
+
                 signData = signData.Remove(data.Length - 1, 1);
             }
-
-            var vnpSecureHash = HmacSha512(vnpHashSecret, signData);
-            baseUrl += "vnp_SecureHash=" + vnpSecureHash;
+            string vnp_SecureHash = HmacSha512(vnp_HashSecret, signData);
+            baseUrl += "vnp_SecureHash=" + vnp_SecureHash;
 
             return baseUrl;
         }
@@ -134,11 +135,11 @@ namespace Group5_SE1730_BookingManagement.Libraries
         private string HmacSha512(string key, string inputData)
         {
             var hash = new StringBuilder();
-            var keyBytes = Encoding.UTF8.GetBytes(key);
-            var inputBytes = Encoding.UTF8.GetBytes(inputData);
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            byte[] inputBytes = Encoding.UTF8.GetBytes(inputData);
             using (var hmac = new HMACSHA512(keyBytes))
             {
-                var hashValue = hmac.ComputeHash(inputBytes);
+                byte[] hashValue = hmac.ComputeHash(inputBytes);
                 foreach (var theByte in hashValue)
                 {
                     hash.Append(theByte.ToString("x2"));

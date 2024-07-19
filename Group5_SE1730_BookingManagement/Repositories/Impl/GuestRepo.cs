@@ -14,5 +14,10 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
         {
             return _context.Guests.ToList();
         }
+
+        public async Task<Guest?> GetGuestByIdAsync(int guestId)
+        {
+            return await _context.Guests.FindAsync(guestId);
+        }
     }
 }
