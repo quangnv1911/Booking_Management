@@ -39,12 +39,7 @@
     </header>
     <div class="container-fluid layout-body-container">
         <div class="row no-gutters">
-            <div class="sidebar" id="sidebar">
-                @RenderSection("Sidebar", required: false)
-                <button class="arrow-toggle" id="toggleButton">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-            </div>
+            
             <main role="main" class="main-content pb-3" id="main-content">
                 @RenderBody()
             </main>

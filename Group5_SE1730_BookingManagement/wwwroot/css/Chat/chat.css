@@ -273,3 +273,10 @@
 .text-left {
     text-align: left;
 }
+
+.chat-history {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+}

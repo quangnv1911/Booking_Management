@@ -7,10 +7,11 @@
         <li class="clearfix">
             <a asp-page="./Index" asp-route-id="@inbox.Id">
                 <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                <div class="about">
+                    <div class="name">@inbox.SecondUser?.FirstName</div>
+                </div>
             </a>
-            <div class="about">
-                <div class="name">@inbox.SecondUser?.UserName</div>
-            </div>
+            
         </li>
     }
     else

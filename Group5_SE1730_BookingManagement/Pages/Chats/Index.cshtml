@@ -1,12 +1,13 @@
 ﻿@page
 @model Group5_SE1730_BookingManagement.Pages.Chats.IndexModel
 @{
+
 }
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/Chat/chat.css" asp-append-version="true" />
 <div id="notificationBar" class="alert alert-info" style="display: none;">
-    New message received!
+    New message received! 
 </div>
 
 <div class="container">
@@ -42,7 +43,7 @@
                         </div>
                     </div>
                     <div class="chat-history">
-                        <ul class="m-b-0">
+                        <ul class="m-b-0" id="chat-list-history"> 
                             @await Html.PartialAsync("_MessageList", Model)
                         </ul>
                     </div>
@@ -100,15 +101,43 @@
         });
 
         // Function to simulate receiving a new message
-        function simulateNewMessage() {
-            notificationBar.style.display = 'block';
-            setTimeout(function () {
-                notificationBar.style.display = 'none';
-            }, 3000); // Hide the notification after 3 seconds
-        }
+       
 
         // Simulate receiving a new message for demonstration
         // In a real application, this would be triggered by receiving a message from the server
-        simulateNewMessage();
+        
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const chatHistory = document.querySelector('.chat-history');
+        const messageList = document.querySelector('.chat-history ul');
+
+        // Hàm để cuộn xuống cuối cùng
+        function scrollToBottom() {
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        // Gọi hàm scrollToBottom khi trang đã tải xong
+        scrollToBottom();
+
+        // Lắng nghe sự kiện để cuộn xuống khi có tin nhắn mới
+        // Ví dụ: khi nhận được thông báo từ server
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chatHub")
+            .build();
+
+        connection.on("ReceiveMessage", function (message) {
+            // Cập nhật danh sách tin nhắn
+            const li = document.createElement("li");
+            li.textContent = message.content;
+            messageList.appendChild(li);
+            // Cuộn xuống cuối cùng sau khi thêm tin nhắn mới
+            scrollToBottom();
+        });
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
     });
 </script>
