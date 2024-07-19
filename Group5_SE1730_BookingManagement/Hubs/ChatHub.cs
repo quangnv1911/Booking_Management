@@ -16,18 +16,13 @@ namespace Group5_SE1730_BookingManagement.Hubs
             _inboxService = inboxService;
             _messageService = messageService;
         }
-        public async Task SendMessage(string inboxId, string message)
+        public async Task SendMessage(string userID, string userReceive, string inboxId)
         {
-            // truyền thông tin đoạn chat lên
-            // kiểm tra xem 
 
 
-
-            await Clients.All.SendAsync("CreateChatBox", inboxId, message);
+            await Clients.All.SendAsync("New message");
         }
 
-
-        // Lấy thông tin các cuộc trò chuyện trong quá khứ
         public async Task SendUpdateInboxHistory(string userId)
         {
             var inboxList = _inboxService.GetInboxListByGuestId(userId);
@@ -36,9 +31,6 @@ namespace Group5_SE1730_BookingManagement.Hubs
         }
 
 
-        // Lấy thông tin các cuộc trò chuyện hiện tại
-
-        // Gửi message của cuộc trò chuyện hiện tại
 
 
     }
