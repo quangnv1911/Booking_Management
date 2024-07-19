@@ -69,5 +69,10 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
             await _homestayRepo.DeleteByIdAsync(id);
 
         }
+
+        public List<Homestay> GetHomestays()
+        {
+            return _homestayRepo.GetHomestays();
+        }
     }
 }

@@ -1,0 +1,124 @@
+﻿.layout-header-list {
+    display: flex;
+}
+
+    .layout-header-list > li {
+        list-style: none;
+    }
+
+
+.layout-footer-container {
+    color: white;
+    background-color: rgba(28, 41, 48, 1.00);
+    text-align: center;
+    padding: 24px 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+}
+
+.layout-body-container {
+    min-height: calc(100vh -40px);
+}
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.sidebar {
+    background-color: #343a40;
+    height: 100vh;
+    padding-top: 20px;
+    transition: margin 0.3s;
+    width: 220px; /* Width of the sidebar */
+    position: relative; /* Ensure the arrow icon is positioned relative to the sidebar */
+    z-index: 1000; /* Ensure sidebar is on top */
+}
+
+    .sidebar.collapsed {
+        margin-left: -220px; /* Negative width to hide the sidebar */
+    }
+
+.nav-link {
+    color: white;
+}
+
+    .nav-link.active {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .nav-link:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+.main-content {
+    padding: 20px;
+    transition: margin-left 0.3s, width 0.3s;
+    flex: 1;
+    margin-left: 220px;
+    width: calc(100% - 100px); /* Hẹp chiều rộng */
+}
+
+    .main-content.collapsed {
+        margin-left: 0;
+        width: 100%; /* Điều chỉnh chiều rộng khi sidebar thu gọn */
+    }
+
+.content-section {
+    margin-bottom: 30px;
+}
+
+.arrow-toggle {
+    position: fixed; /* Change to fixed to avoid overlap */
+    top: 50%;
+    left: 220px; /* Position it next to the sidebar */
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s;
+    transform: translateY(-50%); /* Center the button vertically */
+    z-index: 1001; /* Ensure button is on top of sidebar */
+}
+
+    .arrow-toggle.collapsed {
+        left: 0; /* Adjust position when sidebar is collapsed */
+        transform: translateY(-50%) rotate(180deg);
+    }
+
+.card {
+    margin-bottom: 20px;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto !important;
+}
+.input-sm {
+    max-width: 400px;
+}

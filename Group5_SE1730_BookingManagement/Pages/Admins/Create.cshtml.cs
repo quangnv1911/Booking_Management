@@ -1,7 +1,9 @@
 using Group5_SE1730_BookingManagement.Models;
 using Group5_SE1730_BookingManagement.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Group5_SE1730_BookingManagement.Pages.Admins
@@ -9,18 +11,22 @@ namespace Group5_SE1730_BookingManagement.Pages.Admins
     public class CreateModel : PageModel
     {
         private readonly IHomestayService _homestayService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public CreateModel(IHomestayService homestayService)
+        public CreateModel(IHomestayService homestayService, IWebHostEnvironment webHostEnvironment)
         {
             _homestayService = homestayService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [BindProperty]
         public Homestay Homestay { get; set; }
 
-        public IActionResult OnGet()
+        [BindProperty]
+        public IFormFile HotelImage { get; set; }
+
+        public void OnGet()
         {
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -28,6 +34,32 @@ namespace Group5_SE1730_BookingManagement.Pages.Admins
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            if (HotelImage != null)
+            {
+                if (!Path.GetExtension(HotelImage.FileName).Equals(".jpg", StringComparison.OrdinalIgnoreCase) &&
+                    !Path.GetExtension(HotelImage.FileName).Equals(".png", StringComparison.OrdinalIgnoreCase))
+                {
+                    ModelState.AddModelError("HotelImage", "Only .jpg and .png files are allowed.");
+                    return Page();
+                }
+
+                var fileName = Path.GetFileNameWithoutExtension(HotelImage.FileName) + "_" + Guid.NewGuid().ToString() + Path.GetExtension(HotelImage.FileName);
+                var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", fileName);
+
+                // Ensure the directory exists
+                var directory = Path.GetDirectoryName(filePath);
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await HotelImage.CopyToAsync(stream);
+                }
+                Homestay.Img = fileName;
             }
 
             await _homestayService.AddAsync(Homestay);

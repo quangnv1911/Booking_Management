@@ -1,6 +1,9 @@
 ﻿@page
 @model Group5_SE1730_BookingManagement.Pages.Admins.HotelManagementModel
 @{
+    Layout = "_AdminLayout";
+}
+@{
     ViewData["Title"] = "Quản lý khách sạn";
 }
 @section Sidebar {
@@ -21,24 +24,13 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                Tên khách sạn
-            </th>
-            <th>
-                Địa chỉ
-            </th>
-            <th>
-                Thành phố
-            </th>
-            <th>
-                Điện thoại
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Trạng thái
-            </th>
+            <th>Ảnh</th>
+            <th>Tên khách sạn</th>
+            <th>Địa chỉ</th>
+            <th>Thành phố</th>
+            <th>Điện thoại</th>
+            <th>Email</th>
+            <th>Trạng thái</th>
             <th></th>
         </tr>
     </thead>
@@ -46,6 +38,12 @@
         @foreach (var item in Model.Hotels)
         {
             <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Img))
+                    {
+                        <img src="~/images/@item.Img" alt="Hotel Image" style="width:100px;height:auto;" />
+                    }
+                </td>
                 <td>@item.HotelName</td>
                 <td>@item.Address</td>
                 <td>@item.City</td>

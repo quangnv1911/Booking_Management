@@ -1,6 +1,6 @@
-using Group5_SE1730_BookingManagement.Models;
-using Group5_SE1730_BookingManagement.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Group5_SE1730_BookingManagement.Services;
+using Group5_SE1730_BookingManagement.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,11 +15,12 @@ namespace Group5_SE1730_BookingManagement.Pages.Admins
             _homestayService = homestayService;
         }
 
-        public IList<Homestay> Hotels { get; set; }
+        public IList<Homestay> Hotels { get; private set; }
 
         public async Task OnGetAsync()
         {
-            Hotels = (IList<Homestay>)await _homestayService.GetAllAsync();
+            var homestays = await _homestayService.GetAllAsync();
+            Hotels = homestays.ToList();
         }
     }
 }

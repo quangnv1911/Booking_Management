@@ -32,19 +32,26 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
 
         public async Task AddAsync(Homestay homestay)
         {
-            await _context.Homestays.AddAsync(homestay);
+            _context.Homestays.Add(homestay);
             await _context.SaveChangesAsync();
         }
 
 
+
         public async Task DeleteByIdAsync(long id)
- {
+        {
             var homestay = await _context.Homestays.FindAsync(id);
             if (homestay != null)
             {
                 _context.Homestays.Remove(homestay);
-       await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
+        }
+        public async Task UpdateAsync(Homestay homestay)
+        {
+            _context.Entry(homestay).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
         }
 
 
@@ -72,19 +79,17 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
             return await _context.Homestays.FindAsync(id);
         }
 
-        public async Task UpdateAsync(Homestay homestay)
-        {
-            var oldHomestay = await _context.Homestays.FindAsync(homestay.Id);
-            if (oldHomestay != null)
-            {
-                _context.Homestays.Update(homestay);
-                await _context.SaveChangesAsync();
-            }
-        }
+
 
         public List<Homestay> GetHomestaysByGuest(string guestId)
         {
             return _context.Homestays.Where(g => g.GuestId == guestId).ToList();
+        }
+
+
+        public List<Homestay> GetHomestays()
+        {
+            return _context.Homestays.ToList();
         }
 
     }
