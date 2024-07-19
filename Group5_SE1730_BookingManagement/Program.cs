@@ -7,8 +7,8 @@ using Group5_SE1730_BookingManagement.Services.Impl;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Configuration;
 
 namespace Group5_SE1730_BookingManagement
 {
@@ -21,9 +21,9 @@ namespace Group5_SE1730_BookingManagement
             // Add database connection
             var configuration = builder.Configuration;
             builder.Services.AddDbContext<Group_5_SE1730_BookingManagementContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("Cnn")));
+                options.UseSqlServer(configuration.GetConnectionString("Cnn")));
 
-            // Add realtime signaIr
+            // Add realtime SignalR
             builder.Services.AddSignalR();
 
             // Add Identity security
@@ -31,35 +31,34 @@ namespace Group5_SE1730_BookingManagement
                 .AddEntityFrameworkStores<Group_5_SE1730_BookingManagementContext>()
                 .AddDefaultTokenProviders();
 
-            // Config identity options
+            // Configure identity options
             builder.Services.Configure<IdentityOptions>(options =>
             {
-                // Thiết lập về Password
-                options.Password.RequireDigit = false; // Không bắt phải có số
-                options.Password.RequireLowercase = false; // Không bắt phải có chữ thường
-                options.Password.RequireNonAlphanumeric = false; // Không bắt ký tự đặc biệt
-                options.Password.RequireUppercase = false; // Không bắt buộc chữ in
-                options.Password.RequiredLength = 3; // Số ký tự tối thiểu của password
-                options.Password.RequiredUniqueChars = 1; // Số ký tự riêng biệt
+                // Configure password settings
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 3;
+                options.Password.RequiredUniqueChars = 1;
 
-                // Cấu hình Lockout - khóa user
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // Khóa 5 phút
-                options.Lockout.MaxFailedAccessAttempts = 5; // Thất bại 5 lần thì khóa
+                // Configure lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
 
-                // Cấu hình về User.
-                options.User.AllowedUserNameCharacters = // các ký tự đặt tên user
-                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-                options.User.RequireUniqueEmail = true;  // Email là duy nhất
+                // Configure user settings
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
 
-                // Cấu hình đăng nhập.
-                options.SignIn.RequireConfirmedEmail = true;            // Cấu hình xác thực địa chỉ email (email phải tồn tại)
-                options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
-
+                // Configure sign-in settings
+                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
             });
 
-            // Cấu hình cookie cho identity
-            builder.Services.ConfigureApplicationCookie(options => {
+            // Configure cookie settings for identity
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
                 options.LoginPath = $"/login/";
@@ -67,50 +66,46 @@ namespace Group5_SE1730_BookingManagement
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 
-            // Cấu hình các cách login bên thứ 3
+            // Configure third-party login options
             builder.Services.AddAuthentication()
                 .AddGoogle(googleOptions =>
                 {
                     IConfigurationSection googleAuthNSection = configuration.GetSection("Authentication:Google");
-
-                    // Thiết lập ClientID và ClientSecret để truy cập API google
                     googleOptions.ClientId = googleAuthNSection["ClientId"];
                     googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
-                    // Cấu hình Url callback lại từ Google (không thiết lập thì mặc định là /signin-google)
                     googleOptions.CallbackPath = "/login-google";
                     googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
                 });
 
             // Add mail sender service
-            builder.Services.AddOptions();                                        // Kích hoạt Options
-            var mailsettings = builder.Configuration.GetSection("MailSettings");  // đọc config
-            builder.Services.Configure<MailSettings>(mailsettings);               // đăng ký để Inject
+            builder.Services.AddOptions();
+            var mailsettings = builder.Configuration.GetSection("MailSettings");
+            builder.Services.Configure<MailSettings>(mailsettings);
+            builder.Services.AddTransient<IEmailSender, MailService>();
 
-            builder.Services.AddTransient<IEmailSender, MailService>();        // Đăng ký dịch vụ Mail
-            // Add services to the container.
+            // Add services to the container
             builder.Services.AddRazorPages();
 
-            // Đăng kí Service 
-            builder.Services.AddTransient<IHomestayService, HomestayService>();
+            // Register services
             builder.Services.AddTransient<IBookingService, BookingService>();
             builder.Services.AddTransient<IGuestService, GuestService>();
             builder.Services.AddTransient<IInboxService, InboxService>();
             builder.Services.AddTransient<IMessageService, MessageService>();
+            builder.Services.AddTransient<IHomestayService, HomestayService>();
 
-            // Đăng kí Repo
-            builder.Services.AddTransient<IHomestayRepo, HomestayRepo>();
+            // Register repositories
             builder.Services.AddTransient<IBookingRepo, BookingRepo>();
             builder.Services.AddTransient<IGuestRepo, GuestRepo>();
             builder.Services.AddTransient<IInboxRepo, InboxRepo>();
             builder.Services.AddTransient<IMessageRepo, MessageRepo>();
-
+            builder.Services.AddTransient<IHomestayRepo, HomestayRepo>();
+            builder.Logging.AddConsole();
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configure the HTTP request pipeline
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
