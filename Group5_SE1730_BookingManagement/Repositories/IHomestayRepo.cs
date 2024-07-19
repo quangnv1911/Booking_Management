@@ -21,8 +21,6 @@ namespace Group5_SE1730_BookingManagement.Repositories
         Task<IEnumerable<Homestay>> GetAllAsync();
         Task<Homestay> GetByIdAsync(long id);
 
-        Task AddAsync(Homestay homestay);
-        Task UpdateAsync(Homestay homestay);
         Task DeleteAsync(long id);
         List<Homestay> GetHomestays();
 

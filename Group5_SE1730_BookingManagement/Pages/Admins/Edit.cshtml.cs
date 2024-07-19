@@ -77,7 +77,7 @@ namespace Group5_SE1730_BookingManagement.Pages.Admins
                 {
                     await HotelImage.CopyToAsync(stream);
                 }
-                homestayToUpdate.HotelImage = fileName;
+                homestayToUpdate.Img = fileName;
             }
 
             homestayToUpdate.HotelName = Homestay.HotelName;

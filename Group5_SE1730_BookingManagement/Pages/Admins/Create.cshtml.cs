@@ -59,7 +59,7 @@ namespace Group5_SE1730_BookingManagement.Pages.Admins
                 {
                     await HotelImage.CopyToAsync(stream);
                 }
-                Homestay.HotelImage = fileName;
+                Homestay.Img = fileName;
             }
 
             await _homestayService.AddAsync(Homestay);
