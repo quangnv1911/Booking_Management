@@ -92,7 +92,10 @@ namespace Group5_SE1730_BookingManagement
             builder.Services.AddTransient<IEmailSender, MailService>();        // Đăng ký dịch vụ Mail
             // Add services to the container.
             builder.Services.AddRazorPages();
-
+            //builder.Services.AddAntiforgery(options =>
+            //{
+            //    options.HeaderName = "X-CSRF-TOKEN";
+            //});
 
             // Đăng kí Service 
             builder.Services.AddTransient<IBookingService, BookingService>();
