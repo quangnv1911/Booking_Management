@@ -38,6 +38,10 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
         
         public async Task OnGetAsync(long homestayId)
         {
+            //Check if user login or not
+            if(!User.Identity.IsAuthenticated)
+                Response.Redirect("/Login");
+            
             homestay = await _homestayService.GetHomeStayByIdAsync(homestayId);
 
             roomList = (List<Room?>)await _roomService.GetRoomListByHomestayIdAsync(homestayId);

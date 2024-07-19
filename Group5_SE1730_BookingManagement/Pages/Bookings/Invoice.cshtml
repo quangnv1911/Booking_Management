@@ -42,33 +42,23 @@
                     <h4 class="card-header">Thông tin liên hệ</h4>
                     <div class="card-body">
                             <div class="form-group mb-3">
-                                <label for="fullName">Họ và tên</label>
-                                <input type="text" class="form-control bg-white" id="fullName" placeholder="Họ và tên">
+                            <label for="fullName"><strong>Họ và tên</strong></label>
+                                <input type="text" disabled="true" class="form-control bg-white" id="fullName" name="FullName" value="@Model.CurrentUser.FirstName.Trim() @Model.CurrentUser.MiddleName.Trim() @Model.CurrentUser.LastName.Trim()" placeholder="Họ và tên">
                             </div>
-                            <div class="form-group">
-                                <label for="passportId">Như trong Hộ chiếu/CMND/CCCD (không có danh xưng/ký tự đặc biệt)</label>
+@*                             <div class="form-group">
+                                <label for="passportId">Hộ chiếu/CMND/CCCD (không có danh xưng/ký tự đặc biệt)</label>
                                 <input type="text" class="form-control bg-white" id="passportId" placeholder="Hộ chiếu/CMND/CCCD">
-                            </div>
+                            </div> *@
                             <div class="form-group">
                                 <label for="email">E-mail</label>
-                                <input type="email" class="form-control bg-white" id="email" placeholder="E-mail">
+                                <input type="email" class="form-control bg-white" id="email" disabled="true" value="@Model.CurrentUser.Email" placeholder="E-mail">
                             </div>
                             <div class="form-group">
                                 <label for="phone">Số điện thoại</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <select class="form-control bg-white" id="countryCode">
-                                            <option value="+84">+84</option>
-                                            <option value="+62">+62</option>
-                                            <option value="+1">+1</option>
-                                            <!-- Add more country codes as needed -->
-                                        </select>
-                                    </div>
-                                    <input type="text" class="form-control bg-white" id="phone" placeholder="Số điện thoại">
-                                </div>
+                                <input type="text" class="form-control bg-white" id="phone" disabled="" placeholder="Số điện thoại" value="@Model.CurrentUser.PhoneNumber">
                                 <small class="form-text text-muted">ví dụ. +62812345678 gồm Mã quốc gia (+62) và Số di động 0812345678.</small>
                             </div>
-                            <div class="form-group radio-group">
+                            @* <div class="form-group radio-group">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="guestType" id="guestSelf" value="self" checked>
                                     <label class="form-check-label" for="guestSelf">Tôi là khách lưu trú</label>
@@ -77,18 +67,18 @@
                                     <input class="form-check-input" type="radio" name="guestType" id="guestOther" value="other">
                                     <label class="form-check-label" for="guestOther">Tôi đang đặt cho người khác</label>
                                 </div>
-                            </div>
+                            </div> *@
                     </div>
                     <h4 class="card-header">Bạn muốn thanh toán thế nào?</h4>
                     <div class="card-body">
                         <div class="form-check mb-3">
-                            <input type="radio" class="form-check-input" id="vnPay" name="paymentMethod">
-                            <label class="form-check-label" for="vnPaY">VnPay</label>
-                            <p>Đảm bảo bạn có ví điện tử hoặc ứng dụng ngân hàng di động hỗ trợ thanh toán bằng VnPay. Mã QR sẽ xuất hiện sau khi bạn nhấp vào nút 'Thanh toán'.</p>
+                            <input type="radio" class="form-check-input" id="vnPay" name="paymentMethod" checked>
+                            <label class="form-check-label" for="vnPaY"><strong>VnPay</strong></label>
+                            <p>Đảm bảo bạn có ví điện tử hoặc ứng dụng ngân hàng di động hỗ trợ thanh toán bằng VnPay. Bạn sẽ được chuyển tiếp đến trang của VnPay ngay sau khi bận nhấp vào nút 'Thanh toán''.</p>
                         </div>
                         <div class="form-check mb-3">
                             <input type="radio" class="form-check-input" id="directly" name="paymentMethod">
-                            <label class="form-check-label" for="vnPaY">Thanh toán trực tiếp</label>
+                            <label class="form-check-label" for="vnPaY"><strong>Thanh toán trực tiếp</strong></label>
                             <p>Thanh toán trực tiếp tại homestay</p>
                         </div>
                     </div>

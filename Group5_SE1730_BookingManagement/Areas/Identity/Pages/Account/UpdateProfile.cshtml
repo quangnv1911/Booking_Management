@@ -7,6 +7,12 @@
 <h1>@ViewData["Title"]</h1>
 
 <form method="post">
+    @{
+        if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <p style="color:red"><strong>Bạn cần hoàn thành đầy đủ thông tin trước khi thực hiện giao dịch</strong></p>
+        }
+    }
     <div class="form-group">
         <label asp-for="Input.FirstName" class="control-label"></label>
         <input asp-for="Input.FirstName" class="form-control" />
