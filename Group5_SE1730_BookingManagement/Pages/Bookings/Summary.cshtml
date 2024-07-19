@@ -34,19 +34,38 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="success-container text-center">
-                <div class="success-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <div class="success-message">
-                    Giao dịch thành công!
-                </div>
-                <div class="order-details">
-                    <p>Mã giao dịch: <strong>@Model.VnpTransactionNo</strong></p>
-                    <p>Số tiền: <strong>@Model.VnpAmount VND</strong></p>
-                    <p>Ngày thanh toán: <strong>@Model.VnpPayDate</strong></p>
-                    <p>Thông tin đơn hàng: <strong>@Model.VnpOrderInfo</strong></p>
-                    <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>
-                </div>
+                @if (Model.Status == true)
+                {
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="success-message">
+                        Giao dịch thành công!
+                    </div>
+                    <div class="order-details">
+                        <p>Mã giao dịch: <strong>@Model.VnpTransactionNo</strong></p>
+                        <p>Số tiền: <strong>@Model.VnpAmount VND</strong></p>
+                        <p>Ngày thanh toán: <strong>@Model.VnpPayDate</strong></p>
+                        <p>Thông tin đơn hàng: <strong>@Model.VnpOrderInfo</strong></p>
+                        <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="success-message">
+                        Giao dịch thất bại!
+                    </div>
+@*                     <div class="order-details">
+                        <p>Mã giao dịch: <strong>@Model.VnpTransactionNo</strong></p>
+                        <p>Số tiền: <strong>@Model.VnpAmount VND</strong></p>
+                        <p>Ngày thanh toán: <strong>@Model.VnpPayDate</strong></p>
+                        <p>Thông tin đơn hàng: <strong>@Model.VnpOrderInfo</strong></p>
+                        <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>
+                    </div> *@
+                }
                 <a href="/" class="btn btn-primary mt-3">Quay về trang chủ</a>
             </div>
         </div>

@@ -16,5 +16,7 @@ namespace Group5_SE1730_BookingManagement.Services
         Task<IEnumerable<BookingViewModel>> GetAllBookingsAsync();
         Task<int> GetTotalBookingsAsync();
         Task<List<int>> GetBookingsPerDayAsync(DateTime startDate);
+
+        Task<List<Booking?>> GetBookingListByGuestId(string guestId);
     }
 }

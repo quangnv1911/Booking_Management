@@ -12,5 +12,7 @@ namespace Group5_SE1730_BookingManagement.Repositories
         Task AddBooking(Booking booking);
         
         List<Booking> GetBookings();
+
+        Task UpdateBooking(Booking booking);
     }
 }

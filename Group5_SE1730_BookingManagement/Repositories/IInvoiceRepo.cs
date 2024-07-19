@@ -1,4 +1,6 @@
-﻿namespace Group5_SE1730_BookingManagement.Repositories
+﻿using Group5_SE1730_BookingManagement.Models;
+
+namespace Group5_SE1730_BookingManagement.Repositories
 {
     public interface IInvoiceRepo
     {
@@ -9,6 +11,8 @@
         int GetTotalCustomerInMonth(string guestId);
 
         decimal GetMoneyByMonth(string guestId, int month);
+
+        Task UpdateInvoice(Invoice invoice);
 
     }
 }
