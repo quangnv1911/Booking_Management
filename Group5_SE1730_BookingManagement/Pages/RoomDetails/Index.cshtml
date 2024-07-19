@@ -1,0 +1,27 @@
+﻿@page
+@model Group5_SE1730_BookingManagement.Pages.RoomDetails.IndexModel
+@{
+    ViewData["Title"] = "Room Details";
+}
+
+<div class="container">
+    <h2>@Model.Room.Name</h2>
+
+    <div class="card mb-4 shadow-sm">
+        <img class="card-img-top" src="@Model.Room.Homestay.Img" alt="Room Image">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Room.Name</h5>
+            <p class="card-text">Type: @Model.Room.RoomType.Name</p>
+            <p class="card-text">Homestay: @Model.Room.Homestay.HotelName, @Model.Room.Homestay.City</p>
+            <p class="card-text">Price: $@Model.Room.Price</p>
+            <p class="card-text">Max Guests: @Model.Room.MaxGuests</p>
+            <p class="card-text">Description: @Model.Room.RoomType.Description</p>
+        </div>
+    </div>
+
+    <!-- Book Now button -->
+    <a asp-page="/Booking" asp-route-roomId="@Model.Room.Id" class="btn btn-primary">Book Now</a>
+
+    <!-- Back to Homepage button -->
+    <a asp-page="/Homepage/Index" class="btn btn-secondary">Back</a>
+</div>
