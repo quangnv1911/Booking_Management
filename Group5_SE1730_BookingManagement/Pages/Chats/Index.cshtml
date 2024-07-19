@@ -5,6 +5,10 @@
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/Chat/chat.css" asp-append-version="true" />
+<div id="notificationBar" class="alert alert-info" style="display: none;">
+    New message received!
+</div>
+
 <div class="container">
     <div class="row clearfix">
         <div class="col-lg-12">
@@ -44,14 +48,17 @@
                     </div>
                     <div class="chat-message clearfix">
                         <div class="input-group mb-0">
-                            @if (Model.OppositeUser.LastName != null)
-                            {
-                                 <div class="input-group-prepend">
+
+                            <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-send"></i></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Enter text here...">
-                            }
-                           
+                            <form method="post">
+                                <input asasp-for="@Model.OppositeUser" hidden />
+                                <input asp-for="@Model.NewMessage" id="messageInput" type="text" class="form-control" placeholder="Enter text here...">
+                                <input type="submit" value="Send message" />
+                            </form>
+
+
                         </div>
                     </div>
                 </div>
@@ -61,3 +68,47 @@
 </div>
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/chat/chat.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var messageInput = document.getElementById("messageInput");
+        var notificationBar = document.getElementById("notificationBar");
+
+        messageInput.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevent the default form submission behavior
+
+                var message = messageInput.value.trim();
+                if (message) {
+                    // Send the message to the server using AJAX
+                    fetch("/Chats/SendMessage", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+                        },
+                        body: JSON.stringify({ message: message })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Handle the response (e.g., update the chat history)
+                            console.log(data);
+                            messageInput.value = ""; // Clear the input field
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+            }
+        });
+
+        // Function to simulate receiving a new message
+        function simulateNewMessage() {
+            notificationBar.style.display = 'block';
+            setTimeout(function () {
+                notificationBar.style.display = 'none';
+            }, 3000); // Hide the notification after 3 seconds
+        }
+
+        // Simulate receiving a new message for demonstration
+        // In a real application, this would be triggered by receiving a message from the server
+        simulateNewMessage();
+    });
+</script>

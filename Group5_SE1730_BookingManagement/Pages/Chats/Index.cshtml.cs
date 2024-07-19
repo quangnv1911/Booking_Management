@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Group5_SE1730_BookingManagement.Pages.Chats
 {
@@ -53,20 +54,25 @@ namespace Group5_SE1730_BookingManagement.Pages.Chats
 
         [BindProperty(SupportsGet = true)]
         public Guest? CurrentUser { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string? NewMessage { get; set; }
+
         public async Task OnGet(string? Id)
         {
-            if(Id != null)
+            if (Id != null)
             {
                 Console.WriteLine(Id);
             }
             CurrentUser = await _userManager.GetUserAsync(User);
+
             Inboxes = _inboxService.GetInboxListByGuestId(CurrentUser?.Id);
 
 
             if (Id != null)
             {
                 InboxData = _inboxService.GetInboxById(long.Parse(Id));
-                if(InboxData?.FirstUserId == CurrentUser?.Id)
+                if (InboxData?.FirstUserId == CurrentUser?.Id)
                 {
                     OppositeUser = InboxData?.SecondUser;
                 }
@@ -76,10 +82,40 @@ namespace Group5_SE1730_BookingManagement.Pages.Chats
                 }
                 Messages = _messageService.GetMessagesByInboxId(long.Parse(Id));
             }
-            
+
 
         }
 
+        public async Task<IActionResult> OnPost(string Id)
+        {
+            Message message = new Message();
+            CurrentUser = await _userManager.GetUserAsync(User);
+
+            Inbox inbox = _inboxService.GetInboxById(long.Parse(Id));
+            if (inbox.FirstUserId.Equals(CurrentUser.Id))
+            {
+                _messageService.CreateMessage(NewMessage, CurrentUser?.Id, DateTime.Now, long.Parse(Id));
+                await _chatHub.Clients.Users(inbox?.SecondUserId).SendAsync("HaveNewMessage");
+            }
+            else
+            {
+                _messageService.CreateMessage(NewMessage, CurrentUser?.Id, DateTime.Now, long.Parse(Id));
+                await _chatHub.Clients.Users(inbox?.FirstUserId).SendAsync("HaveNewMessage");
+            }
+
+
+            return RedirectToPage("Index", new { id = Id });
+        }
+
+
+        public IActionResult OnPostSendMessage()
+        {
+            // Handle the message submission here
+            // For example, save the message to a database or send it to connected clients
+            _logger.Log(LogLevel.Debug, "dfs", "dfs");
+            // Assuming you return JSON data for the client-side JavaScript
+            return new JsonResult(new { success = true });
+        }
 
 
 

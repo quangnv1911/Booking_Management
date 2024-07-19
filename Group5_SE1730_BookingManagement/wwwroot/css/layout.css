@@ -20,6 +20,7 @@
 .layout-body-container{
 
 
+
     min-height: 500px;
 }
 
@@ -120,4 +121,5 @@ canvas {
     max-width: 100%;
     height: auto !important;
 }
+
 
