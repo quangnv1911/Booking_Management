@@ -18,12 +18,8 @@
 }
 
 .layout-body-container{
-
-
-
     min-height: 500px;
 }
-
 
 html {
     font-size: 14px;
@@ -121,5 +117,4 @@ canvas {
     max-width: 100%;
     height: auto !important;
 }
-
 
