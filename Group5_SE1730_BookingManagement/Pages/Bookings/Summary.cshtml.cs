@@ -67,7 +67,7 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
 
             if (computedHash.Equals(VnpSecureHash))
             {
-                var currenBooking = await _bookingService.GetBookingByIdAysnc(int.Parse(bookingId));
+                var currenBooking = await _bookingService.GetBookingByIdAsync(int.Parse(bookingId));
                 // Xử lý đơn hàng theo thông tin nhận được
                 if (VnpResponseCode == "00" && VnpTransactionStatus == "00")
                 {

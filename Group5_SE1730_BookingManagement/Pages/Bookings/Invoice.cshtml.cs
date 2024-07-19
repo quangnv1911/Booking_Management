@@ -96,7 +96,7 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
             paymentInfo.OrderType = "other";
             paymentInfo.OrderDescription = "Booking homestay " + homestayInfo.HotelName + " - " + roomInfo.Name;
             paymentInfo.Name = FullName;
-            var paymentURL = _vnPayService.CreatePaymentUrl(paymentInfo, HttpContext);
+            var paymentURL = _vnPayService.CreatePaymentUrl(paymentInfo, HttpContext, newBooking.Id.ToString());
             return Redirect(paymentURL);
         }
     }
