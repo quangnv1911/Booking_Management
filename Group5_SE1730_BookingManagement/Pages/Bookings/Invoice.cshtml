@@ -1,0 +1,122 @@
+﻿@page
+@model Group5_SE1730_BookingManagement.Pages.Bookings.InvoiceModel
+@{
+}
+<style>
+    /*     body {
+            background-color: #1c1c1c;
+            color: white;
+        } */
+
+    .card {
+        background-color: #F5FCFC;
+    }
+
+    .form-control, .form-check-label, .btn {
+        background-color: #F5FCFC;
+        border: none;
+        /* color: white; */
+    }
+
+    .btn-primary {
+        background-color: #ff6f61;
+        border: none;
+    }
+
+    .btn-secondary {
+        background-color: #4CAF50;
+        border: none;
+    }
+
+    .card-header, .card-body {
+        background-color: #F5FCFC;
+    }
+</style>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <form class="mb-4" method="post">
+                <input type="hidden" name="roomId" value="@Model.roomInfo.Id" />
+                <input type="hidden" name="homestayId" value="@Model.homestayInfo.Id"/>
+                <div class="card p-4">
+                    <h4 class="card-header">Thông tin liên hệ</h4>
+                    <div class="card-body">
+                            <div class="form-group mb-3">
+                                <label for="fullName">Họ và tên</label>
+                                <input type="text" class="form-control bg-white" id="fullName" placeholder="Họ và tên">
+                            </div>
+                            <div class="form-group">
+                                <label for="passportId">Như trong Hộ chiếu/CMND/CCCD (không có danh xưng/ký tự đặc biệt)</label>
+                                <input type="text" class="form-control bg-white" id="passportId" placeholder="Hộ chiếu/CMND/CCCD">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" class="form-control bg-white" id="email" placeholder="E-mail">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Số điện thoại</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <select class="form-control bg-white" id="countryCode">
+                                            <option value="+84">+84</option>
+                                            <option value="+62">+62</option>
+                                            <option value="+1">+1</option>
+                                            <!-- Add more country codes as needed -->
+                                        </select>
+                                    </div>
+                                    <input type="text" class="form-control bg-white" id="phone" placeholder="Số điện thoại">
+                                </div>
+                                <small class="form-text text-muted">ví dụ. +62812345678 gồm Mã quốc gia (+62) và Số di động 0812345678.</small>
+                            </div>
+                            <div class="form-group radio-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="guestType" id="guestSelf" value="self" checked>
+                                    <label class="form-check-label" for="guestSelf">Tôi là khách lưu trú</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="guestType" id="guestOther" value="other">
+                                    <label class="form-check-label" for="guestOther">Tôi đang đặt cho người khác</label>
+                                </div>
+                            </div>
+                    </div>
+                    <h4 class="card-header">Bạn muốn thanh toán thế nào?</h4>
+                    <div class="card-body">
+                        <div class="form-check mb-3">
+                            <input type="radio" class="form-check-input" id="vnPay" name="paymentMethod">
+                            <label class="form-check-label" for="vnPaY">VnPay</label>
+                            <p>Đảm bảo bạn có ví điện tử hoặc ứng dụng ngân hàng di động hỗ trợ thanh toán bằng VnPay. Mã QR sẽ xuất hiện sau khi bạn nhấp vào nút 'Thanh toán'.</p>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input type="radio" class="form-check-input" id="directly" name="paymentMethod">
+                            <label class="form-check-label" for="vnPaY">Thanh toán trực tiếp</label>
+                            <p>Thanh toán trực tiếp tại homestay</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block mt-3">Pay</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-4">
+                <h4>@Model.homestayInfo.HotelName</h4>
+                <p>Nhận phòng: @Model.CheckInDate</p>
+                <p>Trả phòng: @Model.CheckInDate.AddDays(Model.Nights)</p>
+                <div>
+                    <h5>@Model.roomInfo.RoomType.Name</h5>
+                    <p>Sức chứa: @Model.roomInfo.MaxGuests</p>
+                </div>
+                <div class="mt-4">
+                    <h4>Tổng giá tiền</h4>
+                    <h4>@Model.roomInfo.Price VND</h4>
+                </div>
+            </div>
+            @* <div class="card p-4 mt-4">
+                <h5>Chi tiết người liên lạc</h5>
+                <p>Tên khách: Nguyen Van Hoang</p>
+                <p>Điện thoại: +84357257436</p>
+                <p>Email: hoangnv123@gmail.com</p>
+                <button class="btn btn-secondary btn-block mt-3">sự lựa chọn tuyệt vời cho kỳ nghỉ của bạn!</button>
+            </div> *@
+        </div>
+    </div>
+</div>

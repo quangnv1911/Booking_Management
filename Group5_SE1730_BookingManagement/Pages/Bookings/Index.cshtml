@@ -1,5 +1,5 @@
 ﻿@page
-@model Group5_SE1730_BookingManagement.Pages.Booking.IndexModel
+@model Group5_SE1730_BookingManagement.Pages.Bookings.IndexModel
 @{
 }
 <style>
@@ -28,7 +28,7 @@
     <div class="homestay-card">
         <div class="row">
             <div class="col-md-4">
-                <img src="homestay.jpg" alt="Homestay Image" class="homestay-img">
+                <img src="@Model.homestay.Img" alt="Homestay Image" class="homestay-img">
                 <div class="mt-2"><a href="#">Xem tất cả hình ảnh</a></div>
             </div>
             <div class="col-md-8">
@@ -48,20 +48,26 @@
         <h4>Những phòng còn trống tại @Model.homestay.HotelName</h4>
         @for (int i = 0; i < Model.roomList.Count; i++)
         {
-            <div class="room-details @(i>=1?"mt-3":"")">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="room.jpg" alt="Room Image" class="img-fluid">
-                    </div>
-                    <div class="col-md-8">
-                        <h5>@Model.roomList[i].Name</h5>
-                        <p>Tên loại phòng: @Model.roomList[i].RoomType</p>
-                        <p>Giá/phòng/đêm: <strong>@Model.roomList[i].Price VND</strong> <span class="text-muted">Chưa bao gồm thuế và phí</span></p>
-                        <p>Sức chứa: <strong>@Model.roomList[i].MaxGuests</strong></p>
-                        <button class="btn btn-warning">Chọn phòng</button>
+            <form action="/Bookings/Invoice">
+                <input type="hidden" name="roomId" value="@Model.roomList[i].Id"/>
+                <input type="hidden" name="homestayId" value="@Model.homestay.Id"/>
+                <input type="hidden" name="checkInDate" value="@Model.CheckInDate"/>
+                <input type="hidden" name="nights" value="@Model.Nights" />
+                <div class="room-details @(i>=1?"mt-3":"")">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="@Model.roomList[i].Img" alt="Room Image" class="img-fluid">
+                        </div>
+                        <div class="col-md-8">
+                            <h5>@Model.roomList[i].Name</h5>
+                            <p>Tên loại phòng: @Model.roomList[i].RoomType.Name</p>
+                            <p>Giá/phòng/đêm: <strong>@Model.roomList[i].Price VND</strong> <span class="text-muted">Chưa bao gồm thuế và phí</span></p>
+                            <p>Sức chứa: <strong>@Model.roomList[i].MaxGuests</strong></p>
+                            <input type="submit" class="btn btn-warning" value="Chọn phòng"/>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         }
     </div>
 </div>

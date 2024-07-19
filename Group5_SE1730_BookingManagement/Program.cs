@@ -118,6 +118,7 @@ namespace Group5_SE1730_BookingManagement
             builder.Services.AddTransient<IRoomService, RoomService>();
             builder.Services.AddTransient<IInvoiceService, InvoiceService>();
             builder.Services.AddTransient<IHomestayService, HomestayService>();
+            builder.Services.AddTransient<IVnPayService, VnPayService>();
             builder.Services.AddTransient<IFAQService, FAQService>();
 
 

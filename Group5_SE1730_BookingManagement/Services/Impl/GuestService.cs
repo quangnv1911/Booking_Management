@@ -18,6 +18,9 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
             return _guestRepo.GetGuests();
         }
 
+        public async Task<Guest?> GetGuestById(int guestId) {
+            return await _guestRepo.GetGuestByIdAsync(guestId);
+        }
         public Guest GetGuestById(string id)
         {
             return _guestRepo.GetGuestById(id);
