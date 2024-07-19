@@ -23,6 +23,9 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
         [BindProperty(SupportsGet = true)]
         public int Guests { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string FullName { get; set; }
+
         public InvoiceModel(IRoomService roomService,
             IHomestayService homestayService,
             IBookingService bookingService,
@@ -74,11 +77,10 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
 
 
             PaymentInfoModel paymentInfo = new PaymentInfoModel();
-            paymentInfo.Amount = 100;
+            paymentInfo.Amount = Convert.ToDouble(roomInfo.Price * Nights);
             paymentInfo.OrderType = "other";
-            //paymentInfo.OrderDescription = "Booking homestay " + homestayInfo.HotelName + " - " + roomInfo.Name;
-            paymentInfo.OrderDescription = "Just booking bro";
-            paymentInfo.Name = "Bui Viet Hoang";
+            paymentInfo.OrderDescription = "Booking homestay " + homestayInfo.HotelName + " - " + roomInfo.Name;
+            paymentInfo.Name = FullName;
             var paymentURL = _vnPayService.CreatePaymentUrl(paymentInfo, HttpContext);
             return Redirect(paymentURL);
         }
