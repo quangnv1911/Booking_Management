@@ -25,7 +25,7 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
             await _bookingRepo.AddBooking(booking);
         }
 
-        public async Task<Booking?> GetBookingById(int bookingId)
+        public async Task<Booking?> GetBookingByIdAsync(int bookingId)
         {
             return await _bookingRepo.GetBookingById(bookingId);
 

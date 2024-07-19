@@ -13,7 +13,7 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
         {
             _configuration = configuration;
         }
-        public string CreatePaymentUrl(PaymentInfoModel model, HttpContext context)
+        public string CreatePaymentUrl(PaymentInfoModel model, HttpContext context, string bookingId)
         {
             var timeZoneById = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
             var timeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneById);
@@ -31,7 +31,7 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
             pay.AddRequestData("vnp_Locale", _configuration["Vnpay:Locale"]);
             pay.AddRequestData("vnp_OrderInfo", $"Thanh toan don hang: {model.Name}");
             pay.AddRequestData("vnp_OrderType", model.OrderType);
-            pay.AddRequestData("vnp_ReturnUrl", urlCallBack);
+            pay.AddRequestData("vnp_ReturnUrl", urlCallBack+"&bookingId="+bookingId);
             pay.AddRequestData("vnp_TxnRef", tick);
 
             var paymentUrl =

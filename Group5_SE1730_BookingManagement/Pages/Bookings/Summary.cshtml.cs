@@ -1,4 +1,5 @@
 ﻿using Group5_SE1730_BookingManagement.Models;
+using Group5_SE1730_BookingManagement.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,7 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
         public string VnpSecureHash { get; set; }
 
         private readonly IEmailSender _emailSender;
+        private readonly IBookingService _bookingService;
 
         private UserManager<Guest> _userManager;
         private Guest CurrentUser { get; set; }
@@ -31,13 +33,14 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
         [BindProperty(SupportsGet = true)]
         public bool? Status { get; set; }
 
-        public SummaryModel(IEmailSender emailSender, UserManager<Guest> userManager)
+        public SummaryModel(IEmailSender emailSender, UserManager<Guest> userManager, IBookingService bookingService)
         {
             _emailSender = emailSender;
             _userManager = userManager;
+            _bookingService = bookingService;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string bookingId)
         {
             CurrentUser = await _userManager.GetUserAsync(User);
 
@@ -64,10 +67,12 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
 
             if (computedHash.Equals(VnpSecureHash))
             {
+                var currenBooking = await _bookingService.GetBookingByIdAysnc(int.Parse(bookingId));
                 // Xử lý đơn hàng theo thông tin nhận được
                 if (VnpResponseCode == "00" && VnpTransactionStatus == "00")
                 {
                     Status = true;
+                    
                     //Create infomation about email
                     var subject = "Payment Information";
                     var message = $"Payment Information: \n" +
