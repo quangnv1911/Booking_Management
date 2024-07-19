@@ -1,0 +1,72 @@
+﻿@page
+@model Group5_SE1730_BookingManagement.Pages.Booking.IndexModel
+@{
+}
+<style>
+        .homestay-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .homestay-img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        .homestay-details, .room-details {
+            margin-top: 15px;
+        }
+        .star-rating {
+            color: #ffc107;
+        }
+        .available-rooms {
+            margin-top: 20px;
+        }
+</style>
+
+<div class="container mt-5">
+    <div class="homestay-card">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="homestay.jpg" alt="Homestay Image" class="homestay-img">
+                <div class="mt-2"><a href="#">Xem tất cả hình ảnh</a></div>
+            </div>
+            <div class="col-md-8">
+                <h2>@Model.homestay.HotelName</h2>
+                <div class="star-rating">
+                    &#9733;&#9733;&#9733;&#9733;&#9734;
+                </div>
+                <p>(789 đánh giá) Ấn tượng</p>
+                <p><i class="fas fa-map-marker-alt"></i> @Model.homestay.Address, @Model.homestay.City</p>
+                <p>Giá/phòng/đêm từ <strong>@Model.minValue VND</strong> <span class="text-muted">Chưa bao gồm thuế và phí</span></p>
+                <button class="btn btn-warning">Chọn phòng</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="available-rooms">
+        <h4>Những phòng còn trống tại @Model.homestay.HotelName</h4>
+        @for (int i = 0; i < Model.roomList.Count; i++)
+        {
+            <div class="room-details @(i>=1?"mt-3":"")">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="room.jpg" alt="Room Image" class="img-fluid">
+                    </div>
+                    <div class="col-md-8">
+                        <h5>@Model.roomList[i].Name</h5>
+                        <p>Tên loại phòng: @Model.roomList[i].RoomType</p>
+                        <p>Giá/phòng/đêm: <strong>@Model.roomList[i].Price VND</strong> <span class="text-muted">Chưa bao gồm thuế và phí</span></p>
+                        <p>Sức chứa: <strong>@Model.roomList[i].MaxGuests</strong></p>
+                        <button class="btn btn-warning">Chọn phòng</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@* <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script> *@

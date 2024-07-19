@@ -5,13 +5,27 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
 {
     public class RoomService : IRoomService
     {
-        private readonly IRoomRepo _roomRepo;
+        private IRoomRepo _roomRepo;
 
-        public RoomService(IRoomRepo roomRepo)
-        {
+        public RoomService(IRoomRepo roomRepo) {
             _roomRepo = roomRepo;
         }
 
+        public async Task<IEnumerable<Room?>> GetAllRoomsAsync()
+        {
+            return await _roomRepo.GetRoomsAsync();
+        }
+
+        public async Task<Room?> GetRoomByIdAsync(int roomId)
+        {
+            return await _roomRepo.GetRoomByIdAsync(roomId);
+        }
+
+        public async Task<IEnumerable<Room?>> GetRoomListByHomestayIdAsync(long homestayId)
+        {
+            return await _roomRepo.GetRoomListByHomestayIdAsync(homestayId);
+        }
+        
         public int CountRoomByHomestayAndGuestId(long homestayId, string guestId)
         {
             return _roomRepo.CountRoomByHomestayAndGuestId(homestayId, guestId);

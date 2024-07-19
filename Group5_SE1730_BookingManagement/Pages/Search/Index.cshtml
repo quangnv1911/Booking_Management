@@ -1,0 +1,524 @@
+﻿@page
+@model Group5_SE1730_BookingManagement.Pages.Search.IndexModel
+@{
+}
+<link rel="stylesheet" href="~/css/Areas/Search/search.css" />
+<!--Plugin CSS file with desired skin-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css" />
+
+<!--jQuery-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!--Plugin JavaScript file-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+
+<style>
+    .fullSlider{
+        width: 274px !important;
+    }
+
+/*     .fullSlider span {
+        width: 298px;
+    } */
+
+    .homestay-card {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .homestay-img {
+        max-width: 200px;
+        border-radius: 5px;
+    }
+
+    .homestay-details {
+        flex: 1;
+        margin-left: 15px;
+    }
+
+    .homestay-price {
+        text-align: right;
+    }
+
+    .star-rating {
+        color: #ffc107;
+    }
+
+    .services span {
+        margin-right: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 3px 7px;
+        background-color: #f8f9fa;
+    }
+</style>
+
+<form method="get">
+    <div class="css-1dbjc4n r-gtdqiz r-ipm5af" style="
+            transition: all ease 300ms;
+            z-index: 100;
+            -webkit-transition: all ease 300ms;
+            -moz-transition: all ease 300ms;
+          " id="accom-search-bar">
+        <div class="css-1dbjc4n r-1gwmomf r-7fnjib r-b4qz5r r-18u37iz r-1f1sjgu r-13qz1uu r-1g40b8q">
+            <div class="css-1dbjc4n r-18u37iz r-1jgb5lz r-wech8c r-1guathk r-13qz1uu">
+                <div class="css-1dbjc4n r-obd0qt r-zo7nv5 r-13awgt0 r-18u37iz r-1h0z5md">
+                    <div class="css-1dbjc4n r-13awgt0">
+                        <div class="css-1dbjc4n r-tqpus0">
+                            <div tabindex="0" class="css-1dbjc4n r-1loqt21">
+                                <div class="css-1dbjc4n r-1awozwy r-13awgt0 r-18u37iz r-1777fci r-edyy15">
+                                    <div class="css-1dbjc4n r-v1sgqt r-42olwf r-kdyh1x r-rs99b7 r-1p0dtai r-1d2f490 r-u8s1d r-zchlnj r-ipm5af r-14qw7yl r-1wyyakw" style="
+                            height: calc(100% - 2);
+                            -webkit-transition-delay: 0ms;
+                            transition-delay: 0ms;
+                            -webkit-transition-property: width, height,
+                              border-color, border-width, background-color;
+                            transition-property: width, height, border-color,
+                              border-width, background-color;
+                            -webkit-transition-timing-function: ease;
+                            transition-timing-function: ease;
+                            width: calc(100% - 2);
+                            will-change: width, height, border-color,
+                              border-width, background-color;
+                            -moz-transition-property: width, height,
+                              border-color, border-width, background-color;
+                          "></div>
+                                    <div class="css-1dbjc4n r-1kb76zh">
+                                        <svg width="16" height="16" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" data-id="IcSystemMapLocationFill12">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6 12C6 12 10.5 8.5 10.5 5.5C10.5 2.73858 8.76142 0.5 6 0.5C3.23858 0.5 1.5 2.73858 1.5 5.5C1.5 8.5 6 12 6 12ZM6 7C7.10457 7 8 6.10457 8 5C8 3.89543 7.10457 3 6 3C4.89543 3 4 3.89543 4 5C4 6.10457 4.89543 7 6 7Z" fill="#FFFFFF"></path>
+                                        </svg>
+                                    </div>
+                                    <input type="text" placeholder="Thành phố, khách sạn, điểm đến" name="Destination" value="@Model.Destination" aria-invalid="false" autocapitalize="sentences" autocomplete="on" autocorrect="on" dir="auto" spellcheck="true" class="css-11aywtz r-jwli3a r-13awgt0 r-t1w4ow r-1b43r93 r-b88u0q r-rjixqe r-bcqeeo r-1ny4l3l r-10paoce r-13n6l4s" data-testid="autocomplete-field">
+                                </div>
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="css-1dbjc4n r-sexje">
+                        <div class="css-1dbjc4n r-tqpus0">
+                            <div tabindex="0" class="css-1dbjc4n r-1loqt21">
+                                <div class="css-1dbjc4n r-1awozwy r-13awgt0 r-18u37iz r-1777fci r-edyy15">
+                                    <div class="css-1dbjc4n r-v1sgqt r-42olwf r-kdyh1x r-rs99b7 r-1p0dtai r-1d2f490 r-u8s1d r-zchlnj r-ipm5af r-14qw7yl r-1wyyakw" style="
+                            height: calc(100% - 2);
+                            -webkit-transition-delay: 0ms;
+                            transition-delay: 0ms;
+                            -webkit-transition-property: width, height,
+                              border-color, border-width, background-color;
+                            transition-property: width, height, border-color,
+                              border-width, background-color;
+                            -webkit-transition-timing-function: ease;
+                            transition-timing-function: ease;
+                            width: calc(100% - 2);
+                            will-change: width, height, border-color,
+                              border-width, background-color;
+                            -moz-transition-property: width, height,
+                              border-color, border-width, background-color;
+                          "></div>
+                                    @*                                 <div class="css-1dbjc4n r-1kb76zh">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-id="IcSystemCalendar">
+                                    <path d="M7 2V5M17 2V5M3 8H21M11.5 11.5H12.5V12.5H11.5V11.5ZM11.5 16.5H12.5V17.5H11.5V16.5ZM16.5 11.5H17.5V12.5H16.5V11.5ZM6.5 16.5H7.5V17.5H6.5V16.5ZM5 21H19C20.1046 21 21 20.1046 21 19V6C21 4.89543 20.1046 4 19 4H5C3.89543 4 3 4.89543 3 6V19C3 20.1046 3.89543 21 5 21Z" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 11.5V12.5H6.5V11.5H7.5Z" stroke="#0194F3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                    </div> *@
+                                    <input type="text" name="daterange" placeholder="Nhận phòng:" value="@Model.GetFormattedDate(Model.CheckInDate) - @Model.GetFormattedDate(Model.CheckInDate.AddDays(Model.Nights))" aria-invalid="false" autocapitalize="sentences" autocomplete="on" autocorrect="on" dir="auto" spellcheck="true" class="css-11aywtz r-jwli3a r-13awgt0 r-t1w4ow r-1b43r93 r-b88u0q r-rjixqe r-bcqeeo r-1ny4l3l r-10paoce r-13n6l4s" data-testid="check-in-date-field">
+                                    <input type="hidden" id="checkInDateInput" name="CheckInDate" value="@Model.CheckInDate" />
+                                    <input type="hidden" id="nightsInput" name="Nights" value="@Model.Nights" />
+                                    @*                                 <div class="css-1dbjc4n r-1jkjb">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" data-id="IcSystemChevronDown12">
+                                    <path d="M2 4.5L6 8.5L10 4.5" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                    </div> *@
+                                </div>
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="css-1dbjc4n r-1wnm6qf">
+                        <div class="css-1dbjc4n">
+                            <span></span>
+                            <div class="css-1dbjc4n r-tqpus0">
+                                <div tabindex="0" class="css-1dbjc4n r-1loqt21">
+                                    <div class="css-1dbjc4n r-1awozwy r-13awgt0 r-18u37iz r-1777fci r-edyy15">
+                                        <div class="css-1dbjc4n r-v1sgqt r-42olwf r-kdyh1x r-rs99b7 r-1p0dtai r-1d2f490 r-u8s1d r-zchlnj r-ipm5af r-14qw7yl r-1wyyakw" style="
+                              height: calc(100% - 2);
+                              -webkit-transition-delay: 0ms;
+                              transition-delay: 0ms;
+                              -webkit-transition-property: width, height,
+                                border-color, border-width, background-color;
+                              transition-property: width, height, border-color,
+                                border-width, background-color;
+                              -webkit-transition-timing-function: ease;
+                              transition-timing-function: ease;
+                              width: calc(100% - 2);
+                              will-change: width, height, border-color,
+                                border-width, background-color;
+                              -moz-transition-property: width, height,
+                                border-color, border-width, background-color;
+                            "></div>
+                                        @*                                     <div class="css-1dbjc4n r-1kb76zh">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-id="IcHotelRoomGuest">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.99958 15C13 15 13 21 13 21H3C3 21 2.99916 15 7.99958 15Z" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 13C9.65685 13 11 11.6569 11 10C11 8.34315 9.65685 7 8 7C6.34315 7 5 8.34315 5 10C5 11.6569 6.34315 13 8 13Z" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M9 4V3H20V21M20 21H21M20 21H16M13 7H17M17 12H15M17 12V10.5M17 12V13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </svg>
+                                        </div> *@
+                                        <input type="number" placeholder="Số lượng khách" value="@Model.Guests" name="Guests" aria-invalid="false" autocapitalize="sentences" autocomplete="on" autocorrect="on" dir="auto" spellcheck="true" class="css-11aywtz r-jwli3a r-13awgt0 r-t1w4ow r-1b43r93 r-b88u0q r-rjixqe r-bcqeeo r-1ny4l3l r-10paoce r-13n6l4s" data-testid="occupancy-field"><span style="color:white">Người</span>
+                                        @*                                     <div class="css-1dbjc4n r-1jkjb">
+                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" data-id="IcSystemChevronDown12">
+                                        <path d="M2 4.5L6 8.5L10 4.5" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </svg>
+                                        </div> *@
+                                    </div>
+                                </div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div aria-live="polite" role="button" tabindex="0" class="css-18t94o4 css-1dbjc4n r-1ihkh82 r-kdyh1x r-1loqt21 r-1pi2tsx r-10paoce r-1e081e0 r-5njf8e r-1otgn73 r-lrvibr" data-testid="search-submit-button">
+                        <div dir="auto" class="css-901oao r-1yadl64 r-1vonz36 r-109y4c4 r-1cis278 r-1udh08x r-t60dpp r-u8s1d r-3s2u2q r-92ng3h">
+                            Tìm khách sạn
+                        </div>
+                        <div class="css-1dbjc4n r-1awozwy r-13awgt0 r-18u37iz r-1777fci" style="opacity: 1">
+                            <div dir="auto" aria-hidden="true" class="css-901oao r-1awozwy r-6koalj r-1d4mawv" style="color: rgba(1, 148, 243, 1)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-id="IcSystemSearch">
+                                    <path d="M15 15L20.5 20.5M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z" stroke="#0194f3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </div>
+                            @*                         <div dir="auto" aria-hidden="true" class="css-901oao css-bfa6kz r-t1w4ow r-1o4mh9l r-b88u0q r-f0eezp r-q4m81j" style="color: rgba(1, 148, 243, 1)">
+                            Tìm khách sạn
+                            </div> *@
+                            <input type="submit" value="Tìm khách sạn" style="background-color:transparent; color: rgba(1, 148, 243, 1)" class="css-901oao css-bfa6kz r-t1w4ow r-1o4mh9l r-b88u0q r-f0eezp r-q4m81j" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="css-1dbjc4n r-ywje51 r-9bullz" style="padding-top: 32px">
+    <div class="css-1dbjc4n r-zo7nv5 r-6koalj r-13awgt0 r-18u37iz r-1777fci r-ywje51 r-13qz1uu">
+        <div class="css-1dbjc4n r-13awgt0 r-1ssbvtb" style="max-width: 298px; width: 298px">
+            @* <div tabindex="0" class="css-1dbjc4n r-1loqt21 r-1otgn73 r-1i6wzkk r-lrvibr" style="-webkit-transition-duration: 0s; transition-duration: 0s" data-testid="accom-app-install">
+            <div class="css-1dbjc4n r-1k97etb r-kdyh1x r-da5iq2 r-18u37iz r-o52ifk r-1udh08x r-417010">
+            <noscript>
+            <img importance="low"
+            loading="lazy"
+            src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686722012720-860ee29e30608815f3cc5d6271a3288c.jpeg?tr=q-75"
+            srcset="
+            https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686722012720-860ee29e30608815f3cc5d6271a3288c.jpeg?tr=q-75       1x,
+            https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686722012720-860ee29e30608815f3cc5d6271a3288c.jpeg?tr=dpr-2,q-75 2x,
+            https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686722012720-860ee29e30608815f3cc5d6271a3288c.jpeg?tr=dpr-3,q-75 3x
+            "
+            decoding="async"
+            width="100%"
+            height="100%"
+            class="r-u8s1d r-184en5c"
+            style="
+            object-fit: fill;
+            object-position: 50% 50%;
+            " />
+            </noscript><img importance="low" loading="lazy" decoding="async" width="100%" height="100%" data-src-set="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686722012720-860ee29e30608815f3cc5d6271a3288c.jpeg?tr=q-75 1x, https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686722012720-860ee29e30608815f3cc5d6271a3288c.jpeg?tr=dpr-2,q-75 2x, https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686722012720-860ee29e30608815f3cc5d6271a3288c.jpeg?tr=dpr-3,q-75 3x" data-src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686722012720-860ee29e30608815f3cc5d6271a3288c.jpeg?tr=q-75" class="r-u8s1d r-184en5c" style="object-fit: fill; object-position: 50% 50%">
+            <div class="css-1dbjc4n r-1awozwy r-1w3sgar r-18u37iz r-xyw6el r-136ojw6">
+            <div class="css-1dbjc4n" style="
+            -webkit-align-items: stretch;
+            align-items: stretch;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -ms-flex-align: stretch;
+            -webkit-box-align: stretch;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            ">
+            <div class="css-1dbjc4n" style="
+            -webkit-align-items: stretch;
+            align-items: stretch;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -ms-flex-align: stretch;
+            -webkit-box-align: stretch;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            ">
+            <h4 aria-level="4" dir="auto" role="heading" class="css-4rbku5 css-901oao css-bfa6kz r-jwli3a r-t1w4ow r-1b43r93 r-b88u0q r-1cwl3u0 r-fdjqy7">
+            Tại sao phải đặt giá cao
+            </h4>
+            <div class="css-1dbjc4n" style="padding-bottom: 4px"></div>
+            <h4 aria-level="4" dir="auto" role="heading" class="css-4rbku5 css-901oao css-bfa6kz r-jwli3a r-t1w4ow r-1b43r93 r-b88u0q r-1cwl3u0 r-fdjqy7">
+            Trong khi có giá thấp hơn?
+            </h4>
+            </div>
+            <div class="css-1dbjc4n" style="padding-bottom: 8px"></div>
+            <div dir="auto" class="css-901oao css-bfa6kz r-jwli3a r-t1w4ow r-1enofrn r-majxgm r-1cwl3u0 r-fdjqy7">
+            Tải app để nhận nhiều ưu đãi!
+            </div>
+            </div>
+            </div>
+            </div>
+            </div> *@
+            <div tabindex="0" class="css-1dbjc4n r-1loqt21 r-1otgn73 r-1i6wzkk r-lrvibr" style="-webkit-transition-duration: 0s; transition-duration: 0s">
+                <div class="css-1dbjc4n">
+                    <div class="css-1dbjc4n r-1p0dtai r-1mlwlqe r-1d2f490 r-1udh08x r-u8s1d r-zchlnj r-ipm5af r-1wyyakw">
+                        <div class="css-1dbjc4n r-1niwhzg r-vvn4in r-u6sd8q r-4gszlv r-1p0dtai r-1pi2tsx r-1d2f490 r-u8s1d r-zchlnj r-ipm5af r-13qz1uu r-1wyyakw"></div>
+                    </div>
+                    @* <div class="css-1dbjc4n r-1awozwy r-kdyh1x r-18u37iz r-1iud8zs r-17s6mgv r-edyy15">
+                    <div aria-live="polite" role="button" tabindex="0" class="css-18t94o4 css-1dbjc4n r-1k97etb r-kdyh1x r-1loqt21 r-10paoce r-1e081e0 r-5njf8e r-1otgn73 r-lrvibr">
+                    <div dir="auto" class="css-901oao r-1yadl64 r-1vonz36 r-109y4c4 r-1cis278 r-1udh08x r-t60dpp r-u8s1d r-3s2u2q r-92ng3h">
+                    Mở bản đồ
+                    </div>
+                    <div class="css-1dbjc4n r-1awozwy r-13awgt0 r-18u37iz r-1777fci" style="opacity: 1">
+                    <div dir="auto" aria-hidden="true" class="css-901oao r-1awozwy r-jwli3a r-6koalj r-1d4mawv">
+                    <img importance="low" loading="lazy" src="images/894321540abb99f69a9fe9b5c8ac633b.svg" decoding="async" width="16" height="16" style="object-fit: fill; object-position: 50% 50%">
+                    </div>
+                    <div dir="auto" aria-hidden="true" class="css-901oao css-bfa6kz r-jwli3a r-t1w4ow r-1o4mh9l r-b88u0q r-f0eezp r-q4m81j">
+                    Mở bản đồ
+                    </div>
+                    </div>
+                    </div>
+                    </div> *@
+                </div>
+            </div>
+            <div class="css-1dbjc4n r-13awgt0 r-1ssbvtb" data-testid="filter-menu">
+                <div class="css-1dbjc4n r-14lw9ot r-1xfd6ze r-1ssbvtb r-f727ji r-j2kj52 r-1f1sjgu">
+                    <div class="css-1dbjc4n r-1awozwy r-18u37iz r-1wtj0ep">
+                        <div class="css-1dbjc4n" style="
+                        -webkit-align-items: stretch;
+                        align-items: stretch;
+                        -webkit-flex-direction: column;
+                        -ms-flex-direction: column;
+                        flex-direction: column;
+                        -ms-flex-align: stretch;
+                        -webkit-box-align: stretch;
+                        -webkit-box-orient: vertical;
+                        -webkit-box-direction: normal;
+                      ">
+                            <div dir="auto" class="css-901oao r-t1w4ow r-1b43r93 r-rjixqe r-fdjqy7" style="color: rgba(3, 18, 26, 1); font-weight: 900">Phạm vi giá</div>
+                            <div class="css-1dbjc4n" style="padding-bottom: 0px"></div>
+                            <div dir="auto" class="css-901oao r-t1w4ow r-1enofrn r-majxgm r-1cwl3u0 r-fdjqy7" style="color: rgba(104, 113, 118, 1)">1 phòng, 1 đêm</div>
+                        </div>
+                        <div class="css-1dbjc4n" style="padding-right: 0px"></div>
+                        @* <div aria-disabled="true" aria-live="polite" role="button" class="css-1dbjc4n r-kdyh1x r-10paoce r-5njf8e r-lrvibr" data-testid="tvat-resetFilterPriceRange">
+                            <div class="css-1dbjc4n r-1awozwy r-18u37iz r-1777fci" style="opacity: 1">
+                                <div dir="auto" class="css-901oao r-t1w4ow r-1o4mh9l r-b88u0q r-f0eezp r-q4m81j" style="color: rgba(205, 208, 209, 1)">
+                                    Đặt lại
+                                </div>
+                            </div>
+                        </div> *@
+                    </div>
+                    <div class="css-1dbjc4n r-1ihkh82 r-kdyh1x r-1udh08x fullSlider" style="height: 76px; width: 218px">
+                        <input class="css-1dbjc4n r-k1fkm9" type="text" id="js-range-slider" name="my_range" value=""
+                               data-type="double"
+                               data-min="0"
+                               data-max="110000000"
+                               data-from="0"
+                               data-to="110000000"/>
+                    </div>
+                </div>
+                <div class="css-1dbjc4n">
+                    <div class="css-1dbjc4n r-14lw9ot r-1xfd6ze r-1udh08x">
+                        <div tabindex="0" class="css-1dbjc4n r-1loqt21 r-1otgn73 r-1i6wzkk r-lrvibr" style="
+                        -webkit-transition-duration: 0s;
+                        transition-duration: 0s;
+                      ">
+                            <div class="css-1dbjc4n r-uia4a0 r-1awozwy r-ndvcnb r-18u37iz r-1777fci r-xyw6el" style="border-bottom-color: rgba(242, 243, 243, 1)">
+                                <div class="css-1dbjc4n r-13awgt0">
+                                    <div dir="auto" class="css-901oao r-t1w4ow r-1b43r93 r-rjixqe r-fdjqy7" style="color: rgba(3, 18, 26, 1); font-weight: 900">Số lượng khách tối đa</div>
+                                </div>
+                                <div class="css-1dbjc4n r-1777fci r-13hce6t r-14qw7yl r-axxi2z" style="
+                            -webkit-transform: rotate(-180deg);
+                            transform: rotate(-180deg);
+                          ">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-id="IcSystemChevronDown">
+                                        <path d="M6 9L12 15L18 9" stroke="#0194f3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="css-1dbjc4n r-1udh08x r-14qw7yl" style="
+                        height: 0px;
+                        -webkit-transition-property: height;
+                        transition-property: height;
+                        -moz-transition-property: height;
+                      ">
+                            <div class="css-1dbjc4n r-nsbfu8 r-kzbkwu r-1e081e0 r-wk8lta r-14qw7yl r-axxi2z" style="
+                          -webkit-transform: translateY(0px);
+                          transform: translateY(0px);
+                        ">
+                                <div class="css-1dbjc4n r-1ihkh82 r-kdyh1x r-1udh08x" style="height: 20px; width: 218px">
+                                    <div class="css-1dbjc4n r-k1fkm9" style="
+                              -webkit-animation-duration: 750ms;
+                              animation-duration: 750ms;
+                              -webkit-animation-iteration-count: infinite;
+                              animation-iteration-count: infinite;
+                              -webkit-animation-timing-function: linear;
+                              animation-timing-function: linear;
+                              background-image: linear-gradient(
+                                to right,
+                                #f7f9fa,
+                                #f2f3f3,
+                                #f7f9fa
+                              );
+                              padding-top: 20px;
+                              -webkit-transform: translateX(-100%);
+                              transform: translateX(-100%);
+                              width: 218px;
+                            "></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="css-1dbjc4n">
+                    <div class="css-1dbjc4n r-14lw9ot r-1xfd6ze r-1udh08x">
+                        <div tabindex="0" class="css-1dbjc4n r-1loqt21 r-1otgn73 r-1i6wzkk r-lrvibr" style="
+                        -webkit-transition-duration: 0s;
+                        transition-duration: 0s;
+                      ">
+                            <div class="css-1dbjc4n r-uia4a0 r-1awozwy r-ndvcnb r-18u37iz r-1777fci r-xyw6el" style="border-bottom-color: rgba(242, 243, 243, 1)">
+                                <div class="css-1dbjc4n r-13awgt0">
+                                    <div dir="auto" class="css-901oao r-t1w4ow r-1b43r93 r-rjixqe r-fdjqy7" style="color: rgba(3, 18, 26, 1); font-weight: 900">Hạng sao</div>
+                                </div>
+                                <div class="css-1dbjc4n r-1777fci r-13hce6t r-14qw7yl r-axxi2z" style="
+                            -webkit-transform: rotate(-180deg);
+                            transform: rotate(-180deg);
+                          ">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-id="IcSystemChevronDown">
+                                        <path d="M6 9L12 15L18 9" stroke="#0194f3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="css-1dbjc4n r-1udh08x r-14qw7yl" style="
+                        height: 0px;
+                        -webkit-transition-property: height;
+                        transition-property: height;
+                        -moz-transition-property: height;
+                      ">
+                            <div class="css-1dbjc4n r-nsbfu8 r-kzbkwu r-1e081e0 r-wk8lta r-14qw7yl r-axxi2z" style="
+                          -webkit-transform: translateY(0px);
+                          transform: translateY(0px);
+                        ">
+                                <div class="css-1dbjc4n r-1ihkh82 r-kdyh1x r-1udh08x" style="height: 20px; width: 218px">
+                                    <div class="css-1dbjc4n r-k1fkm9" style="
+                              -webkit-animation-duration: 750ms;
+                              animation-duration: 750ms;
+                              -webkit-animation-iteration-count: infinite;
+                              animation-iteration-count: infinite;
+                              -webkit-animation-timing-function: linear;
+                              animation-timing-function: linear;
+                              background-image: linear-gradient(
+                                to right,
+                                #f7f9fa,
+                                #f2f3f3,
+                                #f7f9fa
+                              );
+                              padding-top: 20px;
+                              -webkit-transform: translateX(-100%);
+                              transform: translateX(-100%);
+                              width: 218px;
+                            "></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="css-1dbjc4n r-9wfyu0 r-bnwqim r-1i6dfp5 r-1o3kkbv" id="page-content">
+            @{
+                if (Model.Homestays.Count == 0 || Model.Homestays == null)
+                {
+                        <h1>Không tìm thấy kết quả nào</h1>
+                }
+                else
+                {
+                    for (var i = 0; i < Model.Homestays.Count; i++)
+                    {
+                        <form action="Booking">
+                            <input type="hidden" name="homestayId" value="@Model.Homestays[i].Id" />
+                            <div class="container mt-5">
+                                <div class="homestay-card">
+                                    <div>
+                                        <img src="@Model.Homestays[i].HotelImage" alt="Homestay Image" class="homestay-img">
+                                    </div>
+                                    <div class="homestay-details">
+                                        <h5>@Model.Homestays[i].HotelName</h5>
+                                        <div>
+                                            <span class="star-rating">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                                            <span>8.7 (789 đánh giá)</span>
+                                        </div>
+                                        <div>
+                                            <i class="fas fa-map-marker-alt"></i> @Model.Homestays[i].Address, @Model.Homestays[i].City 
+                                        </div>
+                                        <div class="services mt-2">
+                                        </div>
+                                    </div>
+                                    <div class="homestay-price">
+                                        <div>571.429 VND</div>
+                                        <div class="text-muted">Chưa bao gồm thuế và phí</div>
+                                        <button class="btn btn-warning mt-2">Chọn phòng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/bootstrap-daterangepicker/daterangepicker.js" defer></script>
+<script src="~/lib/bootstrap-daterangepicker/moment.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<link rel="stylesheet" href="/lib/bootstrap-daterangepicker/daterangepicker.css" />
+<script>
+    $(function () {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left',
+            locale: {
+                format: 'DD/MM/YYYY'
+            }
+        }, function (start, end, label) {
+            // Find nights and round it
+            var nights = Math.floor(moment.duration(end.diff(start)).asDays());
+            console.log(nights);
+
+            //Change date format for daterange name input
+            // $('input[name="daterange"]').val(start.format('DD [thg] MM YYYY') + ' - ' + end.format('DD [thg] MM YYYY') + ', ' + nights + ' đêm');
+            //set checkInDate and nights hidden input
+
+            setCheckInDateInput(start.format('MM/DD/YYYY HH:mm:ss'), nights);
+        });
+    });
+
+    $.getScript('https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/js/ion.rangeSlider.min.js', function () {
+        $("#js-range-slider").ionRangeSlider({
+            type: "double",
+            skin: "round",
+            min: 0,
+            max: 100.000,
+            from: 200,
+            to: 500,
+            prefix: '₫',
+            prettify_enabled: true,
+            prettify_separator: ",",
+        });
+    }); //script
+
+
+    function setCheckInDateInput(checkInDateVal, nightsVal) {
+        let checkInDateInput = document.getElementById('checkInDateInput');
+        let nightsInput = document.getElementById('nightsInput');
+
+        checkInDateInput.value = checkInDateVal;
+        nightsInput.value = nightsVal;
+    }
+
+
+</script>

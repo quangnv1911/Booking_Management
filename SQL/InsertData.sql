@@ -1,4 +1,7 @@
-﻿use Group_5_SE1730_BookingManagement
+Create database Group_5_SE1730_BookingManagement;
+
+use Group_5_SE1730_BookingManagement
+use Group_5_SE1730_BookingManagement
 go
 
 INSERT INTO [dbo].[SiteSettings]
