@@ -95,12 +95,20 @@ namespace Group5_SE1730_BookingManagement.Pages.Chats
             if (inbox.FirstUserId.Equals(CurrentUser.Id))
             {
                 _messageService.CreateMessage(NewMessage, CurrentUser?.Id, DateTime.Now, long.Parse(Id));
-                await _chatHub.Clients.Users(inbox?.SecondUserId).SendAsync("HaveNewMessage");
+                message.Content = NewMessage;
+                message.GuestId = CurrentUser?.Id;
+                message.CreateAt = DateTime.Now;
+                message.InboxId = long.Parse(Id);
+                await _chatHub.Clients.Users(inbox?.SecondUserId).SendAsync("HaveNewMessage", NewMessage, DateTime.Now);
             }
             else
             {
+                message.Content = NewMessage;
+                message.GuestId = CurrentUser?.Id;
+                message.CreateAt = DateTime.Now;
+                message.InboxId = long.Parse(Id);
                 _messageService.CreateMessage(NewMessage, CurrentUser?.Id, DateTime.Now, long.Parse(Id));
-                await _chatHub.Clients.Users(inbox?.FirstUserId).SendAsync("HaveNewMessage");
+                await _chatHub.Clients.Users(inbox?.FirstUserId).SendAsync("HaveNewMessage", NewMessage, DateTime.Now);
             }
 
 
