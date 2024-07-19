@@ -1,0 +1,64 @@
+﻿@page
+@model Group5_SE1730_BookingManagement.Pages.Admins.HotelManagementModel
+@{
+    ViewData["Title"] = "Quản lý khách sạn";
+}
+@section Sidebar {
+    <nav class="nav flex-column">
+        <a class="nav-link" asp-page="/Admins/Dashboard">Bảng điều khiển</a>
+        <a class="nav-link active" asp-page="/Admins/HotelManagement">Quản lý khách sạn</a>
+        <a class="nav-link" asp-page="/Admins/CustomerManagement">Quản lý khách hàng</a>
+        <a class="nav-link" asp-page="/Admins/BookingManagement">Quản lý đặt phòng</a>
+        <a class="nav-link" asp-page="/Admins/ContentManagement">Quản lý</a>
+    </nav>
+}
+<h2>Quản lý khách sạn</h2>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Thêm khách sạn</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tên khách sạn
+            </th>
+            <th>
+                Địa chỉ
+            </th>
+            <th>
+                Thành phố
+            </th>
+            <th>
+                Điện thoại
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Hotels)
+        {
+            <tr>
+                <td>@item.HotelName</td>
+                <td>@item.Address</td>
+                <td>@item.City</td>
+                <td>@item.Phone</td>
+                <td>@item.Email</td>
+                <td>
+                    <input type="checkbox" disabled="disabled" @(item.Status == true ? "checked=\"checked\"" : "") />
+                </td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Sửa</a>
+                    <a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

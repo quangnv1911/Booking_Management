@@ -1,0 +1,56 @@
+﻿@page
+@model Group5_SE1730_BookingManagement.Pages.Admins.DeleteModel
+@section Sidebar {
+    <nav class="nav flex-column">
+        <a class="nav-link" asp-page="/Admins/Dashboard">Bảng điều khiển</a>
+        <a class="nav-link active" asp-page="/Admins/HotelManagement">Quản lý khách sạn</a>
+        <a class="nav-link" asp-page="/Admins/CustomerManagement">Quản lý khách hàng</a>
+        <a class="nav-link" asp-page="/Admins/BookingManagement">Quản lý đặt phòng</a>
+        <a class="nav-link" asp-page="/Admins/ContentManagement">Quản lý</a>
+    </nav>
+}
+<h2>Xóa khách sạn</h2>
+
+<h3>Bạn có chắc chắn muốn xóa khách sạn này không?</h3>
+<div>
+    <h4>Khách sạn</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Tên khách sạn
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Homestay.HotelName
+        </dd>
+        <dt class="col-sm-2">
+            Địa chỉ
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Homestay.Address
+        </dd>
+        <dt class="col-sm-2">
+            Thành phố
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Homestay.City
+        </dd>
+        <dt class="col-sm-2">
+            Điện thoại
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Homestay.Phone
+        </dd>
+        <dt class="col-sm-2">
+            Email
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Homestay.Email
+        </dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="Homestay.Id" />
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <a asp-page="HotelManagement" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>
