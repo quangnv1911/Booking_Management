@@ -14,7 +14,7 @@
 }
 <h2>Thêm khách sạn</h2>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Homestay.HotelName"></label>
         <input asp-for="Homestay.HotelName" class="form-control" />
@@ -47,6 +47,11 @@
             <option value="false">Không hoạt động</option>
         </select>
         <span asp-validation-for="Homestay.Status" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="HotelImage"></label>
+        <input asp-for="HotelImage" type="file" class="form-control" accept="image/*" />
+        <span asp-validation-for="HotelImage" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Lưu</button>
     <a asp-page="HotelManagement" class="btn btn-secondary">Hủy</a>
