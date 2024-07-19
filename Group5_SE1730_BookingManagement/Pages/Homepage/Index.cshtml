@@ -1,0 +1,423 @@
+﻿@page "/homepage"
+@model Group5_SE1730_BookingManagement.Pages.Homepage.IndexModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<head>
+   
+</head>
+<style>
+    .card {
+        border: 1px solid #ddd; /* Viền của card */
+        border-radius: 8px; /* Bo tròn các góc của card */
+        overflow: hidden; /* Không cho phép nội dung vượt ra ngoài card */
+        transition: box-shadow 0.3s ease; /* Hiệu ứng khi di chuột vào card */
+    }
+
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Đổ bóng khi di chuột vào card */
+        }
+
+    .card-img-top {
+        width: 100%;
+        height: 200px; /* Chiều cao của ảnh */
+        object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
+    }
+
+    .card-body {
+        padding: 15px; /* Khoảng cách lề bên trong của card */
+    }
+
+    .card-title {
+        font-size: 1.25rem; /* Cỡ chữ tiêu đề */
+        margin-bottom: 10px; /* Khoảng cách dưới của tiêu đề */
+    }
+
+    .card-text {
+        font-size: 0.9rem; /* Cỡ chữ nội dung */
+        color: #555; /* Màu chữ xám nhạt */
+        margin-bottom: 8px; /* Khoảng cách dưới của nội dung */
+    }
+
+    .btn-group {
+        margin-top: 15px; /* Khoảng cách trên của nút */
+    }
+
+    .btn-view-details {
+        background-color: #007bff; /* Màu nền của nút */
+        color: #fff; /* Màu chữ của nút */
+        border: none; /* Bỏ viền */
+        transition: background-color 0.3s ease; /* Hiệu ứng khi di chuột vào nút */
+    }
+
+        .btn-view-details:hover {
+            background-color: #0056b3; /* Màu nền khi di chuột vào */
+            color: #fff; /* Màu chữ khi di chuột vào */
+        }
+
+    .btn-book-now {
+        background-color: #28a745; /* Màu nền của nút */
+        color: #fff; /* Màu chữ của nút */
+        border: none; /* Bỏ viền */
+        transition: background-color 0.3s ease; /* Hiệu ứng khi di chuột vào nút */
+    }
+
+        .btn-book-now:hover {
+            background-color: #218838; /* Màu nền khi di chuột vào */
+            color: #fff; /* Màu chữ khi di chuột vào */
+        }
+
+    .card-title a {
+        color: #333; /* Màu chữ cho tiêu đề */
+        text-decoration: none; /* Bỏ gạch chân cho liên kết */
+    }
+
+        .card-title a:hover {
+            color: #007bff; /* Màu chữ khi di chuột vào tiêu đề */
+            text-decoration: none; /* Bỏ gạch chân khi di chuột vào */
+        }
+
+    .search-form {
+        margin-bottom: 20px;
+    }
+
+        .search-form .input-group {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .search-form .btn-outline-secondary {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+    .filter-form {
+        margin-bottom: 20px;
+    }
+
+        .filter-form .form-control {
+            max-width: 200px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .filter-form .btn-primary {
+            margin-top: -5px;
+        }
+
+
+
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .content {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .logos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .logo {
+        margin: 10px;
+        width: 100px;
+    }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+
+
+
+    .container-hotelcountry {
+        width: 100%;
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+        .container-hotelcountry .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .container-hotelcountry .col {
+            flex: 0 0 calc(33.33% - 20px); /* 3 images per row with spacing */
+            margin-bottom: 20px;
+            position: relative; /* Ensure positioning context for absolute positioning */
+        }
+
+        .container-hotelcountry .image-container {
+            position: relative;
+            overflow: hidden; /* Clip any overflowing text */
+        }
+
+        .container-hotelcountry img {
+            width: 100%;
+            display: block;
+            margin-bottom: 10px;
+            border-radius: 8px; /* Rounded corners for images */
+            transition: opacity 0.3s ease; /* Smooth transition for opacity */
+        }
+
+        .container-hotelcountry .image-text {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Text shadow for better visibility */
+            z-index: 10; /* Ensure text is above the image */
+            opacity: 1; /* Show text on hover */
+            transition: opacity 0.3s ease; /* Smooth transition for opacity */
+        }
+
+
+    .footer {
+        background-color: #1212;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    .footer-logo img {
+        max-width: 150px;
+        margin-bottom: 10px;
+    }
+
+    .footer-social {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+        .footer-social a {
+            color: #fff;
+            font-size: 24px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+            .footer-social a:hover {
+                color: #1da1f2; /* Change color on hover for better UX */
+            }
+
+
+    
+</style>
+
+<div class="container-room">
+    <h2 class="mt-4 mb-4">Welcome to Our Hotel</h2>
+
+    <!-- Search and Filter Forms -->
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Search by name -->
+            <form method="get" asp-page="./Index" class="search-form">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search by name..." name="searchString" value="@Model.searchString">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <!-- Filter by price -->
+            <form method="get" asp-page="./Index" class="filter-form">
+                <div class="form-group">
+                    <label>Filter by price:</label>
+                    <select class="form-control" name="priceFilter">
+                        <option value="">All</option>
+                        <option value="0-50">Below $50</option>
+                        <option value="50-100">$50 - $100</option>
+                        <option value="100-200">$100 - $200</option>
+                        <option value="200-99999">Above $200</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+               
+            </form>
+        </div>
+    </div>
+
+    <!-- Room Cards -->
+    <div class="row mt-4">
+        @foreach (var room in Model.Rooms)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img class="card-img-top" src="@room.Homestay.Img" alt="Room Image">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="#" style="text-decoration: none; color: inherit;">@room.Name</a></h5>
+                        <p class="card-text">Type: @room.RoomType.Name</p>
+                        <p class="card-text">Homestay: @room.Homestay.HotelName, @room.Homestay.City</p>
+                        <p class="card-text">Price: $@room.Price</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a asp-page="/RoomDetails/Index" asp-route-id="@room.Id" class="btn btn-sm btn-view-details">View Details</a>
+                                <button class="btn btn-sm btn-book-now">Book Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+    <div class="container">
+        <div class="content">
+            <h1>Hotel Partners</h1>
+            <p>Domestic & International Hotel Partners</p>
+            <p>We are partnering with hotel chains across the globe to ensure a comfortable stay wherever you travel!</p>
+        </div>
+        <div class="logos">
+            <div class="logo">
+                <img src="https://ik.imagekit.io/tvlk/image/imageResource/2017/08/08/1502200796134-3e687ae7c1e145253ef72691f5f18318.png?tr=q-75,w-88" alt="Accor Live Limitless">
+            </div>
+            <div class="logo">
+                <img src="https://ik.imagekit.io/tvlk/image/imageResource/2022/10/26/1666769812521-2f9e73b3dfa37b1a8774517477bce6f3.png?tr=q-75,w-88" alt="Asian Ruby Hotel">
+            </div>
+            <div class="logo">
+                <img src="https://ik.imagekit.io/tvlk/image/imageResource/2018/01/29/1517200871912-592258729faec3c08e23d4f7c8c0da07.png?tr=q-75,w-88" alt="Church Boutique Hotels">
+            </div>
+            <div class="logo">
+                <img src="https://ik.imagekit.io/tvlk/image/imageResource/2018/01/29/1517201226378-8affc1dfeeafe879121fc94652a7332f.png?tr=q-75,w-88" alt="Elegance Hospitality Group">
+            </div>
+            <div class="logo">
+                <img src="https://ik.imagekit.io/tvlk/image/imageResource/2018/01/29/1517200921330-784c7f0f6798fdb7c3b14d23881d5090.jpeg?tr=q-75,w-88" alt="FLC Hotels & Resorts">
+            </div>
+            <div class="logo">
+                <img src="https://ik.imagekit.io/tvlk/image/imageResource/2017/08/08/1502200776552-f852b752ae88e7e0902fb0d3bfc41a00.png?tr=q-75,w-88" alt="Marriott International">
+            </div>
+            <div class="logo">
+                <img src="https://ik.imagekit.io/tvlk/image/imageResource/2018/01/29/1517201056739-4030efe3d4ea793a40904f712cec37af.png?tr=q-75,w-88" alt="Minor Hotels">
+            </div>
+            <div class="logo">
+                <img src="https://ik.imagekit.io/tvlk/image/imageResource/2017/08/08/1502200809743-5dde6f77b2b13ac38a752953eb78e692.png?tr=q-75,w-88" alt="Mường Thanh Hospitality">
+            </div>
+            <div class="logo">
+                <img src="https://ik.imagekit.io/tvlk/image/imageResource/2017/08/08/1502200785889-c88f0b3d3f0c0711af02b5ecda331105.png?tr=q-75,w-88" alt="Odysseysea Hospitality">
+            </div>
+            <div class="logo">
+                <img src="https://ik.imagekit.io/tvlk/image/imageResource/2018/01/29/1517201184025-b629781230030dbfc28bcbfb127286f6.png?tr=q-75,w-88" alt="Roseland Hotels Group">
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <div class="content">
+            <h1>Payment Partners</h1>
+            <p>
+                We are partnering with the most reliable payment service providers to make sure every transaction is smooth and worry-free!
+            </p>
+        </div>
+        <div class="logos">
+            <div class="logo">
+                <img importance="low" loading="lazy" src="https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493983983523-d6d0c610380ef8f04774da504053351a.png?tr=q-75,w-88" srcset="https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493983983523-d6d0c610380ef8f04774da504053351a.png?tr=q-75,w-88 1x, https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493983983523-d6d0c610380ef8f04774da504053351a.png?tr=dpr-2,q-75,w-88 2x, https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493983983523-d6d0c610380ef8f04774da504053351a.png?tr=dpr-3,q-75,w-88 3x" decoding="async" width="88" class="r-1azjx3i" style="max-width:88px;object-fit:contain;object-position:50% 50%">
+            </div>
+            <div class="logo">
+                <img importance="low" loading="lazy" src="https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493983991810-274568b9986cf92489e37700e8378820.png?tr=q-75,w-88" srcset="https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493983991810-274568b9986cf92489e37700e8378820.png?tr=q-75,w-88 1x, https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493983991810-274568b9986cf92489e37700e8378820.png?tr=dpr-2,q-75,w-88 2x, https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493983991810-274568b9986cf92489e37700e8378820.png?tr=dpr-3,q-75,w-88 3x" decoding="async" width="88" class="r-1azjx3i" style="max-width:88px;object-fit:contain;object-position:50% 50%">
+            </div>
+            <div class="logo">
+                <img importance="low" loading="lazy" src="https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493984075386-9df836dd55c89d21a1c25d91a047f4e3.png?tr=q-75,w-88" srcset="https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493984075386-9df836dd55c89d21a1c25d91a047f4e3.png?tr=q-75,w-88 1x, https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493984075386-9df836dd55c89d21a1c25d91a047f4e3.png?tr=dpr-2,q-75,w-88 2x, https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493984075386-9df836dd55c89d21a1c25d91a047f4e3.png?tr=dpr-3,q-75,w-88 3x" decoding="async" width="88" class="r-1azjx3i" style="max-width:88px;object-fit:contain;object-position:50% 50%">
+            </div>
+            <div class="logo">
+                <img importance="low" loading="lazy" src="https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493984010432-1a47c9d199b3bb99118bcf7be40d869a.png?tr=q-75,w-88" srcset="https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493984010432-1a47c9d199b3bb99118bcf7be40d869a.png?tr=q-75,w-88 1x, https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493984010432-1a47c9d199b3bb99118bcf7be40d869a.png?tr=dpr-2,q-75,w-88 2x, https://ik.imagekit.io/tvlk/image/imageResource/2017/05/05/1493984010432-1a47c9d199b3bb99118bcf7be40d869a.png?tr=dpr-3,q-75,w-88 3x" decoding="async" width="88" class="r-1azjx3i" style="max-width:88px;object-fit:contain;object-position:50% 50%">
+            </div>
+            <div class="logo">
+                <img importance="low" loading="lazy" src="https://ik.imagekit.io/tvlk/image/imageResource/2017/10/19/1508392286594-065886675f5595e847bc995173ac5dc9.png?tr=q-75,w-88" srcset="https://ik.imagekit.io/tvlk/image/imageResource/2017/10/19/1508392286594-065886675f5595e847bc995173ac5dc9.png?tr=q-75,w-88 1x, https://ik.imagekit.io/tvlk/image/imageResource/2017/10/19/1508392286594-065886675f5595e847bc995173ac5dc9.png?tr=dpr-2,q-75,w-88 2x, https://ik.imagekit.io/tvlk/image/imageResource/2017/10/19/1508392286594-065886675f5595e847bc995173ac5dc9.png?tr=dpr-3,q-75,w-88 3x" decoding="async" width="88" class="r-1azjx3i" style="max-width:88px;object-fit:contain;object-position:50% 50%">
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div class="container-hotelcountry">
+        <div class="row">
+            <div class="col">
+                <div class="image-container">
+                    <img src="https://cdnphoto.dantri.com.vn/OlQas4uqcc3xWeWc6mAEKgov26A=/thumb_w/960/2020/04/24/venice-italya-1587703892898.jpeg" alt="Italy">
+                    <div class="image-text">
+                        <p>Italy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="image-container">
+                    <img src="https://cdnphoto.dantri.com.vn/NOkbe61phH8eSilOvzaeCebhF7o=/thumb_w/960/2020/04/24/machu-picchu-1587703892882.jpeg" alt="Peru">
+                    <div class="image-text">
+                        <p>Peru</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="image-container">
+                    <img src="https://cdnphoto.dantri.com.vn/14GU3bwXaUtPUXb_3gHId2xIWSE=/thumb_w/960/2020/04/24/cay-joshua-1587703892528.jpeg" alt="America">
+                    <div class="image-text">
+                        <p>America</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="image-container">
+                    <img src="https://cdnphoto.dantri.com.vn/PdmbD30v3sbP2RKpAIjVIYUy-JQ=/thumb_w/960/2020/04/24/aaa-1587704596909.jpg" alt="Maldives">
+                    <div class="image-text">
+                        <p>Maldives</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="image-container">
+                    <img src="https://cdnphoto.dantri.com.vn/liBYuukcyJ-_vvx4HVGURmdJ-rc=/thumb_w/960/2020/04/24/song-bang-patagonia-1587703892936.jpeg" alt="Chile">
+                    <div class="image-text">
+                        <p>Chile</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="image-container">
+                    <img src="https://cdnphoto.dantri.com.vn/YL7LmKW1BS2k-qxcPktOJT5quj8=/thumb_w/960/2020/04/24/nui-kilimanjaro-1587703891670.jpeg" alt="Tanzania">
+                    <div class="image-text">
+                        <p>Tanzania</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+   
+
+    <footer class="border-top layout-footer-container">
+        <div class="container">
+            <div class="footer-logo">
+                <img src="~/img/logo.svg" alt="Logo" />
+            </div>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/TravelokaVN" class="css-4rbku5 r-1awozwy r-jwli3a r-xoduu5 r-t1w4ow r-1b43r93 r-majxgm r-rjixqe r-nzoivv"><img importance="low" loading="lazy" src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/6/6904cd2e74ef73120833cff12185a320.svg" decoding="async" class="r-1b7u577" style="filter: grayscale(1); object-fit: fill; object-position: 50% 50%;">Facebook</a>
+                <a href="https://www.instagram.com/traveloka.vn/" class="css-4rbku5 r-1awozwy r-jwli3a r-xoduu5 r-t1w4ow r-1b43r93 r-majxgm r-rjixqe r-nzoivv"><img importance="low" loading="lazy" src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/6/62a2fc240d7e00b05d0d6f6b4e785110.svg" decoding="async" class="r-1b7u577" style="filter: grayscale(1); object-fit: fill; object-position: 50% 50%;">Instagram</a>
+                <a href="https://www.tiktok.com/" class="css-4rbku5 r-1awozwy r-jwli3a r-xoduu5 r-t1w4ow r-1b43r93 r-majxgm r-rjixqe r-nzoivv"><img importance="low" loading="lazy" src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/4/471f17c1510d49a98bec08a48b84c607.svg" decoding="async" class="r-1b7u577" style="filter: grayscale(1); object-fit: fill; object-position: 50% 50%;">TikTok</a>
+                <a href="https://www.youtube.com/" class="css-4rbku5 r-1awozwy r-jwli3a r-xoduu5 r-t1w4ow r-1b43r93 r-majxgm r-rjixqe r-nzoivv"><img importance="low" loading="lazy" src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/b/b593add66303beb2a0cae9e96963e68b.svg" decoding="async" class="r-1b7u577" style="filter: grayscale(1); object-fit: fill; object-position: 50% 50%;">Youtube</a>
+                <a href="https://t.me/travelokavietnamofficial" class="css-4rbku5 r-1awozwy r-jwli3a r-xoduu5 r-t1w4ow r-1b43r93 r-majxgm r-rjixqe r-nzoivv"><img importance="low" loading="lazy" src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/a/a4da6605a9dd2f38ac799eaedeff976d.svg" decoding="async" class="r-1b7u577" style="filter: grayscale(1); object-fit: fill; object-position: 50% 50%;">Telegram</a>
+            </div>
+
+        </div>
+    </footer>
+</div>
+

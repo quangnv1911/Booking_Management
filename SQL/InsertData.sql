@@ -130,7 +130,6 @@ INSERT INTO [dbo].[RoomType]
            ('Penthouse', 'Phong co Penthouse', 1, 10)
 GO
 
--- Add rooms
 INSERT INTO [dbo].[Room]
            ([Name]
            ,[MaxGuests]
@@ -140,16 +139,17 @@ INSERT INTO [dbo].[Room]
            ,[Status]
            ,[Img])
      VALUES
-           ('Phong 1', 5, 1, 1, 1000000, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
-           ('Phong 2', 4, 2, 2, 1000000, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
-           ('Phong 3', 3, 3, 3, 1000000, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
-           ('Phong 4', 2, 4, 4, 1000000, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
-           ('Phong 5', 6, 5, 5, 1000000, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
-           ('Phong 6', 3, 6, 6, 1000000, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
-           ('Phong 7', 2, 7, 7, 1000000, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
-           ('Phong 8', 4, 8, 8, 1000000, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
-           ('Phong 9', 1, 9, 9, 1000000, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
-           ('Phong 10', 5, 10, 10, 1000000, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480')
+           ('Phong 1', 5, 1, 1, 50, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
+           ('Phong 2', 4, 2, 2, 100, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
+           ('Phong 3', 3, 3, 3, 150, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
+           ('Phong 4', 2, 4, 4, 200, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
+           ('Phong 5', 6, 5, 5, 150, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
+           ('Phong 6', 3, 6, 6, 200, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
+           ('Phong 7', 2, 7, 7, 250, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
+           ('Phong 8', 4, 8, 8, 100, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
+           ('Phong 9', 1, 9, 9, 50, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480'),
+           ('Phong 10', 5, 10, 10, 300, 1, 'https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10020591-5023b951b78f679b043a1147e605788b.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-332,pr-true,q-100,w-480')
+
 GO
 
 -- Add reviews
@@ -210,11 +210,11 @@ INSERT INTO [dbo].[Invoice]
            (2, 'b6bddae9-4bba-4d34-9c8b-cff13265d0f4', '2024-7-8', '', 1, null),
            (3, 'b6bddae9-4bba-4d34-9c8b-cff13265d0f4', '2024-7-9', '', 1, null),
            (4, 'b6bddae9-4bba-4d34-9c8b-cff13265d0f4', '2024-7-10', '', 1, null),
-           (5, 'b6bddae9-4bba-4d34-9c8b-cff13265d0f4', '2024-7-11', '', 1, null),
+           (5, 'b6bddae9-4bba-4d34-9c8b-cff13265d0f4', '2024-9-11', '', 1, null),
            (6, 'b6bddae9-4bba-4d34-9c8b-cff13265d0f4', '2024-7-12', '', 1, null),
-           (7, 'b6bddae9-4bba-4d34-9c8b-cff13265d0f4', '2024-7-13', '', 1, null),
+           (7, 'b6bddae9-4bba-4d34-9c8b-cff13265d0f4', '2024-10-13', '', 1, null),
            (8, 'b6bddae9-4bba-4d34-9c8b-cff13265d0f4', '2024-7-14', '', 1, null),
            (9, 'b6bddae9-4bba-4d34-9c8b-cff13265d0f4', '2024-7-15', '', 1, null),
-           (10, 'b6bddae9-4bba-4d34-9c8b-cff13265d0f4', '2024-7-16', '', 1, null)
+           (10, 'b6bddae9-4bba-4d34-9c8b-cff13265d0f4', '2024-8-16', '', 1, null)
 GO
 

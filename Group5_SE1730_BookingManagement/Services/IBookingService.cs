@@ -1,4 +1,8 @@
 ﻿using Group5_SE1730_BookingManagement.Models;
+using Group5_SE1730_BookingManagement.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Group5_SE1730_BookingManagement.Services
 {
@@ -8,5 +12,9 @@ namespace Group5_SE1730_BookingManagement.Services
         Task AddBooking(Booking booking);
         //Get booking by id
         Task<Booking?> GetBookingById(int bookingId);
+        List<Booking> GetBookings();
+        Task<IEnumerable<BookingViewModel>> GetAllBookingsAsync();
+        Task<int> GetTotalBookingsAsync();
+        Task<List<int>> GetBookingsPerDayAsync(DateTime startDate);
     }
 }

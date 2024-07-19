@@ -7,8 +7,10 @@ namespace Group5_SE1730_BookingManagement.Repositories
         //Get Booking by id
         Task<Booking?> GetBookingById(int bookingId);
         //Get all bookings
-        Task<IEnumerable<Booking?>> GetBookings();
+        Task<IEnumerable<Booking?>> GetBookingsAsync();
         //Add booking
         Task AddBooking(Booking booking);
+        
+        List<Booking> GetBookings();
     }
 }

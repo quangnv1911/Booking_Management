@@ -1,0 +1,16 @@
+﻿@page
+@model Group5_SE1730_BookingManagement.Pages.Admins.ContentManagementModel
+@{
+    Layout = "_AdminLayout";
+}
+@section Sidebar {
+    <nav class="nav flex-column">
+        <a class="nav-link" asp-page="/Admins/Dashboard">Bảng điều khiển</a>
+        <a class="nav-link" asp-page="/Admins/HotelManagement">Quản lý khách sạn</a>
+        <a class="nav-link" asp-page="/Admins/CustomerManagement">Quản lý khách hàng</a>
+        <a class="nav-link" asp-page="/Admins/BookingManagement">Quản lý đặt phòng</a>
+        <a class="nav-link active" asp-page="/Admins/ContentManagement">Quản lý</a>
+    </nav>
+}
+@{
+}

@@ -36,6 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Hotel\Dashboard\" />
+    <Folder Include="Pages\Hotel\PromationManagement\" />
+    <Folder Include="Pages\Hotel\ReviewManagement\" />
     <Folder Include="wwwroot\js\Areas\" />
   </ItemGroup>
 

@@ -1,0 +1,57 @@
+﻿@page
+@model Group5_SE1730_BookingManagement.Pages.Admins.CustomerManagementModel
+@{
+    Layout = "_AdminLayout";
+}
+@section Sidebar {
+    <nav class="nav flex-column">
+        <a class="nav-link" asp-page="/Admins/Dashboard">Bảng điều khiển</a>
+        <a class="nav-link" asp-page="/Admins/HotelManagement">Quản lý khách sạn</a>
+        <a class="nav-link active" asp-page="/Admins/CustomerManagement">Quản lý khách hàng</a>
+        <a class="nav-link" asp-page="/Admins/BookingManagement">Quản lý đặt phòng</a>
+        <a class="nav-link" asp-page="/Admins/ContentManagement">Quản lý</a>
+    </nav>
+}
+<h2>Quản lý khách hàng</h2>
+
+@if (Model.Guests != null && Model.Guests.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Họ và tên</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Thành phố</th>
+                <th>Quốc gia</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var guest in Model.Guests)
+            {
+                <tr>
+                    <td>@guest.FirstName @guest.MiddleName @guest.LastName</td>
+                    <td>@guest.Email</td>
+                    <td>@guest.PhoneNumber</td>
+                    <td>@guest.Address</td>
+                    <td>@guest.City</td>
+                    <td>@guest.Country</td>
+                    <td>@(guest.Status == true ? "Hoạt động" : "Không hoạt động")</td>
+                    <td>
+                        <form method="post" asp-page-handler="Delete">
+                            <input type="hidden" name="id" value="@guest.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Không có khách hàng nào.</p>
+}

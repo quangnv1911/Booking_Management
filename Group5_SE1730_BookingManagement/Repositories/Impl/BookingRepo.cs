@@ -1,5 +1,7 @@
 ﻿using Group5_SE1730_BookingManagement.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Group5_SE1730_BookingManagement.Repositories.Impl
 {
@@ -17,7 +19,7 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
             return await _context.Bookings.FindAsync(bookingId);
         }
 
-        public async Task<IEnumerable<Booking?>> GetBookings()
+        public async Task<IEnumerable<Booking?>> GetBookingsAsync()
         {
             return await _context.Bookings.ToListAsync();
         }
@@ -50,6 +52,10 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
                     throw;
                 }
             }
+        }
+        public List<Booking> GetBookings()
+        {
+            return _context.Bookings.Include(b => b.Guest).Include(b => b.Homestay).ToList();
         }
     }
 }

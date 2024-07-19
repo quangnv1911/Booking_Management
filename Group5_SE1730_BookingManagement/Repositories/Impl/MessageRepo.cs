@@ -14,6 +14,7 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
         public void CreateMessage(Message message)
         {
             _context.Messages.Add(message); 
+            _context.SaveChanges();
         }
 
         public List<Message> GetMessagesByInboxId(long inboxId)

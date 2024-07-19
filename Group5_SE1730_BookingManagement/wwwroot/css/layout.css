@@ -1,10 +1,10 @@
-﻿.layout-header-list {
+﻿﻿.layout-header-list {
     display: flex;
 }
 
-    .layout-header-list > li {
-        list-style: none;
-    }
+.layout-header-list > li {
+    list-style: none;
+}
 
 
 .layout-footer-container {
@@ -16,7 +16,10 @@
     white-space: nowrap;
     line-height: 60px;
 }
+
+.layout-body-container {
+    min-height: 500px;
+    height: auto !important;
 }
-.layout-body-container{
-    min-height: calc(100vh -40px);
-}
+
+
