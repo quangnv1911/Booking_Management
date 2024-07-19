@@ -48,5 +48,10 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
                 await _context.SaveChangesAsync();
             }
         }
+
+        public List<Homestay> GetHomestaysByGuest(string guestId)
+        {
+            return _context.Homestays.Where(g => g.GuestId == guestId).ToList();
+        }
     }
 }

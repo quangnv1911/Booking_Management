@@ -8,7 +8,7 @@ namespace Group5_SE1730_BookingManagement.Models
         public long Id { get; set; }
         public string? GuestId { get; set; }
         public byte? Rating { get; set; }
-        public long? ReviewText { get; set; }
+        public string? ReviewText { get; set; }
         public long? RoomId { get; set; }
 
         public bool? Status { get; set; }

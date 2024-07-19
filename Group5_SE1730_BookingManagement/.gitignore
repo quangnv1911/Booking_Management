@@ -484,8 +484,13 @@ $RECYCLE.BIN/
 *.swp
 
 
-# Migration
-Migrations/
+
 
 #Mail save
 mailssave/
+
+appst
+
+# Ignore appsettings files
+appsettings.json
+appsettings.Development.json

@@ -20,7 +20,7 @@ namespace Group5_SE1730_BookingManagement.Models
         public decimal? Price { get; set; }
 
         public bool? Status { get; set; }
-
+        public string? Img { get; set; }
         public virtual Homestay? Homestay { get; set; }
         public virtual RoomType? RoomType { get; set; }
         public virtual ICollection<Booking> Bookings { get; set; }

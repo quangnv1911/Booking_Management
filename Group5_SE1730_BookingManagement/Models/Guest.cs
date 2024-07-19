@@ -10,6 +10,10 @@ namespace Group5_SE1730_BookingManagement.Models
         {
             Bookings = new HashSet<Booking>();
             Reviews = new HashSet<Review>();
+            InboxFirstUsers = new HashSet<Inbox>();
+            InboxSecondUsers = new HashSet<Inbox>();
+            Messages = new HashSet<Message>();
+
         }
 
         public string? FirstName { get; set; }
@@ -21,8 +25,11 @@ namespace Group5_SE1730_BookingManagement.Models
         public string? City { get; set; }
         public string? Country { get; set; }
         public bool? Status { get; set; }
-
+        public virtual ICollection<Inbox> InboxFirstUsers { get; set; }
+        public virtual ICollection<Inbox> InboxSecondUsers { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
         public virtual ICollection<Booking> Bookings { get; set; }
+        public virtual ICollection<Homestay> Homestays { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
     }
 }

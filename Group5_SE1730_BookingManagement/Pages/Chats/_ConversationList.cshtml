@@ -1,0 +1,28 @@
+﻿@model Group5_SE1730_BookingManagement.Pages.Chats.IndexModel
+
+@foreach (var inbox in Model.Inboxes)
+{
+    if (Model.CurrentUser.Id == inbox.FirstUserId)
+    {
+        <li class="clearfix">
+            <a asp-page="./Index" asp-route-id="@inbox.Id">
+                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+            </a>
+            <div class="about">
+                <div class="name">@inbox.SecondUser?.UserName</div>
+            </div>
+        </li>
+    }
+    else
+    {
+        <li class="clearfix">
+            <a asp-page="./Index" asp-route-id="@inbox.Id">
+                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+            </a>
+            <div class="about">
+                <div class="name">@inbox.FirstUser?.UserName</div>
+            </div>
+        </li>
+    }
+}
+

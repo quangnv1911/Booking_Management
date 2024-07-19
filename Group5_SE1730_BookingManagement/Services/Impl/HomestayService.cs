@@ -32,5 +32,10 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
             else
                 return 0;
         }
+        
+        public List<Homestay> GetHomestaysByGuest(string guestId)
+        {
+            return _homestayRepo.GetHomestaysByGuest(guestId);
+        }
     }
 }

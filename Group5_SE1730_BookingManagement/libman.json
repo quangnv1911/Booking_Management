@@ -18,6 +18,14 @@
     {
       "library": "ion-rangeslider@2.3.1",
       "destination": "wwwroot/lib/ion-rangeslider/"
+    },
+    {
+      "library": "@microsoft/signalr@latest",
+      "destination": "wwwroot/js/signalr",
+      "files": [
+        "dist/browser/signalr.js",
+        "dist/browser/signalr.min.js"
+      ]
     }
   ]
 }

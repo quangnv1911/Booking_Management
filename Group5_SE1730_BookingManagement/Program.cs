@@ -1,3 +1,4 @@
+using Group5_SE1730_BookingManagement.Hubs;
 using Group5_SE1730_BookingManagement.Models;
 using Group5_SE1730_BookingManagement.Repositories;
 using Group5_SE1730_BookingManagement.Repositories.Impl;
@@ -21,6 +22,9 @@ namespace Group5_SE1730_BookingManagement
             var configuration = builder.Configuration;
             builder.Services.AddDbContext<Group_5_SE1730_BookingManagementContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("Cnn")));
+
+            // Add realtime signaIr
+            builder.Services.AddSignalR();
 
             // Add Identity security
             builder.Services.AddIdentity<Guest, IdentityRole>()
@@ -51,7 +55,7 @@ namespace Group5_SE1730_BookingManagement
                 options.User.RequireUniqueEmail = true;  // Email là duy nhất
 
                 // Cấu hình đăng nhập.
-                options.SignIn.RequireConfirmedEmail = true;            // Cấu hình xác thực địa chỉ email (email phải tồn tại)
+                options.SignIn.RequireConfirmedEmail = false;            // Cấu hình xác thực địa chỉ email (email phải tồn tại)
                 options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
 
             });
@@ -65,6 +69,19 @@ namespace Group5_SE1730_BookingManagement
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 
+            // Cấu hình các cách login bên thứ 3
+            builder.Services.AddAuthentication()
+                .AddGoogle(googleOptions =>
+                {
+                    IConfigurationSection googleAuthNSection = configuration.GetSection("Authentication:Google");
+
+                    // Thiết lập ClientID và ClientSecret để truy cập API google
+                    googleOptions.ClientId = googleAuthNSection["ClientId"];
+                    googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
+                    // Cấu hình Url callback lại từ Google (không thiết lập thì mặc định là /signin-google)
+                    googleOptions.CallbackPath = "/login-google";
+                    googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
+                });
 
 
             // Add mail sender service
@@ -82,14 +99,23 @@ namespace Group5_SE1730_BookingManagement
 
             // Đăng kí Service 
             builder.Services.AddTransient<IBookingService, BookingService>();
-            builder.Services.AddTransient<IHomestayService, HomestayService>();
+            builder.Services.AddTransient<IGuestService, GuestService>();
+            builder.Services.AddTransient<IInboxService, InboxService>();
+            builder.Services.AddTransient<IMessageService, MessageService>();
+            builder.Services.AddTransient<ISiteSettingsService, SiteSettingsService>();
             builder.Services.AddTransient<IRoomService, RoomService>();
+            builder.Services.AddTransient<IInvoiceService, InvoiceService>();
+            builder.Services.AddTransient<IHomestayService, HomestayService>();
 
             // Đăng kí Repo
             builder.Services.AddTransient<IBookingRepo, BookingRepo>();
-            builder.Services.AddTransient<IHomestayRepo, HomestayRepo>();
+            builder.Services.AddTransient<IGuestRepo, GuestRepo>();
+            builder.Services.AddTransient<IInboxRepo, InboxRepo>();
+            builder.Services.AddTransient<IMessageRepo, MessageRepo>();
+            builder.Services.AddTransient<ISiteSettingRepo, SiteSettingRepo>();
             builder.Services.AddTransient<IRoomRepo, RoomRepo>();
-
+            builder.Services.AddTransient<IInvoiceRepo, InvoiceRepo>();
+            builder.Services.AddTransient<IHomestayRepo, HomestayRepo>();
 
 
             var app = builder.Build();
@@ -111,7 +137,7 @@ namespace Group5_SE1730_BookingManagement
             app.UseAuthorization();
 
             app.MapRazorPages();
-
+            app.MapHub<ChatHub>("/chatHub");
             app.Run();
         }
     }

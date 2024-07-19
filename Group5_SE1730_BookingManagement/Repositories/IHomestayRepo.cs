@@ -10,5 +10,6 @@ namespace Group5_SE1730_BookingManagement.Repositories
         Task AddAsync (Homestay homestay);
         Task UpdateAsync (Homestay homestay);
         Task DeleteByIdAsync (long id);
+        List<Homestay> GetHomestaysByGuest(string guestId);
     }
 }

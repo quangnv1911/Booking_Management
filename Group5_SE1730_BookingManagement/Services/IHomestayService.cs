@@ -7,5 +7,6 @@ namespace Group5_SE1730_BookingManagement.Services
         //Get Homestay by id
         Task<Homestay?> GetHomeStayByIdAsync(long id);
         Task<decimal?> GetHomeStaySmallestPriceByIdAsync(long id);
+        List<Homestay> GetHomestaysByGuest(string guestId);
     }
 }

@@ -30,14 +30,20 @@ namespace Group5_SE1730_BookingManagement.Models
         public virtual DbSet<Room> Rooms { get; set; } = null!;
         public virtual DbSet<RoomType> RoomTypes { get; set; } = null!;
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//                optionsBuilder.UseSqlServer("server=QUANGKHONGWJBU\\SA;database=Group_5_SE1730_BookingManagement;uid=sa;pwd=123456;TrustServerCertificate=True;");
-//            }
-//        }
+        public virtual DbSet<Message> Messages { get; set; } = null!;
+        public virtual DbSet<Inbox> Inboxes { get; set; } = null!;
+
+        public DbSet<SiteSettings> SiteSettings { get; set; } = null!;
+        public DbSet<FAQ> FAQs { get; set; } = null!;
+
+        //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //        {
+        //            if (!optionsBuilder.IsConfigured)
+        //            {
+        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        //                optionsBuilder.UseSqlServer("server=QUANGKHONGWJBU\\SA;database=Group_5_SE1730_BookingManagement;uid=sa;pwd=123456;TrustServerCertificate=True;");
+        //            }
+        //        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -168,12 +174,8 @@ namespace Group5_SE1730_BookingManagement.Models
                 entity.Property(e => e.City)
                     .HasMaxLength(255)
                     .IsFixedLength();
-
+                entity.Property(e => e.GuestId).HasColumnName("GuestID");
                 entity.Property(e => e.Email)
-                    .HasMaxLength(255)
-                    .IsFixedLength();
-
-                entity.Property(e => e.HotelImage)
                     .HasMaxLength(255)
                     .IsFixedLength();
 
@@ -188,8 +190,12 @@ namespace Group5_SE1730_BookingManagement.Models
                 entity.Property(e => e.Rating)
                     .HasMaxLength(255)
                     .IsFixedLength();
-
+                entity.HasOne(d => d.Guest)
+                   .WithMany(p => p.Homestays)
+                   .HasForeignKey(d => d.GuestId)
+                   .HasConstraintName("FK_HomeStay_Guest");
                 entity.Property(e => e.Status).HasDefaultValue(true);
+                entity.Property(e => e.Img).HasColumnType("text");
             });
 
             modelBuilder.Entity<HomstayFeature>(entity =>
@@ -228,8 +234,8 @@ namespace Group5_SE1730_BookingManagement.Models
                 entity.Property(e => e.Status).HasDefaultValue(true);
 
                 entity.HasOne(d => d.Booking)
-                    .WithMany(p => p.Invoices)
-                    .HasForeignKey(d => d.BookingId)
+                    .WithOne(p => p.Invoices)
+                    .HasForeignKey<Invoice>(d => d.BookingId)
                     .HasConstraintName("FK_Invoice_Booking");
 
                 entity.HasOne(d => d.Discount)
@@ -251,6 +257,7 @@ namespace Group5_SE1730_BookingManagement.Models
                 entity.Property(e => e.GuestId).HasColumnName("GuestID");
 
                 entity.Property(e => e.RoomId).HasColumnName("RoomID");
+                entity.Property(e => e.ReviewText).HasColumnName("ReviewText");
 
                 entity.HasOne(d => d.Guest)
                     .WithMany(p => p.Reviews)
@@ -263,7 +270,7 @@ namespace Group5_SE1730_BookingManagement.Models
                     .HasConstraintName("FK_Review_Room");
             });
 
-            
+
 
             modelBuilder.Entity<Room>(entity =>
             {
@@ -284,6 +291,7 @@ namespace Group5_SE1730_BookingManagement.Models
                 entity.Property(e => e.RoomTypeId).HasColumnName("RoomTypeID");
 
                 entity.Property(e => e.Status).HasDefaultValue(true);
+                entity.Property(e => e.Img).HasColumnName("Img").HasColumnType("text");
 
                 entity.HasOne(d => d.Homestay)
                     .WithMany(p => p.Rooms)
@@ -336,9 +344,56 @@ namespace Group5_SE1730_BookingManagement.Models
                     .HasForeignKey(d => d.HomestayFeatureId)
                     .HasConstraintName("FK_RoomType_HomstayFeature");
             });
-           
+
+            modelBuilder.Entity<Inbox>(entity =>
+            {
+                entity.ToTable("Inbox");
+
+                entity.Property(e => e.FirstUserId);
+
+                entity.Property(e => e.SecondUserId);
+
+                entity.HasOne(d => d.FirstUser)
+                    .WithMany(p => p.InboxFirstUsers)
+                    .HasForeignKey(d => d.FirstUserId)
+                    .HasConstraintName("FK__Inbox__FirstUser__398D8EEE");
+
+                entity.HasOne(d => d.SecondUser)
+                    .WithMany(p => p.InboxSecondUsers)
+                    .HasForeignKey(d => d.SecondUserId)
+                    .HasConstraintName("FK__Inbox__SecondUse__3A81B327");
+            });
+
+            modelBuilder.Entity<Message>(entity =>
+            {
+                entity.ToTable("Message");
+
+                entity.Property(e => e.Content).HasColumnType("text");
+
+                entity.Property(e => e.CreateAt).HasColumnType("datetime");
+
+                entity.Property(e => e.GuestId);
+
+                entity.HasOne(d => d.Guest)
+                    .WithMany(p => p.Messages)
+                    .HasForeignKey(d => d.GuestId)
+                    .HasConstraintName("FK__Message__GuestId__3D5E1FD2");
+
+                entity.HasOne(d => d.Inbox)
+                    .WithMany(p => p.Messages)
+                    .HasForeignKey(d => d.InboxId)
+                    .HasConstraintName("FK__Message__InboxId__3E52440B");
+            });
+
+            modelBuilder.Entity<SiteSettings>(entity =>
+            {
+                entity.ToTable("SiteSettings");
+                entity.Property(e => e.PrivacyText).IsUnicode(true);
+            }
+            );
+
             OnModelCreatingPartial(modelBuilder);
-            
+           
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

@@ -18,9 +18,10 @@ namespace Group5_SE1730_BookingManagement.Models
         public string? Rating { get; set; }
         public string? Phone { get; set; }
         public string? Email { get; set; }
-        public string? HotelImage { get; set; }
         public bool? Status { get; set; }
-
+        public string? GuestId { get; set; }
+        public virtual Guest? Guest { get; set; }
+        public string? Img { get; set; }
         public virtual ICollection<Booking> Bookings { get; set; }
         public virtual ICollection<Room> Rooms { get; set; }
     }

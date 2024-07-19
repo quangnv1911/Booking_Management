@@ -25,5 +25,20 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
         {
             return await _roomRepo.GetRoomListByHomestayIdAsync(homestayId);
         }
+        
+        public int CountRoomByHomestayAndGuestId(long homestayId, string guestId)
+        {
+            return _roomRepo.CountRoomByHomestayAndGuestId(homestayId, guestId);
+        }
+
+        public int CountRoomRemainOfUser(string guestId)
+        {
+            return _roomRepo.CountRoomRemainOfUser(guestId);
+        }
+
+        public int CountTotalRoomOfUser(string guestId)
+        {
+            return _roomRepo.CountTotalRoomOfUser(guestId) ; ;
+        }
     }
 }

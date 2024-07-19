@@ -1,20 +1,32 @@
-﻿<!DOCTYPE html>
+﻿@using Group5_SE1730_BookingManagement.Services
+@inject ISiteSettingsService SiteSettingsService
+
+@{
+    var siteSettings = await SiteSettingsService.GetSiteSettingsAsync();
+    var appName = siteSettings?.AppName ?? "DefaultAppName";
+    var faviconUrl = siteSettings?.FaviconUrl;
+    var logoUrl = siteSettings?.LogoUrl;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Group5_SE1730_BookingManagement</title>
+    <title>@ViewData["Title"] - @appName</title>
+    <link rel="icon" href="@faviconUrl" type="image/x-icon" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Group5_SE1730_BookingManagement.styles.css" asp-append-version="true" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="~/css/layout.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">
-                    <img src="~/img/logo.svg" />
+                    <img src="@logoUrl" />
                 </a>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
