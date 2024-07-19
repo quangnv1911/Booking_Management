@@ -1,6 +1,6 @@
-﻿using Group5_SE1730_BookingManagement.Repositories.Impl;
-using Group5_SE1730_BookingManagement.Repositories;
+﻿using Group5_SE1730_BookingManagement.Repositories;
 using Group5_SE1730_BookingManagement.Models;
+using System.Collections.Generic;
 
 namespace Group5_SE1730_BookingManagement.Services.Impl
 {
@@ -16,6 +16,20 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
         public List<Guest> GetGuests()
         {
             return _guestRepo.GetGuests();
+        }
+
+        public Guest GetGuestById(string id)
+        {
+            return _guestRepo.GetGuestById(id);
+        }
+
+        public void DeleteGuest(string id)
+        {
+            var guest = _guestRepo.GetGuestById(id);
+            if (guest != null)
+            {
+                _guestRepo.DeleteGuest(guest);
+            }
         }
     }
 }

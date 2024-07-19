@@ -1,0 +1,50 @@
+﻿@page
+@model Group5_SE1730_BookingManagement.Pages.Admins.CreateModel
+@section Sidebar {
+    <nav class="nav flex-column">
+        <a class="nav-link" asp-page="/Admins/Dashboard">Bảng điều khiển</a>
+        <a class="nav-link active" asp-page="/Admins/HotelManagement">Quản lý khách sạn</a>
+        <a class="nav-link" asp-page="/Admins/CustomerManagement">Quản lý khách hàng</a>
+        <a class="nav-link" asp-page="/Admins/BookingManagement">Quản lý đặt phòng</a>
+        <a class="nav-link" asp-page="/Admins/ContentManagement">Quản lý</a>
+    </nav>
+}
+<h2>Thêm khách sạn</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Homestay.HotelName"></label>
+        <input asp-for="Homestay.HotelName" class="form-control" />
+        <span asp-validation-for="Homestay.HotelName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Homestay.Address"></label>
+        <input asp-for="Homestay.Address" class="form-control" />
+        <span asp-validation-for="Homestay.Address" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Homestay.City"></label>
+        <input asp-for="Homestay.City" class="form-control" />
+        <span asp-validation-for="Homestay.City" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Homestay.Phone"></label>
+        <input asp-for="Homestay.Phone" class="form-control" />
+        <span asp-validation-for="Homestay.Phone" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Homestay.Email"></label>
+        <input asp-for="Homestay.Email" class="form-control" />
+        <span asp-validation-for="Homestay.Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Homestay.Status"></label>
+        <select asp-for="Homestay.Status" class="form-control">
+            <option value="true">Hoạt động</option>
+            <option value="false">Không hoạt động</option>
+        </select>
+        <span asp-validation-for="Homestay.Status" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a asp-page="HotelManagement" class="btn btn-secondary">Hủy</a>
+</form>

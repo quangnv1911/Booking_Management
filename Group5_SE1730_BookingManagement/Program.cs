@@ -31,8 +31,6 @@ namespace Group5_SE1730_BookingManagement
                 .AddEntityFrameworkStores<Group_5_SE1730_BookingManagementContext>()
                 .AddDefaultTokenProviders();
 
-
-
             // Config identity options
             builder.Services.Configure<IdentityOptions>(options =>
             {
@@ -46,7 +44,7 @@ namespace Group5_SE1730_BookingManagement
 
                 // Cấu hình Lockout - khóa user
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // Khóa 5 phút
-                options.Lockout.MaxFailedAccessAttempts = 5; // Thất bại 5 lầ thì khóa
+                options.Lockout.MaxFailedAccessAttempts = 5; // Thất bại 5 lần thì khóa
                 options.Lockout.AllowedForNewUsers = true;
 
                 // Cấu hình về User.
@@ -83,7 +81,6 @@ namespace Group5_SE1730_BookingManagement
                     googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
                 });
 
-
             // Add mail sender service
             builder.Services.AddOptions();                                        // Kích hoạt Options
             var mailsettings = builder.Configuration.GetSection("MailSettings");  // đọc config
@@ -93,20 +90,19 @@ namespace Group5_SE1730_BookingManagement
             // Add services to the container.
             builder.Services.AddRazorPages();
 
-
             // Đăng kí Service 
+            builder.Services.AddTransient<IHomestayService, HomestayService>();
             builder.Services.AddTransient<IBookingService, BookingService>();
             builder.Services.AddTransient<IGuestService, GuestService>();
             builder.Services.AddTransient<IInboxService, InboxService>();
             builder.Services.AddTransient<IMessageService, MessageService>();
 
             // Đăng kí Repo
+            builder.Services.AddTransient<IHomestayRepo, HomestayRepo>();
             builder.Services.AddTransient<IBookingRepo, BookingRepo>();
             builder.Services.AddTransient<IGuestRepo, GuestRepo>();
             builder.Services.AddTransient<IInboxRepo, InboxRepo>();
             builder.Services.AddTransient<IMessageRepo, MessageRepo>();
-
-
 
             var app = builder.Build();
 
@@ -128,6 +124,7 @@ namespace Group5_SE1730_BookingManagement
 
             app.MapRazorPages();
             app.MapHub<ChatHub>("/chatHub");
+
             app.Run();
         }
     }

@@ -1,4 +1,7 @@
 ﻿using Group5_SE1730_BookingManagement.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Group5_SE1730_BookingManagement.Repositories.Impl
 {
@@ -10,9 +13,21 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
         {
             _context = context;
         }
+
         public List<Guest> GetGuests()
         {
             return _context.Guests.ToList();
+        }
+
+        public Guest GetGuestById(string id)
+        {
+            return _context.Guests.Find(id);
+        }
+
+        public void DeleteGuest(Guest guest)
+        {
+            _context.Guests.Remove(guest);
+            _context.SaveChanges();
         }
     }
 }
