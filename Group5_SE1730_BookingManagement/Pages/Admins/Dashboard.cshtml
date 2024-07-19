@@ -1,0 +1,72 @@
+﻿@page
+@model Group5_SE1730_BookingManagement.Pages.Admins.DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+@section Sidebar {
+    <nav class="nav flex-column">
+        <a class="nav-link active" asp-page="/Admins/Dashboard">Bảng điều khiển</a>
+        <a class="nav-link" asp-page="/Admins/HotelManagement">Quản lý khách sạn</a>
+        <a class="nav-link" asp-page="/Admins/CustomerManagement">Quản lý khách hàng</a>
+        <a class="nav-link" asp-page="/Admins/BookingManagement">Quản lý đặt phòng</a>
+        <a class="nav-link" asp-page="/Admins/ContentManagement">Quản lý</a>
+    </nav>
+}
+
+<div class="content-section">
+    <h2>Dashboard</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tổng số khách sạn</h5>
+                    <p class="card-text">@Model.Statistics.TotalHotels</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tổng số đặt phòng</h5>
+                    <p class="card-text">@Model.Statistics.TotalBookings</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Số đặt phòng mỗi ngày</h5>
+                    <canvas id="bookingsChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('bookingsChart').getContext('2d');
+        var bookingsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                datasets: [{
+                    label: 'Số đặt phòng mỗi ngày',
+                    data: @Html.Raw(Json.Serialize(Model.Statistics.BookingsPerDay)),
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}

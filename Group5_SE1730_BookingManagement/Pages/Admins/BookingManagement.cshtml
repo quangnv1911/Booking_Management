@@ -1,0 +1,49 @@
+﻿@page
+@model Group5_SE1730_BookingManagement.Pages.Admins.BookingManagementModel
+@section Sidebar {
+    <nav class="nav flex-column">
+        <a class="nav-link" asp-page="/Admins/Dashboard">Bảng điều khiển</a>
+        <a class="nav-link" asp-page="/Admins/HotelManagement">Quản lý khách sạn</a>
+        <a class="nav-link" asp-page="/Admins/CustomerManagement">Quản lý khách hàng</a>
+        <a class="nav-link active" asp-page="/Admins/BookingManagement">Quản lý đặt phòng</a>
+        <a class="nav-link" asp-page="/Admins/ContentManagement">Quản lý</a>
+    </nav>
+}
+<h2>Quản lý đặt phòng</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tên khách hàng</th>
+            <th>Tên khách sạn</th>
+            <th>Ngày đặt</th>
+            <th>Ngày nhận phòng</th>
+            <th>Ngày trả phòng</th>
+            <th>Số người lớn</th>
+            <th>Số trẻ em</th>
+            <th>Yêu cầu đặc biệt</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var booking in Model.Bookings)
+        {
+            <tr>
+                <td>@booking.GuestName</td>
+                <td>@booking.HomestayName</td>
+                <td>@booking.BookingDate?.ToString("dd/MM/yyyy")</td>
+                <td>@booking.CheckInDate?.ToString("dd/MM/yyyy")</td>
+                <td>@booking.CheckOutDate?.ToString("dd/MM/yyyy")</td>
+                <td>@booking.NumAdults</td>
+                <td>@booking.NumChildren</td>
+                <td>@booking.SpecialReq</td>
+                <td>@(booking.Status == true ? "Hoạt động" : "Không hoạt động")</td>
+                <td>
+                    <a asp-page="EditBooking" asp-route-id="@booking.Id" class="btn btn-sm btn-warning">Sửa</a>
+                    <a asp-page="DeleteBooking" asp-route-id="@booking.Id" class="btn btn-sm btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
