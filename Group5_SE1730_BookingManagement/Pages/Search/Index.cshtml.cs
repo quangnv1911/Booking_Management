@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Group5_SE1730_BookingManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using Group5_SE1730_BookingManagement.Services;
 
 namespace Group5_SE1730_BookingManagement.Pages.Search
 {
@@ -11,10 +12,12 @@ namespace Group5_SE1730_BookingManagement.Pages.Search
         private readonly ILogger<IndexModel> _logger;
         //Context
         private readonly Group_5_SE1730_BookingManagementContext _context;
+        private readonly IHomestayService _homestayService;
 
-        public IndexModel(ILogger<IndexModel> logger,Group_5_SE1730_BookingManagementContext context) {
+        public IndexModel(ILogger<IndexModel> logger,Group_5_SE1730_BookingManagementContext context, IHomestayService homestayService) {
             _logger = logger;
             _context = context;
+            _homestayService = homestayService;
         }
 
         [BindProperty(SupportsGet = true)]
@@ -31,6 +34,8 @@ namespace Group5_SE1730_BookingManagement.Pages.Search
 
         public List<Homestay> Homestays { get; set; }
 
+        public List<decimal?> HomestayMinPriceList;
+
         //public void OnGet()
         //{
         //}
@@ -38,7 +43,7 @@ namespace Group5_SE1730_BookingManagement.Pages.Search
         //public void OnPost(DateTime checkInDate, string destination, int guests, int nights) {
 
         //}
-        
+
         public async Task<IActionResult> OnGetAsync()
         {
             IQueryable<Homestay> homestays = from h in _context.Homestays select h;
@@ -77,6 +82,11 @@ namespace Group5_SE1730_BookingManagement.Pages.Search
             //}
 
             Homestays = await homestays.ToListAsync();
+            HomestayMinPriceList = new List<decimal?>();
+            foreach(var homestay in Homestays)
+            {
+                HomestayMinPriceList.Add(await _homestayService.GetHomeStaySmallestPriceByIdAsync(homestay.Id));
+            }
 
             return Page();
         }

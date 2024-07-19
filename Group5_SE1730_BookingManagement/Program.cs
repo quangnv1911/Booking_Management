@@ -113,7 +113,7 @@ namespace Group5_SE1730_BookingManagement
             builder.Services.AddTransient<IGuestService, GuestService>();
             builder.Services.AddTransient<IInboxService, InboxService>();
             builder.Services.AddTransient<IMessageService, MessageService>();
-
+            builder.Services.AddTransient<IVnPayService, VnPayService>();
             builder.Services.AddTransient<ISiteSettingsService, SiteSettingsService>();
             builder.Services.AddTransient<IRoomService, RoomService>();
             builder.Services.AddTransient<IInvoiceService, InvoiceService>();

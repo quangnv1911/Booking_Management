@@ -38,7 +38,7 @@
                 </div>
                 <p>(789 đánh giá) Ấn tượng</p>
                 <p><i class="fas fa-map-marker-alt"></i> @Model.homestay.Address, @Model.homestay.City</p>
-                <p>Giá/phòng/đêm từ <strong>@Model.minValue VND</strong> <span class="text-muted">Chưa bao gồm thuế và phí</span></p>
+                <p>Giá/phòng/đêm từ <strong>@Model.minValue.Value.ToString("N0") VND</strong> <span class="text-muted">Chưa bao gồm thuế và phí</span></p>
                 <button class="btn btn-warning">Chọn phòng</button>
             </div>
         </div>
@@ -58,10 +58,10 @@
                         <div class="col-md-4">
                             <img src="@Model.roomList[i].Img" alt="Room Image" class="img-fluid">
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-8" style="padding-left:20px">
                             <h5>@Model.roomList[i].Name</h5>
                             <p>Tên loại phòng: @Model.roomList[i].RoomType.Name</p>
-                            <p>Giá/phòng/đêm: <strong>@Model.roomList[i].Price VND</strong> <span class="text-muted">Chưa bao gồm thuế và phí</span></p>
+                            <p>Giá/phòng/đêm: <strong>@Model.roomList[i].Price.Value.ToString("N0") VND</strong> <span class="text-muted">Chưa bao gồm thuế và phí</span></p>
                             <p>Sức chứa: <strong>@Model.roomList[i].MaxGuests</strong></p>
                             <input type="submit" class="btn btn-warning" value="Chọn phòng"/>
                         </div>

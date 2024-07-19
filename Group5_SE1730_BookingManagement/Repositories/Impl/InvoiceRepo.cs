@@ -91,5 +91,9 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
             }
             return count;
         }
+
+        public async Task UpdateInvoice(Invoice invoice) {
+            _context.Invoices.Update(invoice);
+        }
     }
 }

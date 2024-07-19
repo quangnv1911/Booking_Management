@@ -57,5 +57,14 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
         {
             return _context.Bookings.Include(b => b.Guest).Include(b => b.Homestay).ToList();
         }
+
+        public async Task UpdateBooking(Booking booking)
+        {
+            using (var transaction = await _context.Database.BeginTransactionAsync())
+            {
+                _context.Bookings.Update(booking);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }
