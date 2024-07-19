@@ -82,9 +82,13 @@ namespace Group5_SE1730_BookingManagement
 
             // Đăng kí Service 
             builder.Services.AddTransient<IBookingService, BookingService>();
+            builder.Services.AddTransient<IHomestayService, HomestayService>();
+            builder.Services.AddTransient<IRoomService, RoomService>();
 
             // Đăng kí Repo
             builder.Services.AddTransient<IBookingRepo, BookingRepo>();
+            builder.Services.AddTransient<IHomestayRepo, HomestayRepo>();
+            builder.Services.AddTransient<IRoomRepo, RoomRepo>();
 
 
 
