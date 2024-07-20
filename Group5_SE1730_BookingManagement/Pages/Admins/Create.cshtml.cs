@@ -1,13 +1,16 @@
 using Group5_SE1730_BookingManagement.Models;
 using Group5_SE1730_BookingManagement.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 using System.IO;
 using System.Threading.Tasks;
 
 namespace Group5_SE1730_BookingManagement.Pages.Admins
 {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : PageModel
     {
         private readonly IHomestayService _homestayService;
