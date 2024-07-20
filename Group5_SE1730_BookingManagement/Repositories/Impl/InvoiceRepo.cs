@@ -14,6 +14,11 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
             _context = context;
         }
 
+        public async Task<Invoice> GetInvoiceByBookingId(long id)
+        {
+            return await _context.Invoices.FirstOrDefaultAsync(i => i.BookingId == id);
+        }
+
         public decimal GetMoneyByMonth(string guestId, int month)
         {
             decimal money = 0;
@@ -94,6 +99,12 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
 
         public async Task UpdateInvoice(Invoice invoice) {
             _context.Invoices.Update(invoice);
+        }
+
+        public async Task UpdateInvoiceAsync(Invoice invoice)
+        {
+            _context.Invoices.Update(invoice);
+            await _context.SaveChangesAsync();
         }
     }
 }

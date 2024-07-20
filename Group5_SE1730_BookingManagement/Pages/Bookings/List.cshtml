@@ -31,7 +31,7 @@
                             <td>@booking.CheckInDate?.ToString("dd/MM/yyyy")</td>
                             <td>@booking.CheckOutDate?.ToString("dd/MM/yyyy")</td>
                             <td>@booking.SpecialReq</td>
-                            <td>@(booking.Status == true ? "Confirmed" : "Pending")</td>
+                            <td>@(booking.Status == true ? "Confirmed" : "Rejected")</td>
                         </tr>
                     }
                 </tbody>

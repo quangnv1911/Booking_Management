@@ -89,5 +89,15 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
         {
             await _bookingRepo.UpdateBooking(booking);
         }
+
+        public async Task<Booking> GetLastestBookingByGuestId(string guestId)
+        {
+            return await _context.Bookings
+                .Include(b => b.Homestay)
+                .Include(b => b.Room)
+                .Where(b => b.GuestId == guestId)
+                .OrderByDescending(b => b.BookingDate)
+                .FirstOrDefaultAsync();
+        }
     }
 }

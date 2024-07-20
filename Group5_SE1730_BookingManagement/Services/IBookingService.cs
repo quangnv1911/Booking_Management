@@ -20,5 +20,7 @@ namespace Group5_SE1730_BookingManagement.Services
         Task<IEnumerable<Booking?>> GetBookingListByGuestId(string guestId);
 
         Task UpdateBookingAsync(Booking booking);
+
+        Task<Booking> GetLastestBookingByGuestId(string guestId);
     }
 }
