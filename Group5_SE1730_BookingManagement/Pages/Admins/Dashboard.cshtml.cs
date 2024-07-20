@@ -1,14 +1,17 @@
 using Group5_SE1730_BookingManagement.Models;
 using Group5_SE1730_BookingManagement.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Group5_SE1730_BookingManagement.Pages.Admins
 {
+    [Authorize(Roles = "Admin")]
     public class DashboardModel : PageModel
     {
         private readonly IBookingService _bookingService;

@@ -3,9 +3,12 @@ using Group5_SE1730_BookingManagement.Services;
 using Group5_SE1730_BookingManagement.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Group5_SE1730_BookingManagement.Pages.Admins
 {
+    [Authorize(Roles = "Admin")]
     public class HotelManagementModel : PageModel
     {
         private readonly IHomestayService _homestayService;

@@ -4,9 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Group5_SE1730_BookingManagement.Pages.Admins
 {
+    [Authorize(Roles = "Admin")]
     public class CustomerManagementModel : PageModel
     {
         private readonly IGuestService _guestService;
