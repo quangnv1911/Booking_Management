@@ -1,22 +1,23 @@
+using Group5_SE1730_BookingManagement.Hubs;
 using Group5_SE1730_BookingManagement.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Group5_SE1730_BookingManagement.Pages.Hotel
 {
     public class IndexModel : PageModel
     {
-        private readonly Group5_SE1730_BookingManagement.Models.Group_5_SE1730_BookingManagementContext _context;
-        private readonly UserManager<Guest> _userManager;
 
-        public IndexModel(Group5_SE1730_BookingManagement.Models.Group_5_SE1730_BookingManagementContext context, UserManager<Guest> userManager)
+        private readonly Group5_SE1730_BookingManagement.Models.Group_5_SE1730_BookingManagementContext _context;
+        private readonly IHubContext<ChatHub> _signalRHub;
+        public IndexModel(Group5_SE1730_BookingManagement.Models.Group_5_SE1730_BookingManagementContext context, IHubContext<ChatHub> signalRHub)
         {
             _context = context;
-            _userManager = userManager;
+            _signalRHub = signalRHub;
         }
-
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
         [BindProperty(SupportsGet = true)]
@@ -24,46 +25,79 @@ namespace Group5_SE1730_BookingManagement.Pages.Hotel
         [BindProperty(SupportsGet = true)]
         public int TotalPages { get; set; }
 
-        public IList<Homestay> Homestay { get; set; } = default!;
-        public IDictionary<Homestay, IList<Room>> HomestayRooms { get; set; } = new Dictionary<Homestay, IList<Room>>();
+        public IList<Room> Room { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            // L?y thông tin ng??i dùng hi?n t?i
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                RedirectToPage("/Account/Login", new { area = "Identity" });
-            }
+            // int pageSize = 3;
+            var query = _context.Rooms.Include(r => r.Homestay)
+                .Include(r => r.RoomType).AsQueryable();
 
-            var homestays = _context.Homestays
-                .Where(h => h.GuestId == user.Id) // L?c theo ng??i dùng hi?n t?i
-                .Include(h => h.Rooms) // Bao g?m thông tin v? phòng
-                .AsQueryable();
 
             if (!string.IsNullOrEmpty(SearchTerm))
             {
-                homestays = homestays.Where(h => h.HotelName.Contains(SearchTerm));
+                query = query.Where(r => r.Name.Contains(SearchTerm));
             }
-
-            Homestay = await homestays.ToListAsync();
-
-            // L?u tr? phòng c?a t?ng homestay
-            foreach (var homestay in Homestay)
-            {
-                HomestayRooms[homestay] = homestay.Rooms.ToList();
-            }
+            // TotalPages = query.ToList().Count()/pageSize;
+            Room = query.ToList();
         }
 
-        public async Task<IActionResult> OnPost(string id)
+        public async Task<IActionResult> OnPostAsync(long? id)
         {
-            var homestay = await _context.Homestays.FirstOrDefaultAsync(h => h.Id == long.Parse(id));
-            if (homestay != null)
+            if (id == null || _context.Rooms == null)
             {
-                _context.Homestays.Remove(homestay);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
+
+            // Fetch the room with related entities
+            var room = await _context.Rooms
+                .Include(r => r.Bookings)
+                .Include(r => r.Reviews)
+                .Include(r => r.Discounts)
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            // Check if the room exists
+            if (room == null)
+            {
+                return NotFound(); // Room was not found
+            }
+
+            // Fetch related entities
+            var reviews = await _context.Reviews.Where(r => r.RoomId == id).ToListAsync();
+            var bookings = await _context.Bookings.Where(b => b.RoomId == id).ToListAsync();
+            var discounts = await _context.Discounts
+                .Include(d => d.Rooms)
+                .Where(d => d.Rooms.Any(r => r.Id == id))
+                .ToListAsync();
+
+            // Get the list of booking IDs (non-nullable)
+            var bookingIds = bookings.Select(b => b.Id).ToList();
+
+            // Fetch invoices related to the bookings
+            var invoices = await _context.Invoices
+                .Where(i => i.BookingId.HasValue && bookingIds.Contains(i.BookingId.Value))
+                .ToListAsync();
+
+            // Remove room from each discount's Rooms collection
+            foreach (var discount in discounts)
+            {
+                discount.Rooms.Remove(room);
+            }
+
+            // Remove invoices first
+            _context.Invoices.RemoveRange(invoices);
+
+            // Remove related entities
+            _context.Reviews.RemoveRange(reviews);
+            _context.Bookings.RemoveRange(bookings);
+            _context.Rooms.Remove(room);
+
+            await _context.SaveChangesAsync();
+            await _signalRHub.Clients.All.SendAsync("LoadFoods");
+
+            // Redirect to the same page or a different page after deletion
             return RedirectToPage("./Index");
         }
+
     }
 }

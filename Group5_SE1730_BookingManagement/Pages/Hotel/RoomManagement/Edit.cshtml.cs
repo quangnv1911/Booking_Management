@@ -67,7 +67,7 @@ namespace Group5_SE1730_BookingManagement.Pages.Hotel.RoomManagement
                 }
             }
 
-            return RedirectToPage("./Index");
+            return Redirect("/hotel");
         }
 
         private bool RoomExists(long id)

@@ -30,6 +30,10 @@ namespace Group5_SE1730_BookingManagement.Hubs
             await Clients.All.SendAsync("ReceiveUpdateInboxHistory", inboxList);
         }
 
+        public async Task NotifyDeletion(string message)
+        {
+            await Clients.All.SendAsync("ReceiveDeletionNotification", message);
+        }
 
 
 

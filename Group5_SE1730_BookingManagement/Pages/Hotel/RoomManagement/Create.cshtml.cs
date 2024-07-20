@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Group5_SE1730_BookingManagement.Models;
+using Microsoft.AspNetCore.SignalR;
+using Group5_SE1730_BookingManagement.Hubs;
 
 namespace Group5_SE1730_BookingManagement.Pages.Hotel.RoomManagement
 {
     public class CreateModel : PageModel
     {
         private readonly Group5_SE1730_BookingManagement.Models.Group_5_SE1730_BookingManagementContext _context;
-
-        public CreateModel(Group5_SE1730_BookingManagement.Models.Group_5_SE1730_BookingManagementContext context)
+        private readonly IHubContext<ChatHub> _signalRHub;
+        public CreateModel(Group5_SE1730_BookingManagement.Models.Group_5_SE1730_BookingManagementContext context, IHubContext<ChatHub> signalRHub)
         {
             _context = context;
+            _signalRHub = signalRHub;
         }
 
         public IActionResult OnGet()
@@ -39,8 +42,9 @@ namespace Group5_SE1730_BookingManagement.Pages.Hotel.RoomManagement
 
             _context.Rooms.Add(Room);
             await _context.SaveChangesAsync();
+            await _signalRHub.Clients.All.SendAsync("LoadFoods");
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/hotel");
         }
     }
 }

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using Group5_SE1730_BookingManagement.Hubs;
 using Group5_SE1730_BookingManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Group5_SE1730_BookingManagement.Pages.Homepage
@@ -10,10 +12,12 @@ namespace Group5_SE1730_BookingManagement.Pages.Homepage
     public class IndexModel : PageModel
     {
         private readonly Group_5_SE1730_BookingManagementContext _context;
-
-        public IndexModel(Group_5_SE1730_BookingManagementContext context)
+        private readonly IHubContext<ChatHub> _signalRHub;
+        public IndexModel(Group5_SE1730_BookingManagement.Models.Group_5_SE1730_BookingManagementContext context, IHubContext<ChatHub> signalRHub)
         {
             _context = context;
+            _signalRHub = signalRHub;
+       
         }
 
         public IList<Room> Rooms { get; set; }
