@@ -16,7 +16,7 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
 
         public async Task<Booking?> GetBookingById(int bookingId)
         {
-            return await _context.Bookings.FindAsync(bookingId);
+            return await _context.Bookings.Include(b => b.Homestay).Include(b => b.Room).FirstAsync(b => b.Id == bookingId);
         }
 
         public async Task<IEnumerable<Booking?>> GetBookingsAsync()
@@ -65,6 +65,11 @@ namespace Group5_SE1730_BookingManagement.Repositories.Impl
                 _context.Bookings.Update(booking);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<IEnumerable<Booking?>> GetBookingsByGuestId(string guestId)
+        {
+            return await _context.Bookings.Include(b=> b.Room).Include(b=> b.Homestay).Where(b => b.GuestId == guestId).ToListAsync();
         }
     }
 }

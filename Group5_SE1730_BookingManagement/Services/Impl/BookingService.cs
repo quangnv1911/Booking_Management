@@ -80,9 +80,14 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
             return bookingsPerDay;
         }
 
-        public Task<List<Booking?>> GetBookingListByGuestId(string guestId)
+        public async Task<IEnumerable<Booking?>> GetBookingListByGuestId(string guestId)
         {
-            throw new NotImplementedException();
+            return await _bookingRepo.GetBookingsByGuestId(guestId);
+        }
+
+        public async Task UpdateBookingAsync(Booking booking)
+        {
+            await _bookingRepo.UpdateBooking(booking);
         }
     }
 }

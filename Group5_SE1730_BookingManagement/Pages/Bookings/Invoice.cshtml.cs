@@ -81,7 +81,7 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
                 CheckInDate = CheckInDate,
                 CheckOutDate = CheckInDate.AddDays(Nights),
                 Status = false,
-                GuestId = homestayInfo.GuestId,
+                GuestId = _userManager.GetUserId(User),
                 HomestayId = homestayInfo.Id,
                 RoomId = roomInfo.Id,
                 NumAdults = Guests,

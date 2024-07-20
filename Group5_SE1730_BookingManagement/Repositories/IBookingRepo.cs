@@ -14,5 +14,7 @@ namespace Group5_SE1730_BookingManagement.Repositories
         List<Booking> GetBookings();
 
         Task UpdateBooking(Booking booking);
+
+        Task<IEnumerable<Booking?>> GetBookingsByGuestId(string guestId);
     }
 }

@@ -9,11 +9,11 @@
         } */
 
     .card {
-        background-color: #F5FCFC;
+        background-color: #f2f2f2;
     }
 
     .form-control, .form-check-label, .btn {
-        background-color: #F5FCFC;
+        background-color: #f2f2f2;
         border: none;
         /* color: white; */
     }
@@ -29,7 +29,7 @@
     }
 
     .card-header, .card-body {
-        background-color: #F5FCFC;
+        background-color: #f2f2f2;
     }
 </style>
 <div class="container mt-5">
@@ -82,7 +82,7 @@
                             <p>Thanh toán trực tiếp tại homestay</p>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-block mt-3">Pay</button>
+                    <button class="btn btn-primary btn-block mt-3">Thanh toán</button>
                 </div>
             </form>
         </div>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="mt-4">
                     <h4>Tổng giá tiền</h4>
-                    <h4>@Model.roomInfo.Price VND</h4>
+                    <h4>@Model.roomInfo.Price.Value.ToString("N0") VND</h4>
                 </div>
             </div>
             @* <div class="card p-4 mt-4">
