@@ -1,4 +1,5 @@
 ﻿using Group5_SE1730_BookingManagement.Models;
+using Group5_SE1730_BookingManagement.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,9 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
         public string VnpSecureHash { get; set; }
 
         private readonly IEmailSender _emailSender;
+        private readonly IBookingService _bookingService;
+        private readonly IInvoiceService _invoiceService;
+        private readonly Group_5_SE1730_BookingManagementContext _context;
 
         private UserManager<Guest> _userManager;
         private Guest CurrentUser { get; set; }
@@ -31,13 +35,17 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
         [BindProperty(SupportsGet = true)]
         public bool? Status { get; set; }
 
-        public SummaryModel(IEmailSender emailSender, UserManager<Guest> userManager)
+        public int? BookingId { get; set; }
+
+        public SummaryModel(IEmailSender emailSender, UserManager<Guest> userManager, IBookingService bookingService, Group_5_SE1730_BookingManagementContext context)
         {
             _emailSender = emailSender;
             _userManager = userManager;
+            _bookingService = bookingService;
+            _context = context;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string bookingId)
         {
             CurrentUser = await _userManager.GetUserAsync(User);
 
@@ -62,47 +70,59 @@ namespace Group5_SE1730_BookingManagement.Pages.Bookings
             var hashData = $"vnp_Amount={VnpAmount}&vnp_BankCode={VnpBankCode}&vnp_BankTranNo={VnpBankTranNo}&vnp_CardType={VnpCardType}&vnp_OrderInfo={VnpOrderInfo}&vnp_PayDate={VnpPayDate}&vnp_ResponseCode={VnpResponseCode}&vnp_TmnCode={VnpTmnCode}&vnp_TransactionNo={VnpTransactionNo}&vnp_TransactionStatus={VnpTransactionStatus}&vnp_TxnRef={VnpTxnRef}&vnp_Version=2.1.0";
             var computedHash = CreateHmacSHA512(vnp_HashSecret, hashData);
 
-            if (computedHash.Equals(VnpSecureHash))
+            //Get lastest Record of Booking with GuestId
+            var booking = await _bookingService.GetLastestBookingByGuestId(CurrentUser.Id);
+
+            // Xử lý đơn hàng theo thông tin nhận được
+            if (VnpResponseCode == "00" && VnpTransactionStatus == "00")
             {
-                // Xử lý đơn hàng theo thông tin nhận được
-                if (VnpResponseCode == "00" && VnpTransactionStatus == "00")
-                {
-                    Status = true;
-                    //Create infomation about email
-                    var subject = "Payment Information";
-                    var message = $"Payment Information: \n" +
-                        $"Amount: {VnpAmount}\n" +
-                        $"Bank Code: {VnpBankCode}\n" +
-                        $"Bank Transaction No: {VnpBankTranNo}\n" +
-                        $"Card Type: {VnpCardType}\n" +
-                        $"Order Info: {VnpOrderInfo}\n" +
-                        $"Pay Date: {VnpPayDate}\n" +
-                        $"Transaction No: {VnpTransactionNo}\n" +
-                        $"Transaction Status: {VnpTransactionStatus}\n";
-                    var footer = "\nCảm ơn bạn đã sử dụng dịch vụ của chúng tôi";
-                    _emailSender.SendEmailAsync(CurrentUser.Email, subject, message + footer);
-                }
-                else
-                {
-                    Status = false;
-                    //Create infomation about email
-                    var subject = "Giao dịch thất bại";
-                    var message = $"Payment Information: \n" +
-                        $"Amount: {VnpAmount}\n" +
-                        $"Bank Code: {VnpBankCode}\n" +
-                        $"Bank Transaction No: {VnpBankTranNo}\n" +
-                        $"Card Type: {VnpCardType}\n" +
-                        $"Order Info: {VnpOrderInfo}\n" +
-                        $"Pay Date: {VnpPayDate}\n" +
-                        $"Transaction No: {VnpTransactionNo}\n" +
-                        $"Transaction Status: {VnpTransactionStatus}\n";
-                    var footer = "\nCảm ơn bạn đã sử dụng dịch vụ của chúng tôi";
-                    _emailSender.SendEmailAsync(CurrentUser.Email, subject, message + footer);
-                }
+                Status = true;
+
+                //Create infomation about email
+                var subject = "Payment Information";
+                var message = $"Payment Information: \n" +
+                    $"Amount: {VnpAmount}\n" +
+                    $"Bank Code: {VnpBankCode}\n" +
+                    $"Bank Transaction No: {VnpBankTranNo}\n" +
+                    $"Card Type: {VnpCardType}\n" +
+                    $"Order Info: {VnpOrderInfo}\n" +
+                    $"Pay Date: {VnpPayDate}\n" +
+                    $"Transaction No: {VnpTransactionNo}\n" +
+                    $"Transaction Status: {VnpTransactionStatus}\n";
+                var footer = "\nCảm ơn bạn đã sử dụng dịch vụ của chúng tôi";
+                _emailSender.SendEmailAsync(CurrentUser.Email, subject, message + footer);
+                booking.Status = true;
+                await _bookingService.UpdateBookingAsync(booking);
+                _bookingService.UpdateBookingAsync(booking);
+                //var invoice = _context.Invoices.FirstOrDefault(i => i.BookingId == booking.Id);
+                //invoice.Status = true;
+                //await _invoiceService.UpdateInvoiceAsync(invoice);
+                //_invoiceService.UpdateInvoiceAsync(invoice);
             }
             else
             {
-                // Chuỗi hash không khớp, có thể dữ liệu đã bị thay đổi
+                Status = false;
+                //Create infomation about email
+                var subject = "Giao dịch thất bại";
+                var message = $"Payment Information: \n" +
+                    $"Amount: {VnpAmount}\n" +
+                    $"Bank Code: {VnpBankCode}\n" +
+                    $"Bank Transaction No: {VnpBankTranNo}\n" +
+                    $"Card Type: {VnpCardType}\n" +
+                    $"Order Info: {VnpOrderInfo}\n" +
+                    $"Pay Date: {VnpPayDate}\n" +
+                    $"Transaction No: {VnpTransactionNo}\n" +
+                    $"Transaction Status: {VnpTransactionStatus}\n";
+                var footer = "\nCảm ơn bạn đã sử dụng dịch vụ của chúng tôi";
+                _emailSender.SendEmailAsync(CurrentUser.Email, subject, message + footer);
+
+                booking.Status = false;
+                await _bookingService.UpdateBookingAsync(booking);
+                _bookingService.UpdateBookingAsync(booking);
+                //var invoice = _context.Invoices.FirstOrDefault(i => i.BookingId == booking.Id);
+                //invoice.Status = false;
+                //await _invoiceService.UpdateInvoiceAsync(invoice);
+                //_invoiceService.UpdateInvoiceAsync(invoice);
             }
 
             return Page();

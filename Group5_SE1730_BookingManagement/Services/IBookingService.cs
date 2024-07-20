@@ -11,12 +11,16 @@ namespace Group5_SE1730_BookingManagement.Services
         //Add booking
         Task AddBooking(Booking booking);
         //Get booking by id
-        Task<Booking?> GetBookingById(int bookingId);
+        Task<Booking?> GetBookingByIdAsync(int bookingId);
         List<Booking> GetBookings();
         Task<IEnumerable<BookingViewModel>> GetAllBookingsAsync();
         Task<int> GetTotalBookingsAsync();
         Task<List<int>> GetBookingsPerDayAsync(DateTime startDate);
 
-        Task<List<Booking?>> GetBookingListByGuestId(string guestId);
+        Task<IEnumerable<Booking?>> GetBookingListByGuestId(string guestId);
+
+        Task UpdateBookingAsync(Booking booking);
+
+        Task<Booking> GetLastestBookingByGuestId(string guestId);
     }
 }

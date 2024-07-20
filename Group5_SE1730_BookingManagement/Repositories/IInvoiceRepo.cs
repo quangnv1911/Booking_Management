@@ -14,5 +14,9 @@ namespace Group5_SE1730_BookingManagement.Repositories
 
         Task UpdateInvoice(Invoice invoice);
 
+        Task<Invoice> GetInvoiceByBookingId(long id);
+
+        Task UpdateInvoiceAsync(Invoice invoice);
+
     }
 }

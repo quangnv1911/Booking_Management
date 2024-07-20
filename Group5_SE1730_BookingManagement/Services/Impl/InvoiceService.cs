@@ -1,4 +1,5 @@
-﻿using Group5_SE1730_BookingManagement.Repositories;
+﻿using Group5_SE1730_BookingManagement.Models;
+using Group5_SE1730_BookingManagement.Repositories;
 
 namespace Group5_SE1730_BookingManagement.Services.Impl
 {
@@ -9,6 +10,11 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
         public InvoiceService(IInvoiceRepo invoiceRepo)
         {
             _invoiceRepo = invoiceRepo;
+        }
+
+        public async Task<Invoice> GetInvoiceByBookingId(long id)
+        {
+            return await _invoiceRepo.GetInvoiceByBookingId(id);
         }
 
         public string[] GetMoneyByMonth(string guestId)
@@ -35,6 +41,11 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
         public int GetTotalCustomerInMonth(string guestId)
         {
             return _invoiceRepo.GetTotalCustomerInMonth(guestId);
+        }
+
+        public async Task UpdateInvoiceAsync(Invoice invoice)
+        {
+            await _invoiceRepo.UpdateInvoiceAsync(invoice);
         }
     }
 }

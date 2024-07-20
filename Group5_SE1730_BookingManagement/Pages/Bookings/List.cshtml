@@ -2,3 +2,43 @@
 @model Group5_SE1730_BookingManagement.Pages.Bookings.ListModel
 @{
 }
+
+<div class="container mt-5">
+        <h2 class="mb-4">Danh sách các booking của bạn</h2>
+        @if (Model.Bookings != null && Model.Bookings.Count > 0)
+        {
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Homestay</th>
+                        <th scope="col">Room</th>
+                        <th scope="col">Booking Date</th>
+                        <th scope="col">Check-In Date</th>
+                        <th scope="col">Check-Out Date</th>
+                        <th scope="col">Special Requests</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var booking in Model.Bookings)
+                    {
+                        <tr>
+                            <td>@booking.Id</td>
+                            <td>@booking.Homestay?.HotelName</td>
+                            <td>@booking.Room?.Name</td>
+                            <td>@booking.BookingDate?.ToString("dd/MM/yyyy")</td>
+                            <td>@booking.CheckInDate?.ToString("dd/MM/yyyy")</td>
+                            <td>@booking.CheckOutDate?.ToString("dd/MM/yyyy")</td>
+                            <td>@booking.SpecialReq</td>
+                            <td>@(booking.Status == true ? "Confirmed" : "Rejected")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-danger">Bạn chưa có booking nào.</p>
+        }
+    </div>

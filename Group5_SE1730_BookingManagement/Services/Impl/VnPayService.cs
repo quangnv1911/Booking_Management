@@ -13,7 +13,7 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
         {
             _configuration = configuration;
         }
-        public string CreatePaymentUrl(PaymentInfoModel model, HttpContext context)
+        public string CreatePaymentUrl(PaymentInfoModel model, HttpContext context, string bookingId)
         {
             var timeZoneById = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
             var timeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneById);

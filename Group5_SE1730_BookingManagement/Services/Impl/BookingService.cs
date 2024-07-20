@@ -25,7 +25,7 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
             await _bookingRepo.AddBooking(booking);
         }
 
-        public async Task<Booking?> GetBookingById(int bookingId)
+        public async Task<Booking?> GetBookingByIdAsync(int bookingId)
         {
             return await _bookingRepo.GetBookingById(bookingId);
 
@@ -80,9 +80,24 @@ namespace Group5_SE1730_BookingManagement.Services.Impl
             return bookingsPerDay;
         }
 
-        public Task<List<Booking?>> GetBookingListByGuestId(string guestId)
+        public async Task<IEnumerable<Booking?>> GetBookingListByGuestId(string guestId)
         {
-            throw new NotImplementedException();
+            return await _bookingRepo.GetBookingsByGuestId(guestId);
+        }
+
+        public async Task UpdateBookingAsync(Booking booking)
+        {
+            await _bookingRepo.UpdateBooking(booking);
+        }
+
+        public async Task<Booking> GetLastestBookingByGuestId(string guestId)
+        {
+            return await _context.Bookings
+                .Include(b => b.Homestay)
+                .Include(b => b.Room)
+                .Where(b => b.GuestId == guestId)
+                .OrderByDescending(b => b.BookingDate)
+                .FirstOrDefaultAsync();
         }
     }
 }
